@@ -61,7 +61,7 @@ def discover_folders(clone_dir: str, pattern: str, excludes: list[str]) -> list[
     return sorted(set(folders))
 
 
-def build_apm_yml(wrapper: dict, folders: list[str], sha: str) -> str:
+def build_apm_yml(wrapper: dict, name: str, folders: list[str], sha: str) -> str:
     """Return the generated apm.yml content as a string."""
     version = f"1.0.0-{sha}"
     upstream = wrapper["upstream"]
@@ -72,7 +72,7 @@ def build_apm_yml(wrapper: dict, folders: list[str], sha: str) -> str:
     description = tpl.format(count=count, upstream=upstream, version=version)
 
     lines = [GENERATED_HEADER]
-    lines.append(f"name: {wrapper['name']}")
+    lines.append(f"name: {name}")
     lines.append(f"version: {version}")
     lines.append(f"description: >")
     lines.append(f"  {description.strip()}")
@@ -93,11 +93,17 @@ def process_wrapper(wrapper_path: Path) -> None:
         wrapper = yaml.safe_load(f)
 
     upstream = wrapper["upstream"]
-    branch = wrapper.get("branch", "")
+    branch = wrapper.get("branch") or wrapper.get("ref") or ""
     pattern = wrapper["pattern"]
-    excludes = wrapper.get("excludes", [])
+    excludes = wrapper.get("excludes") or wrapper.get("exclude") or []
 
-    print(f"Processing {wrapper['name']} ({upstream})...")
+    # Support nested package.name or top-level name
+    pkg = wrapper.get("package", {})
+    name = wrapper.get("name") or pkg.get("name")
+    if not name:
+        raise KeyError(f"wrapper.yml must define 'name' or 'package.name'")
+
+    print(f"Processing {name} ({upstream})...")
 
     with tempfile.TemporaryDirectory() as tmp:
         sha = shallow_clone(upstream, branch, tmp)
@@ -107,7 +113,7 @@ def process_wrapper(wrapper_path: Path) -> None:
         print(f"  ⚠ No folders matched pattern '{pattern}' — skipping.")
         return
 
-    content = build_apm_yml(wrapper, folders, sha)
+    content = build_apm_yml(wrapper, name, folders, sha)
     out_path = wrapper_path.parent / "apm.yml"
     out_path.write_text(content)
     print(f"  ✓ Wrote {out_path.relative_to(REPO_ROOT)} ({len(folders)} skills)")

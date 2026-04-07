@@ -1,0 +1,29 @@
+# ──────────────────────────────────────────────────────
+# GENERATED — do not edit by hand.
+# Re-generate with:  python scripts/generate-wrappers.py
+# ──────────────────────────────────────────────────────
+
+name: wrapper-mattpocock-skills
+version: 1.0.0-651eab0
+description: >
+  Auto-wrapped 17 skills from mattpocock/skills (1.0.0-651eab0).
+
+dependencies:
+  apm:
+    - mattpocock/skills/design-an-interface
+    - mattpocock/skills/edit-article
+    - mattpocock/skills/git-guardrails-claude-code
+    - mattpocock/skills/github-triage
+    - mattpocock/skills/grill-me
+    - mattpocock/skills/improve-codebase-architecture
+    - mattpocock/skills/obsidian-vault
+    - mattpocock/skills/prd-to-issues
+    - mattpocock/skills/prd-to-plan
+    - mattpocock/skills/qa
+    - mattpocock/skills/request-refactor-plan
+    - mattpocock/skills/setup-pre-commit
+    - mattpocock/skills/tdd
+    - mattpocock/skills/triage-issue
+    - mattpocock/skills/ubiquitous-language
+    - mattpocock/skills/write-a-prd
+    - mattpocock/skills/write-a-skill
