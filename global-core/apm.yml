@@ -10,7 +10,7 @@ dependencies:
     - obra/superpowers
 
     # A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent
-    - anthropics/claude-plugins-official/tree/main/external_plugins/serena
+    - anthropics/claude-plugins-official/external_plugins/serena
 
     # A comprehensive list of plugins
     - anthropics/claude-plugins-official
@@ -31,4 +31,4 @@ dependencies:
     - anthropics/skills
 
     # TDD Guard: blocks file changes that violate TDD principles
-    - nizos/tdd-guard/tree/main/plugin
+    - nizos/tdd-guard/plugin
