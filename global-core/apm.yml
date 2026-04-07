@@ -9,8 +9,8 @@ dependencies:
     # ── TDD / dev workflow (20+ skills incl. red-green-refactor) ──
     - obra/superpowers
 
-    # ── PRD, TDD, architecture, git guardrails (17 skills) ──
-    - mattpocock/skills
+    # ── PRD, TDD, architecture, git guardrails (17 skills via wrapper) ──
+    - your-org/apm-packages/wrappers/mattpocock-skills
 
     # ── Build & benchmark new skills with evals ──
     - anthropics/skills/skills/skill-creator

@@ -12,7 +12,7 @@ dependencies:
     # ── DevOps incident triage ──
     - github/awesome-copilot/plugins/devops-oncall
 
-    # ── Git guardrails (from mattpocock/skills, included via apm-core) ──
+    # ── Git guardrails (from mattpocock-skills wrapper, included via apm-core) ──
     # Already in apm-core — no duplication needed
 
     # ── Terraform on Azure ──
