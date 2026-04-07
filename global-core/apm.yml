@@ -12,9 +12,24 @@ dependencies:
     # A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent
     - anthropics/claude-plugins-official/external_plugins/serena
 
-    # A comprehensive list of plugins
-    - anthropics/claude-plugins-official
+    # Official claude plugins
+    - anthropics/claude-plugins-official/agent-sdk-dev
+    - anthropics/claude-plugins-official/claude-code-setup
+    - anthropics/claude-plugins-official/claude-md-management/
+    - anthropics/claude-plugins-official/code-review
+    - anthropics/claude-plugins-official/code-simplifier
+    - anthropics/claude-plugins-official/commit-commands
+    - anthropics/claude-plugins-official/feature-dev
+    - anthropics/claude-plugins-official/frontend-design
+    - anthropics/claude-plugins-official/mcp-server-dev
+    - anthropics/claude-plugins-official/playground
+    - anthropics/claude-plugins-official/pr-review-toolkit
+    - anthropics/claude-plugins-official/ralph-loop
+    - anthropics/claude-plugins-official/skill-creator        
     
+    # Vercel Find Skills
+    - vercel-labs/skills/tree/main/skills/find-skills
+
     # Matt Pocock personal directory of skills, straight from my .claude directory.
     - thinkjones/awesome-everything/wrappers/github.com/mattpocock/skills
 
