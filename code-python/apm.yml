@@ -1,4 +1,4 @@
-name: apm-python
+name: code-python
 version: 1.0.0
 description: >
   Python development — best practices, FastMCP server building,
@@ -17,9 +17,6 @@ dependencies:
 
     # ── Pairwise combinatorial test generation ──
     - ComposioHQ/awesome-claude-skills/pypict-claude-skill
-
-    # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
-    - AlmogBaku/debug-skill
 
     # ── PostgreSQL skill (safe read-only queries) ──
     - sanjay3290/postgres

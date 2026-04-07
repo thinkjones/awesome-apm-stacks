@@ -1,4 +1,4 @@
-name: apm-agents
+name: agi-agents
 version: 1.0.0
 description: >
   Agent swarms, multi-agent orchestration, MCP server building,
@@ -12,14 +12,9 @@ dependencies:
     # ── MCP server building (Python FastMCP + TypeScript SDK) ──
     - anthropics/skills/skills/mcp-builder
 
-    # ── Build & benchmark new skills with evals ──
-    - anthropics/skills/skills/skill-creator
-
     # ── Copilot SDK — build agentic apps in Python/Go/TS ──
     - github/awesome-copilot/plugins/copilot-sdk
 
     # ── LangSmith trace debugging for LangGraph agents ──
     - OthmanAdi/langsmith-fetch-skill
 
-    # ── Claude API/SDK reference ──
-    - anthropics/skills/skills/claude-api

@@ -1,4 +1,4 @@
-name: apm-mlops
+name: architect-mlops
 version: 1.0.0
 description: >
   ML operations — model observability, evaluation pipelines,
@@ -11,9 +11,3 @@ dependencies:
 
     # ── LangSmith trace debugging for LangChain/LangGraph ──
     - OthmanAdi/langsmith-fetch-skill
-
-    # ── Deep research agent (Gemini-powered) ──
-    - sanjay3290/deep-research
-
-    # ── Prompt engineering techniques and patterns ──
-    - ComposioHQ/awesome-claude-skills/prompt-engineering

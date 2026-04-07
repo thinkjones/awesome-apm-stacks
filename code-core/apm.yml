@@ -1,0 +1,12 @@
+name: code-core
+version: 1.0.0
+description: >
+  Code architecture quality gates — API design agents and architecture review.
+  Extends global-core with code-specific concerns.
+
+dependencies:
+  apm:
+    - your-org/global-core
+
+    # ── Architecture agents ──
+    - github/awesome-copilot/agents/api-architect.agent.md

@@ -1,4 +1,4 @@
-name: apm-planning
+name: plan-core
 version: 1.0.0
 description: >
   Planning and task management — PRD generation, requirements refinement,
@@ -17,9 +17,3 @@ dependencies:
 
     # ── QA — test planning, bug hunting, edge-case analysis ──
     - github/awesome-copilot/agents/qa-tester.agent.md
-
-    # ── Challenge assumptions before committing ──
-    - github/awesome-copilot/agents/devils-advocate.agent.md
-
-    # ── Hallucination verification pipeline ──
-    - github/awesome-copilot/plugins/doublecheck

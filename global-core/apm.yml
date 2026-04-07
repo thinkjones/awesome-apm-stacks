@@ -1,0 +1,45 @@
+name: global-core
+version: 1.0.0
+description: >
+  Universal skills, agents, and hooks for every project — TDD workflow,
+  context engineering, prompt craft, research, debugging, and runtime safety.
+
+dependencies:
+  apm:
+    # ── TDD / dev workflow (20+ skills incl. red-green-refactor) ──
+    - obra/superpowers
+
+    # ── PRD, TDD, architecture, git guardrails (17 skills) ──
+    - mattpocock/skills
+
+    # ── Build & benchmark new skills with evals ──
+    - anthropics/skills/skills/skill-creator
+
+    # ── Context engineering — structured context for better outputs ──
+    - github/awesome-copilot/plugins/context-engineering
+
+    # ── Hallucination verification pipeline ──
+    - github/awesome-copilot/plugins/doublecheck
+
+    # ── Prompt engineering techniques and patterns ──
+    - ComposioHQ/awesome-claude-skills/prompt-engineering
+
+    # ── Challenge assumptions before committing ──
+    - github/awesome-copilot/agents/devils-advocate.agent.md
+
+    # ── Claude API/SDK reference ──
+    - anthropics/skills/skills/claude-api
+
+    # ── Deep research agent (Gemini-powered) ──
+    - sanjay3290/deep-research
+
+    # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
+    - AlmogBaku/debug-skill
+
+    # ── Hooks — runtime enforcement ──
+
+    # TDD Guard: blocks file changes that violate TDD principles
+    - nizarselander/tdd-guard
+
+    # Parry: prompt injection scanner for tool I/O
+    - dmytro-onypko/parry

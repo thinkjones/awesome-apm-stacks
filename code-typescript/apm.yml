@@ -1,4 +1,4 @@
-name: apm-typescript
+name: code-typescript
 version: 1.0.0
 description: >
   TypeScript/Node.js development — MCP server building, React,
@@ -17,6 +17,3 @@ dependencies:
 
     # ── NestJS best practices ──
     - github/awesome-copilot/instructions/nestjs.instructions.md
-
-    # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
-    - AlmogBaku/debug-skill

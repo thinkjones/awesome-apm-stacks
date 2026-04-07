@@ -6,22 +6,34 @@ Composable `apm.yml` packages separated by concern. Pull in what you need per pr
 
 | Package | Concern | Always? |
 |---|---|---|
-| `apm-core` | TDD/BDD/DRY/YAGNI, architecture agents, security hooks | ✅ Yes |
-| `apm-python` | Python, FastMCP, pytest, debugging | Per stack |
-| `apm-go` | Go, go-sdk MCP, debugging | Per stack |
-| `apm-typescript` | TS/Node, React, NestJS, TS MCP SDK | Per stack |
-| `apm-agents` | Agent swarms, orchestration, MCP builder, LangSmith | When building agents |
-| `apm-dataops` | PostgreSQL, SQL, CSV analysis, data pipelines | When data-heavy |
-| `apm-mlops` | LLM observability, eval pipelines, Arize | When ML involved |
-| `apm-devops` | Docker, CI/CD, Terraform, incident triage | Most projects |
-| `apm-cloud` | Azure/AWS IaC, serverless, cost, cloud patterns | Cloud deployments |
-| `apm-design` | UI/UX, React design, theming, accessibility | Frontend projects |
-| `apm-planning` | PRD, requirements, epics, QA, task breakdown | Most projects |
-| `apm-docs` | docx/pdf/pptx/xlsx, co-authoring, brand, comms | When producing docs |
+| `global-core` | TDD, context engineering, prompt craft, research, debugging, runtime hooks | ✅ Yes |
+| `code-core` | Architecture agents, API design quality gates | ✅ Yes |
+| `code-python` | Python, FastMCP, pytest, debugging | Per stack |
+| `code-go` | Go, go-sdk MCP, debugging | Per stack |
+| `code-typescript` | TS/Node, React, NestJS, TS MCP SDK | Per stack |
+| `agi-agents` | Agent swarms, orchestration, MCP builder, LangSmith | When building agents |
+| `architect-dataops` | PostgreSQL, SQL, CSV analysis, data pipelines | When data-heavy |
+| `architect-mlops` | LLM observability, eval pipelines, Arize | When ML involved |
+| `architect-devops` | Docker, CI/CD, Terraform, incident triage | Most projects |
+| `cloud-core` | Azure/AWS IaC, serverless, cost, cloud patterns | Cloud deployments |
+| `uiux-design` | UI/UX, React design, theming, accessibility | Frontend projects |
+| `plan-core` | PRD, requirements, epics, QA, task breakdown | Most projects |
+| `plan-docs` | docx/pdf/pptx/xlsx, co-authoring, brand, comms | When producing docs |
 
 ## Usage
 
-Each package is a standalone Git repo. In your project:
+### Global install
+
+Install `global-core` once — it provides universal skills (TDD, context engineering,
+prompt craft, research, debugging, hooks) that apply to every project:
+
+```bash
+apm install -g your-org/global-core
+```
+
+### Per-project install
+
+Add only the packages you need:
 
 ```yaml
 # apm.yml
@@ -30,9 +42,9 @@ version: 1.0.0
 
 dependencies:
   apm:
-    - your-org/apm-core
-    - your-org/apm-python
-    - your-org/apm-agents
+    - your-org/code-core
+    - your-org/code-python
+    - your-org/agi-agents
 ```
 
 Then:
@@ -44,20 +56,10 @@ apm compile    # generates AGENTS.md + CLAUDE.md
 
 ## Setup
 
-1. Create a GitHub repo per package (e.g. `your-org/apm-core`)
+1. Create a GitHub repo per package (e.g. `your-org/global-core`)
 2. Drop the `apm.yml` into the root
 3. Tag releases: `git tag v1.0.0 && git push --tags`
-4. Pin versions in consuming projects: `your-org/apm-core#v1.0.0`
-
-## Global installs
-
-Skills you want everywhere (not per-project):
-
-```bash
-apm install -g obra/superpowers
-apm install -g mattpocock/skills
-apm install -g anthropics/skills/skills/skill-creator
-```
+4. Pin versions in consuming projects: `your-org/global-core#v1.0.0`
 
 ## After install
 

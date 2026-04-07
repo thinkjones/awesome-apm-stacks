@@ -1,4 +1,4 @@
-name: apm-go
+name: code-go
 version: 1.0.0
 description: >
   Go development — MCP server building with go-sdk, Go idioms,
@@ -11,6 +11,3 @@ dependencies:
 
     # ── Go MCP server best practices instructions ──
     - github/awesome-copilot/instructions/go-mcp-server.instructions.md
-
-    # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
-    - AlmogBaku/debug-skill

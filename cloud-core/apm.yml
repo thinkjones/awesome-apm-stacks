@@ -1,4 +1,4 @@
-name: apm-cloud
+name: cloud-core
 version: 1.0.0
 description: >
   Cloud architecture — Azure/AWS IaC, serverless patterns,
@@ -11,9 +11,6 @@ dependencies:
 
     # ── Terraform on Azure instructions ──
     - github/awesome-copilot/instructions/terraform-azure.instructions.md
-
-    # ── API architect agent ──
-    - github/awesome-copilot/agents/api-architect.agent.md
 
     # ── Cloud design patterns (42 patterns: reliability, perf, security) ──
     - github/awesome-copilot/skills/cloud-design-patterns
