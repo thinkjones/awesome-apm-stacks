@@ -15,7 +15,7 @@ dependencies:
     # ── Python Copilot SDK instructions ──
     - github/awesome-copilot/instructions/python-copilot-sdk.instructions.md
 
-    # ── Pairwise combinatorial test generation ──
+    # ── Pairwise combinatorial test generation (from composio-skills wrapper) ──
     - ComposioHQ/awesome-claude-skills/pypict-claude-skill
 
     # ── PostgreSQL skill (safe read-only queries) ──

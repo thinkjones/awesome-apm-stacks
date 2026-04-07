@@ -6,8 +6,8 @@ description: >
 
 dependencies:
   apm:
-    # ── TDD / dev workflow (20+ skills incl. red-green-refactor) ──
-    - obra/superpowers
+    # ── TDD / dev workflow (14 skills via wrapper) ──
+    - your-org/apm-packages/wrappers/obra-superpowers
 
     # ── PRD, TDD, architecture, git guardrails (17 skills via wrapper) ──
     - your-org/apm-packages/wrappers/mattpocock-skills
@@ -21,7 +21,7 @@ dependencies:
     # ── Hallucination verification pipeline ──
     - github/awesome-copilot/plugins/doublecheck
 
-    # ── Prompt engineering techniques and patterns ──
+    # ── Prompt engineering techniques and patterns (from composio-skills wrapper) ──
     - ComposioHQ/awesome-claude-skills/prompt-engineering
 
     # ── Challenge assumptions before committing ──

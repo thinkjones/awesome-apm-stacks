@@ -12,8 +12,8 @@ dependencies:
     # ── Safe read-only PostgreSQL queries ──
     - sanjay3290/postgres
 
-    # ── CSV data analysis and summarisation ──
+    # ── CSV data analysis and summarisation (from composio-skills wrapper) ──
     - ComposioHQ/awesome-claude-skills/csv-data-summarizer
 
-    # ── Root cause tracing for data pipeline failures ──
+    # ── Root cause tracing for data pipeline failures (from composio-skills wrapper) ──
     - ComposioHQ/awesome-claude-skills/root-cause-tracing
