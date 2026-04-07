@@ -1,0 +1,18 @@
+# Monorepo wrapper for mattpocock/skills
+# Auto-discovers all SKILL.md files from the upstream repo,
+# minus explicitly excluded skills.
+
+upstream: mattpocock/skills
+ref: main
+pattern: "*/SKILL.md"
+exclude:
+  - migrate-to-shoehorn
+  - scaffold-exercises
+
+package:
+  name: wrapper-mattpocock-skills
+  version: auto
+  description: >
+    Wraps all skills from mattpocock/skills — PRD authoring, TDD workflow,
+    architecture review, git guardrails, and more. Skills are auto-discovered
+    via glob pattern; excluded entries are skipped during install.
