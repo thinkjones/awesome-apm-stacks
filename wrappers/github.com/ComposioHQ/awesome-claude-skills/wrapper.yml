@@ -1,9 +1,0 @@
-# Wrapper for ComposioHQ/awesome-claude-skills monorepo
-# Discovers individual skills and generates an apm.yml with one dep per skill.
-
-name: apm-awesome-claude-skills
-upstream: ComposioHQ/awesome-claude-skills
-pattern: "*/SKILL.md"
-prefix: ComposioHQ/awesome-claude-skills
-excludes:
-  - template-skill

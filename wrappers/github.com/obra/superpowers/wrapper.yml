@@ -1,9 +1,0 @@
-# Wrapper for obra/superpowers monorepo
-# Discovers individual skills and generates an apm.yml with one dep per skill.
-
-name: apm-superpowers
-upstream: obra/superpowers
-branch: main
-pattern: "skills/*/SKILL.md"
-prefix: obra/superpowers/skills
-excludes: []

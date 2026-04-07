@@ -6,14 +6,17 @@ description: >
 
 dependencies:
   apm:
-    # ── TDD / dev workflow (14 skills via wrapper) ──
+    # An agentic skills framework & software development methodology that works
     - obra/superpowers
 
-    # ── PRD, TDD, architecture, git guardrails (17 skills via wrapper) ──
-    - thinkjones/awesome-everything/wrappers/github.com/mattpocock/skills
+    # A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent
+    - oraios/serena
 
-    # ── Build & benchmark new skills with evals ──
-    - anthropics/skills/skills/skill-creator
+    # A comprehensive list of plugins
+    - anthropics/claude-plugins-official
+    
+    # Matt Pocock personal directory of skills, straight from my .claude directory.
+    - thinkjones/awesome-everything/wrappers/github.com/mattpocock/skills
 
     # ── Context engineering — structured context for better outputs ──
     - github/awesome-copilot/plugins/context-engineering
@@ -24,20 +27,8 @@ dependencies:
     # ── Challenge assumptions before committing ──
     - github/awesome-copilot/agents/devils-advocate.agent.md
 
-    # ── Claude API/SDK reference ──
-    - anthropics/skills/skills/claude-api
-
-    # ── Deep research agent — enterprise-grade 8-phase pipeline ──
-    # REPLACED: sanjay3290/deep-research (repo is private/nonexistent, 404 as of 2026-04-07)
-    - 199-biotechnologies/claude-deep-research-skill
-
-    # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
-    - AlmogBaku/debug-skill/skills/debugging-code
-
-    # ── Hooks — runtime enforcement ──
+    # ── Public repository for Agent Skills
+    - anthropics/skills
 
     # TDD Guard: blocks file changes that violate TDD principles
-    #- nizarselander/tdd-guard
-
-    # Parry: prompt injection scanner for tool I/O
-#    - dmytro-onypko/parry
+    - nizos/tdd-guard

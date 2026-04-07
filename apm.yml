@@ -1,0 +1,9 @@
+name: awesome-everything
+version: 1.0.0
+description: APM project for awesome-everything
+author: Gene Conroy-Jones
+dependencies:
+  apm:
+  - ./global-core
+  mcp: []
+scripts: {}

@@ -1,8 +1,0 @@
-name: composio-skills
-version: 1.0.0
-description: APM project for composio-skills
-author: Gene Conroy-Jones
-dependencies:
-  apm: []
-  mcp: []
-scripts: {}
