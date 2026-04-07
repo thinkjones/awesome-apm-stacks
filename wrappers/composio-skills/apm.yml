@@ -1,39 +1,8 @@
-# ──────────────────────────────────────────────────────
-# GENERATED — do not edit by hand.
-# Re-generate with:  python scripts/generate-wrappers.py
-# ──────────────────────────────────────────────────────
-
-name: apm-awesome-claude-skills
-version: 1.0.0-2790447
-description: >
-  Auto-wrapped 27 skills from ComposioHQ/awesome-claude-skills (1.0.0-2790447).
-
+name: composio-skills
+version: 1.0.0
+description: APM project for composio-skills
+author: Gene Conroy-Jones
 dependencies:
-  apm:
-    - ComposioHQ/awesome-claude-skills/artifacts-builder
-    - ComposioHQ/awesome-claude-skills/brand-guidelines
-    - ComposioHQ/awesome-claude-skills/canvas-design
-    - ComposioHQ/awesome-claude-skills/changelog-generator
-    - ComposioHQ/awesome-claude-skills/competitive-ads-extractor
-    - ComposioHQ/awesome-claude-skills/connect
-    - ComposioHQ/awesome-claude-skills/connect-apps
-    - ComposioHQ/awesome-claude-skills/content-research-writer
-    - ComposioHQ/awesome-claude-skills/developer-growth-analysis
-    - ComposioHQ/awesome-claude-skills/domain-name-brainstormer
-    - ComposioHQ/awesome-claude-skills/file-organizer
-    - ComposioHQ/awesome-claude-skills/image-enhancer
-    - ComposioHQ/awesome-claude-skills/internal-comms
-    - ComposioHQ/awesome-claude-skills/invoice-organizer
-    - ComposioHQ/awesome-claude-skills/langsmith-fetch
-    - ComposioHQ/awesome-claude-skills/lead-research-assistant
-    - ComposioHQ/awesome-claude-skills/mcp-builder
-    - ComposioHQ/awesome-claude-skills/meeting-insights-analyzer
-    - ComposioHQ/awesome-claude-skills/raffle-winner-picker
-    - ComposioHQ/awesome-claude-skills/skill-creator
-    - ComposioHQ/awesome-claude-skills/skill-share
-    - ComposioHQ/awesome-claude-skills/slack-gif-creator
-    - ComposioHQ/awesome-claude-skills/tailored-resume-generator
-    - ComposioHQ/awesome-claude-skills/theme-factory
-    - ComposioHQ/awesome-claude-skills/twitter-algorithm-optimizer
-    - ComposioHQ/awesome-claude-skills/video-downloader
-    - ComposioHQ/awesome-claude-skills/webapp-testing
+  apm: []
+  mcp: []
+scripts: {}
