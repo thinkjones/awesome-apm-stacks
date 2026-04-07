@@ -13,19 +13,19 @@ dependencies:
     - anthropics/claude-plugins-official/external_plugins/serena
 
     # Official claude plugins
-    - anthropics/claude-plugins-official/agent-sdk-dev
-    - anthropics/claude-plugins-official/claude-code-setup
-    - anthropics/claude-plugins-official/claude-md-management/
-    - anthropics/claude-plugins-official/code-review
-    - anthropics/claude-plugins-official/code-simplifier
-    - anthropics/claude-plugins-official/commit-commands
-    - anthropics/claude-plugins-official/feature-dev
-    - anthropics/claude-plugins-official/frontend-design
-    - anthropics/claude-plugins-official/mcp-server-dev
-    - anthropics/claude-plugins-official/playground
-    - anthropics/claude-plugins-official/pr-review-toolkit
-    - anthropics/claude-plugins-official/ralph-loop
-    - anthropics/claude-plugins-official/skill-creator        
+    - anthropics/claude-plugins-official/plugins/agent-sdk-dev
+    - anthropics/claude-plugins-official/plugins/claude-code-setup
+    - anthropics/claude-plugins-official/plugins/claude-md-management/
+    - anthropics/claude-plugins-official/plugins/code-review
+    - anthropics/claude-plugins-official/plugins/code-simplifier
+    - anthropics/claude-plugins-official/plugins/commit-commands
+    - anthropics/claude-plugins-official/plugins/feature-dev
+    - anthropics/claude-plugins-official/plugins/frontend-design
+    - anthropics/claude-plugins-official/plugins/mcp-server-dev
+    - anthropics/claude-plugins-official/plugins/playground
+    - anthropics/claude-plugins-official/plugins/pr-review-toolkit
+    - anthropics/claude-plugins-official/plugins/ralph-loop
+    - anthropics/claude-plugins-official/plugins/skill-creator        
     
     # Vercel Find Skills
     - vercel-labs/skills/tree/main/skills/find-skills
