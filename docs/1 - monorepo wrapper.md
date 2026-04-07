@@ -31,17 +31,18 @@ apm-packages/
 ├── apm-python/apm.yml
 ├── ...
 ├── wrappers/
-│   ├── mattpocock-skills/
-│   │   ├── wrapper.yml          # YOU write this (source config)
-│   │   └── apm.yml              # GENERATED (don't hand-edit)
-│   ├── obra-superpowers/
-│   │   ├── wrapper.yml
-│   │   └── apm.yml
-│   └── composio-awesome-claude-skills/
-│       ├── wrapper.yml
-│       └── apm.yml
-├── scripts/
-│   └── generate-wrappers.py     # The generator script
+│   ├── github.com/
+│   │   ├── mattpocock/skills/
+│   │   │   ├── wrapper.yml          # YOU write this (source config)
+│   │   │   └── apm.yml              # GENERATED (don't hand-edit)
+│   │   ├── obra/superpowers/
+│   │   │   ├── wrapper.yml
+│   │   │   └── apm.yml
+│   │   └── ComposioHQ/awesome-claude-skills/
+│   │       ├── wrapper.yml
+│   │       └── apm.yml
+│   └── scripts/
+│       └── generate-wrappers.py     # The generator script
 └── .github/
     └── workflows/
         └── update-wrappers.yml  # Scheduled rebuild
@@ -50,7 +51,7 @@ apm-packages/
 ## wrapper.yml Schema
 
 ```yaml
-# wrappers/mattpocock-skills/wrapper.yml
+# wrappers/github.com/mattpocock/skills/wrapper.yml
 upstream: mattpocock/skills
 ref: main                        # branch or tag to track
 pattern: "*/SKILL.md"            # glob — find all folders containing SKILL.md
@@ -65,7 +66,7 @@ package:
     for APM consumption as a single dependency.
 ```
 
-## Generator Script (`scripts/generate-wrappers.py`)
+## Generator Script (`wrappers/scripts/generate-wrappers.py`)
 
 For each `wrapper.yml`:
 
@@ -75,7 +76,7 @@ For each `wrapper.yml`:
 4. **Emit** `apm.yml` with one dependency line per discovered folder:
 
 ```yaml
-# GENERATED — do not edit. Source: wrappers/mattpocock-skills/wrapper.yml
+# GENERATED — do not edit. Source: wrappers/github.com/mattpocock/skills/wrapper.yml
 name: wrapper-mattpocock-skills
 version: 1.0.0-abc1234
 description: Auto-discovered skills from mattpocock/skills (17 skills)
@@ -123,7 +124,7 @@ jobs:
           python-version: "3.12"
 
       - name: Generate wrappers
-        run: python scripts/generate-wrappers.py wrappers/
+        run: python wrappers/scripts/generate-wrappers.py wrappers/
 
       - name: Commit if changed
         run: |
@@ -144,8 +145,8 @@ Your flavour packages reference wrappers the same way as any other dependency:
 # apm-core/apm.yml
 dependencies:
   apm:
-    - your-org/apm-packages/wrappers/mattpocock-skills
-    - your-org/apm-packages/wrappers/obra-superpowers
+    - your-org/apm-packages/wrappers/github.com/mattpocock/skills
+    - your-org/apm-packages/wrappers/github.com/obra/superpowers
     - github/awesome-copilot/plugins/context-engineering
 ```
 
@@ -155,13 +156,13 @@ APM resolves transitively — the wrapper's generated `apm.yml` expands into all
 
 | Wrapper | Upstream | ~Skills | Why |
 |---|---|---|---|
-| `mattpocock-skills` | `mattpocock/skills` | 17 | PRD, TDD, architecture, git, refactoring |
-| `obra-superpowers` | `obra/superpowers` | 20+ | TDD red-green-refactor, debugging, collaboration |
-| `composio-skills` | `ComposioHQ/awesome-claude-skills` | 30+ | LangSmith, Playwright, prompt-eng, postgres |
+| `github.com/mattpocock/skills` | `mattpocock/skills` | 17 | PRD, TDD, architecture, git, refactoring |
+| `github.com/obra/superpowers` | `obra/superpowers` | 20+ | TDD red-green-refactor, debugging, collaboration |
+| `github.com/ComposioHQ/awesome-claude-skills` | `ComposioHQ/awesome-claude-skills` | 30+ | LangSmith, Playwright, prompt-eng, postgres |
 
 ## Implementation Steps
 
-1. **Write `generate-wrappers.py`** — ~80 lines of Python (clone, glob, emit YAML)
+1. **Write `wrappers/scripts/generate-wrappers.py`** — ~80 lines of Python (clone, glob, emit YAML)
 2. **Create `wrapper.yml`** for mattpocock/skills as proof of concept
 3. **Run locally**, verify the generated `apm.yml` installs cleanly with `apm install`
 4. **Add GitHub Action** for scheduled regeneration
