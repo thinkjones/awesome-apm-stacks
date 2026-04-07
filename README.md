@@ -28,7 +28,7 @@ Install `global-core` once — it provides universal skills (TDD, context engine
 prompt craft, research, debugging, hooks) that apply to every project:
 
 ```bash
-apm install -g your-org/global-core
+apm install -g thinkjones/awesome-everything/global-core
 ```
 
 ### Per-project install
@@ -42,9 +42,9 @@ version: 1.0.0
 
 dependencies:
   apm:
-    - your-org/code-core
-    - your-org/code-python
-    - your-org/agi-agents
+    - thinkjones/awesome-everything/code-core
+    - thinkjones/awesome-everything/code-python
+    - thinkjones/awesome-everything/agi-agents
 ```
 
 Then:
@@ -54,12 +54,34 @@ apm install
 apm compile    # generates AGENTS.md + CLAUDE.md
 ```
 
-## Setup
+### Install individual packages directly
 
-1. Create a GitHub repo per package (e.g. `your-org/global-core`)
-2. Drop the `apm.yml` into the root
-3. Tag releases: `git tag v1.0.0 && git push --tags`
-4. Pin versions in consuming projects: `your-org/global-core#v1.0.0`
+```bash
+# Stack-specific
+apm install thinkjones/awesome-everything/code-python
+apm install thinkjones/awesome-everything/code-go
+apm install thinkjones/awesome-everything/code-typescript
+
+# Architecture & infrastructure
+apm install thinkjones/awesome-everything/architect-devops
+apm install thinkjones/awesome-everything/architect-dataops
+apm install thinkjones/awesome-everything/architect-mlops
+apm install thinkjones/awesome-everything/cloud-core
+
+# Planning & design
+apm install thinkjones/awesome-everything/plan-core
+apm install thinkjones/awesome-everything/plan-docs
+apm install thinkjones/awesome-everything/uiux-design
+
+# Agents
+apm install thinkjones/awesome-everything/agi-agents
+```
+
+### Pin to a version
+
+```bash
+apm install thinkjones/awesome-everything/global-core#v1.0.0
+```
 
 ## After install
 

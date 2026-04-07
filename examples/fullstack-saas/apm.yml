@@ -6,13 +6,13 @@ description: >
 
 dependencies:
   apm:
-    - your-org/apm-core              # Engineering fundamentals (every project)
-    - your-org/apm-go                # Go API development
-    - your-org/apm-typescript        # React/TS frontend
-    - your-org/apm-design            # UI/UX, theming, accessible design
-    - your-org/apm-mlops             # Model observability, eval pipelines
-    - your-org/apm-dataops           # PostgreSQL, data modelling
-    - your-org/apm-devops            # Docker, CI/CD, Terraform
-    - your-org/apm-cloud             # Cloud architecture, IaC
-    - your-org/apm-planning          # PRD, requirements, QA
-    - your-org/apm-docs              # Deliverables, reports, decks
+    - thinkjones/awesome-everything/apm-core              # Engineering fundamentals (every project)
+    - thinkjones/awesome-everything/apm-go                # Go API development
+    - thinkjones/awesome-everything/apm-typescript        # React/TS frontend
+    - thinkjones/awesome-everything/apm-design            # UI/UX, theming, accessible design
+    - thinkjones/awesome-everything/apm-mlops             # Model observability, eval pipelines
+    - thinkjones/awesome-everything/apm-dataops           # PostgreSQL, data modelling
+    - thinkjones/awesome-everything/apm-devops            # Docker, CI/CD, Terraform
+    - thinkjones/awesome-everything/apm-cloud             # Cloud architecture, IaC
+    - thinkjones/awesome-everything/apm-planning          # PRD, requirements, QA
+    - thinkjones/awesome-everything/apm-docs              # Deliverables, reports, decks

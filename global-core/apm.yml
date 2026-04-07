@@ -7,10 +7,10 @@ description: >
 dependencies:
   apm:
     # ── TDD / dev workflow (14 skills via wrapper) ──
-    - your-org/apm-packages/wrappers/obra-superpowers
+    - obra/superpowers
 
     # ── PRD, TDD, architecture, git guardrails (17 skills via wrapper) ──
-    - your-org/apm-packages/wrappers/mattpocock-skills
+    - thinkjones/awesome-everything/wrappers/mattpocock-skills
 
     # ── Build & benchmark new skills with evals ──
     - anthropics/skills/skills/skill-creator
@@ -20,11 +20,6 @@ dependencies:
 
     # ── Hallucination verification pipeline ──
     - github/awesome-copilot/plugins/doublecheck
-
-    # ── Prompt engineering techniques and patterns ──
-    # REMOVED: ComposioHQ/awesome-claude-skills/prompt-engineering — subdirectory
-    # does not exist upstream (checked 2026-04-07). No prompt-engineering equivalent
-    # found in the repo's 31 skill directories.
 
     # ── Challenge assumptions before committing ──
     - github/awesome-copilot/agents/devils-advocate.agent.md
@@ -37,12 +32,12 @@ dependencies:
     - 199-biotechnologies/claude-deep-research-skill
 
     # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
-    - AlmogBaku/debug-skill
+    - AlmogBaku/debug-skill/skills/debugging-code
 
     # ── Hooks — runtime enforcement ──
 
     # TDD Guard: blocks file changes that violate TDD principles
-    - nizarselander/tdd-guard
+    #- nizarselander/tdd-guard
 
     # Parry: prompt injection scanner for tool I/O
-    - dmytro-onypko/parry
+#    - dmytro-onypko/parry

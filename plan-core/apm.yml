@@ -17,3 +17,12 @@ dependencies:
 
     # ── QA — test planning, bug hunting, edge-case analysis ──
     - github/awesome-copilot/agents/qa-tester.agent.md
+
+    # ── mattpocock/skills — planning skills ──
+    - mattpocock/skills/write-a-prd
+    - mattpocock/skills/prd-to-plan
+    - mattpocock/skills/prd-to-issues
+    - mattpocock/skills/qa
+    - mattpocock/skills/triage-issue
+    - mattpocock/skills/github-triage
+    - mattpocock/skills/request-refactor-plan

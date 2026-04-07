@@ -6,10 +6,10 @@ description: >
 
 dependencies:
   apm:
-    - your-org/apm-core              # Engineering fundamentals (every project)
-    - your-org/apm-python            # Python dev + FastMCP
-    - your-org/apm-agents            # Agent swarms, MCP builder, LangSmith
-    - your-org/apm-dataops           # PostgreSQL, data pipelines
-    - your-org/apm-devops            # Docker, CI/CD, Terraform
-    - your-org/apm-cloud             # Azure/AWS IaC, serverless
-    - your-org/apm-planning          # PRD, requirements, task breakdown
+    - thinkjones/awesome-everything/apm-core              # Engineering fundamentals (every project)
+    - thinkjones/awesome-everything/apm-python            # Python dev + FastMCP
+    - thinkjones/awesome-everything/apm-agents            # Agent swarms, MCP builder, LangSmith
+    - thinkjones/awesome-everything/apm-dataops           # PostgreSQL, data pipelines
+    - thinkjones/awesome-everything/apm-devops            # Docker, CI/CD, Terraform
+    - thinkjones/awesome-everything/apm-cloud             # Azure/AWS IaC, serverless
+    - thinkjones/awesome-everything/apm-planning          # PRD, requirements, task breakdown
