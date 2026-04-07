@@ -15,12 +15,12 @@ from pathlib import Path
 
 import yaml
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 WRAPPERS_DIR = REPO_ROOT / "wrappers"
 GENERATED_HEADER = (
     "# ──────────────────────────────────────────────────────\n"
     "# GENERATED — do not edit by hand.\n"
-    "# Re-generate with:  python scripts/generate-wrappers.py\n"
+    "# Re-generate with:  python wrappers/scripts/generate-wrappers.py\n"
     "# ──────────────────────────────────────────────────────\n"
 )
 
@@ -123,7 +123,10 @@ def main() -> None:
     if not WRAPPERS_DIR.is_dir():
         sys.exit(f"Error: {WRAPPERS_DIR} not found.")
 
-    wrapper_files = sorted(WRAPPERS_DIR.glob("*/wrapper.yml"))
+    wrapper_files = sorted(
+        p for p in WRAPPERS_DIR.glob("**/wrapper.yml")
+        if "scripts" not in p.relative_to(WRAPPERS_DIR).parts
+    )
     if not wrapper_files:
         sys.exit("Error: no wrapper.yml files found in wrappers/.")
 
