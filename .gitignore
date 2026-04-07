@@ -19,9 +19,13 @@ node_modules/
 .env.*
 
 **/.github/**
+!/.github/
+!/.github/workflows/
+!/.github/workflows/**
 
 
 # APM dependencies
 apm_modules/
 .claude/
-.github/
+.github/*
+!.github/workflows/
