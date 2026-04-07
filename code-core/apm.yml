@@ -1,5 +1,5 @@
 name: code-core
-version: 0.0.1
+version: 0.0.2
 description: >
   Code architecture quality gates — API design agents and architecture review.
   Extends global-core with code-specific concerns.
