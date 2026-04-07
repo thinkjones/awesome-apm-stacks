@@ -28,7 +28,7 @@ dependencies:
     - anthropics/claude-plugins-official/plugins/skill-creator        
     
     # Vercel Find Skills
-    - vercel-labs/skills/tree/main/skills/find-skills
+    - vercel-labs/skills/skills/find-skills
 
     # Matt Pocock personal directory of skills, straight from my .claude directory.
     - thinkjones/awesome-everything/wrappers/github.com/mattpocock/skills
