@@ -1,5 +1,5 @@
 name: global-core
-version: 1.0.0
+version: 0.0.1
 description: >
   Universal skills, agents, and hooks for every project — TDD workflow,
   context engineering, prompt craft, research, debugging, and runtime safety.

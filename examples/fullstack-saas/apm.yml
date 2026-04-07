@@ -1,5 +1,5 @@
 name: my-fullstack-saas
-version: 1.0.0
+version: 0.0.1
 description: >
   Fullstack SaaS — Go API + React frontend + ML features.
   Composes flavour packages by concern.

@@ -1,5 +1,5 @@
 name: agi-agents
-version: 1.0.0
+version: 0.0.1
 description: >
   Agent swarms, multi-agent orchestration, MCP server building,
   LangGraph/LangChain observability, and agentic SDK tooling.

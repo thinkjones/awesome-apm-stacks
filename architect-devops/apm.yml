@@ -1,5 +1,5 @@
 name: architect-devops
-version: 1.0.0
+version: 0.0.1
 description: >
   DevOps and Developer Experience — Docker, CI/CD, incident triage,
   git guardrails, and infrastructure best practices.
