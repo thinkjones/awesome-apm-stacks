@@ -31,4 +31,4 @@ dependencies:
     - anthropics/skills
 
     # TDD Guard: blocks file changes that violate TDD principles
-    - https://github.com/nizos/tdd-guard/tree/main/plugin
+    - nizos/tdd-guard/tree/main/plugin
