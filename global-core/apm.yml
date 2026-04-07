@@ -10,7 +10,7 @@ dependencies:
     - obra/superpowers
 
     # ── PRD, TDD, architecture, git guardrails (17 skills via wrapper) ──
-    - thinkjones/awesome-everything/wrappers/mattpocock-skills
+    - thinkjones/awesome-everything/wrappers/github.com/mattpocock/skills
 
     # ── Build & benchmark new skills with evals ──
     - anthropics/skills/skills/skill-creator

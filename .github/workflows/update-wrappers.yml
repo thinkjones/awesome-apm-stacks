@@ -23,7 +23,7 @@ jobs:
         run: pip install pyyaml
 
       - name: Generate wrappers
-        run: python scripts/generate-wrappers.py wrappers/
+        run: python wrappers/scripts/generate-wrappers.py wrappers/
 
       - name: Commit and push if changed
         run: |
