@@ -21,8 +21,10 @@ dependencies:
     # ── Hallucination verification pipeline ──
     - github/awesome-copilot/plugins/doublecheck
 
-    # ── Prompt engineering techniques and patterns (from composio-skills wrapper) ──
-    - ComposioHQ/awesome-claude-skills/prompt-engineering
+    # ── Prompt engineering techniques and patterns ──
+    # REMOVED: ComposioHQ/awesome-claude-skills/prompt-engineering — subdirectory
+    # does not exist upstream (checked 2026-04-07). No prompt-engineering equivalent
+    # found in the repo's 31 skill directories.
 
     # ── Challenge assumptions before committing ──
     - github/awesome-copilot/agents/devils-advocate.agent.md
@@ -30,8 +32,9 @@ dependencies:
     # ── Claude API/SDK reference ──
     - anthropics/skills/skills/claude-api
 
-    # ── Deep research agent (Gemini-powered) ──
-    - sanjay3290/deep-research
+    # ── Deep research agent — enterprise-grade 8-phase pipeline ──
+    # REPLACED: sanjay3290/deep-research (repo is private/nonexistent, 404 as of 2026-04-07)
+    - 199-biotechnologies/claude-deep-research-skill
 
     # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
     - AlmogBaku/debug-skill
