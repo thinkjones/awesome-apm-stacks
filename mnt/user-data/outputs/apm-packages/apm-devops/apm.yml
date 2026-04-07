@@ -1,0 +1,28 @@
+name: apm-devops
+version: 1.0.0
+description: >
+  DevOps and Developer Experience — Docker, CI/CD, incident triage,
+  git guardrails, and infrastructure best practices.
+
+dependencies:
+  apm:
+    # ── Docker best practices (multi-stage, security, optimisation) ──
+    - github/awesome-copilot/instructions/docker.instructions.md
+
+    # ── DevOps incident triage ──
+    - github/awesome-copilot/plugins/devops-oncall
+
+    # ── Git guardrails (from mattpocock/skills, included via apm-core) ──
+    # Already in apm-core — no duplication needed
+
+    # ── Terraform on Azure ──
+    - github/awesome-copilot/instructions/terraform-azure.instructions.md
+
+    # ── HashiCorp Terraform provider patterns ──
+    - hashicorp/new-terraform-provider
+    - hashicorp/provider-resources
+    - hashicorp/provider-test-patterns
+    - hashicorp/refactor-module
+
+    # ── APM GitHub Action for CI/CD ──
+    # (use microsoft/apm-action@v1 in your workflows)

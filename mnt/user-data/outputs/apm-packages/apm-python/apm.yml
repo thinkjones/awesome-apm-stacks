@@ -1,0 +1,25 @@
+name: apm-python
+version: 1.0.0
+description: >
+  Python development — best practices, FastMCP server building,
+  pytest patterns, typing, and Python SDK guidance.
+
+dependencies:
+  apm:
+    # ── Python language best practices ──
+    - github/awesome-copilot/plugins/python-development
+
+    # ── Python MCP server building (FastMCP) ──
+    - github/awesome-copilot/plugins/python-mcp-development
+
+    # ── Python Copilot SDK instructions ──
+    - github/awesome-copilot/instructions/python-copilot-sdk.instructions.md
+
+    # ── Pairwise combinatorial test generation ──
+    - ComposioHQ/awesome-claude-skills/pypict-claude-skill
+
+    # ── Interactive debugger — breakpoints, stepping (Py/Go/TS) ──
+    - AlmogBaku/debug-skill
+
+    # ── PostgreSQL skill (safe read-only queries) ──
+    - sanjay3290/postgres

@@ -1,0 +1,15 @@
+name: my-langgraph-saas
+version: 1.0.0
+description: >
+  LangGraph news digest SaaS — Python agents with cloud deployment.
+  Composes flavour packages by concern.
+
+dependencies:
+  apm:
+    - your-org/apm-core              # Engineering fundamentals (every project)
+    - your-org/apm-python            # Python dev + FastMCP
+    - your-org/apm-agents            # Agent swarms, MCP builder, LangSmith
+    - your-org/apm-dataops           # PostgreSQL, data pipelines
+    - your-org/apm-devops            # Docker, CI/CD, Terraform
+    - your-org/apm-cloud             # Azure/AWS IaC, serverless
+    - your-org/apm-planning          # PRD, requirements, task breakdown

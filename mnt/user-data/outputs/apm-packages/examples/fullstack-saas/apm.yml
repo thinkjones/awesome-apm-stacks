@@ -1,0 +1,18 @@
+name: my-fullstack-saas
+version: 1.0.0
+description: >
+  Fullstack SaaS — Go API + React frontend + ML features.
+  Composes flavour packages by concern.
+
+dependencies:
+  apm:
+    - your-org/apm-core              # Engineering fundamentals (every project)
+    - your-org/apm-go                # Go API development
+    - your-org/apm-typescript        # React/TS frontend
+    - your-org/apm-design            # UI/UX, theming, accessible design
+    - your-org/apm-mlops             # Model observability, eval pipelines
+    - your-org/apm-dataops           # PostgreSQL, data modelling
+    - your-org/apm-devops            # Docker, CI/CD, Terraform
+    - your-org/apm-cloud             # Cloud architecture, IaC
+    - your-org/apm-planning          # PRD, requirements, QA
+    - your-org/apm-docs              # Deliverables, reports, decks

@@ -1,0 +1,19 @@
+name: apm-dataops
+version: 1.0.0
+description: >
+  Data operations and data architecture — database management,
+  PostgreSQL, SQL optimization, data modelling, and ETL patterns.
+
+dependencies:
+  apm:
+    # ── Database admin, SQL optimization, PostgreSQL, SQL Server ──
+    - github/awesome-copilot/plugins/database-data-management
+
+    # ── Safe read-only PostgreSQL queries ──
+    - sanjay3290/postgres
+
+    # ── CSV data analysis and summarisation ──
+    - ComposioHQ/awesome-claude-skills/csv-data-summarizer
+
+    # ── Root cause tracing for data pipeline failures ──
+    - ComposioHQ/awesome-claude-skills/root-cause-tracing

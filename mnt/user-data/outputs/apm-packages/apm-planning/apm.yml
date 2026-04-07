@@ -1,0 +1,25 @@
+name: apm-planning
+version: 1.0.0
+description: >
+  Planning and task management — PRD generation, requirements refinement,
+  epic/feature breakdown, QA planning, and implementation strategy.
+
+dependencies:
+  apm:
+    # ── Project planning (epics, features, tasks, technical spikes) ──
+    - github/awesome-copilot/plugins/project-planning
+
+    # ── PRD generator agent ──
+    - github/awesome-copilot/agents/prd-generator.agent.md
+
+    # ── Requirements → acceptance criteria, edge cases, NFRs ──
+    - github/awesome-copilot/agents/requirements-refiner.agent.md
+
+    # ── QA — test planning, bug hunting, edge-case analysis ──
+    - github/awesome-copilot/agents/qa-tester.agent.md
+
+    # ── Challenge assumptions before committing ──
+    - github/awesome-copilot/agents/devils-advocate.agent.md
+
+    # ── Hallucination verification pipeline ──
+    - github/awesome-copilot/plugins/doublecheck

@@ -1,0 +1,31 @@
+name: apm-core
+version: 1.0.0
+description: >
+  Engineering fundamentals — TDD, BDD, DRY, YAGNI, architecture quality gates,
+  context engineering, and security hooks. Pull this into every project.
+
+dependencies:
+  apm:
+    # ── Engineering discipline ──
+    - github/awesome-copilot/plugins/context-engineering
+    - github/awesome-copilot/plugins/doublecheck
+
+    # ── TDD / dev workflow (20+ skills incl. red-green-refactor) ──
+    - obra/superpowers
+
+    # ── PRD, TDD, architecture, git guardrails (17 skills) ──
+    - mattpocock/skills
+
+    # ── Architecture agents ──
+    - github/awesome-copilot/agents/api-architect.agent.md
+    - github/awesome-copilot/agents/devils-advocate.agent.md
+
+    # ── Prompt engineering best practices ──
+    - ComposioHQ/awesome-claude-skills/prompt-engineering
+
+    # ── Hooks — runtime enforcement ──
+    # TDD Guard: blocks file changes that violate TDD principles
+    - nizarselander/tdd-guard
+
+    # Parry: prompt injection scanner for tool I/O
+    - dmytro-onypko/parry
