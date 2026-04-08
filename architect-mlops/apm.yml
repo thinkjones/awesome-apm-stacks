@@ -1,5 +1,5 @@
 name: architect-mlops
-version: 0.0.2
+version: 0.0.3
 description: >
   ML operations — model observability, evaluation pipelines,
   experiment tracking, and LLM instrumentation.

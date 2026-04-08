@@ -1,5 +1,5 @@
 name: architect-dataops
-version: 0.0.2
+version: 0.0.3
 description: >
   Data operations and data architecture — database management,
   PostgreSQL, SQL optimization, data modelling, and ETL patterns.

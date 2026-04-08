@@ -1,5 +1,5 @@
 name: code-typescript
-version: 0.0.2
+version: 0.0.3
 description: >
   TypeScript/Node.js development — MCP server building, React,
   frontend web dev, NestJS, and debugging support.

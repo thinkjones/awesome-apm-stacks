@@ -1,5 +1,5 @@
 name: code-go
-version: 0.0.2
+version: 0.0.3
 description: >
   Go development — MCP server building with go-sdk, Go idioms,
   testing patterns, and debugging support.
