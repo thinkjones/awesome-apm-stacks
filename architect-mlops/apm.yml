@@ -9,5 +9,5 @@ dependencies:
     # ── Arize AX — LLM observability, evaluation, tracing ──
     - github/awesome-copilot/plugins/arize-ax
 
-    # ── LangSmith trace debugging for LangChain/LangGraph ──
-    - OthmanAdi/langsmith-fetch-skill
+    # ── Multi-agent orchestration (DAG planning, TDD verification) ──
+    - github/awesome-copilot/plugins/gem-team

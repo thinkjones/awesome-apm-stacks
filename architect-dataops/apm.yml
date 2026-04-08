@@ -9,8 +9,8 @@ dependencies:
     # ── Database admin, SQL optimization, PostgreSQL, SQL Server ──
     - github/awesome-copilot/plugins/database-data-management
 
-    # ── Safe read-only PostgreSQL queries ──
-    - sanjay3290/postgres
+    # ── Supabase agent skills (PostgreSQL management, queries, auth) ──
+    - supabase/agent-skills
 
     # ── CSV data analysis and summarisation (from composio-skills wrapper) ──
     - ComposioHQ/awesome-claude-skills/csv-data-summarizer

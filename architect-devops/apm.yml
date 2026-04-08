@@ -18,11 +18,14 @@ dependencies:
     # ── Terraform on Azure ──
     - github/awesome-copilot/instructions/terraform-azure.instructions.md
 
-    # ── HashiCorp Terraform provider patterns ──
-    - hashicorp/new-terraform-provider
-    - hashicorp/provider-resources
-    - hashicorp/provider-test-patterns
-    - hashicorp/refactor-module
+    # ── GitHub Actions CI/CD best practices ──
+    - github/awesome-copilot/instructions/github-actions-ci-cd-best-practices.instructions.md
+
+    # ── Kubernetes deployment best practices ──
+    - github/awesome-copilot/instructions/kubernetes-deployment-best-practices.instructions.md
+
+    # ── Terraform patterns ──
+    - github/awesome-copilot/instructions/terraform.instructions.md
 
     # ── APM GitHub Action for CI/CD ──
     # (use microsoft/apm-action@v1 in your workflows)
