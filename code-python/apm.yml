@@ -18,5 +18,5 @@ dependencies:
     # ── Pairwise combinatorial test generation (from composio-skills wrapper) ──
     - ComposioHQ/awesome-claude-skills/pypict-claude-skill
 
-    # ── PostgreSQL skill (safe read-only queries) ──
-    - sanjay3290/postgres
+    # ── Supabase agent skills (PostgreSQL management, queries, auth) ──
+    - supabase/agent-skills

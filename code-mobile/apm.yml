@@ -1,0 +1,22 @@
+name: code-mobile
+version: 0.0.1
+description: >
+  Mobile development — Flutter/Dart, Swift, Kotlin, cross-platform
+  patterns, and mobile MCP servers.
+
+dependencies:
+  apm:
+    # ── Flutter/Dart instructions ──
+    - github/awesome-copilot/instructions/dart-n-flutter.instructions.md
+
+    # ── Swift MCP server development ──
+    - github/awesome-copilot/plugins/swift-mcp-development
+
+    # ── Swift MCP server instructions ──
+    - github/awesome-copilot/instructions/swift-mcp-server.instructions.md
+
+    # ── Kotlin MCP server development ──
+    - github/awesome-copilot/plugins/kotlin-mcp-development
+
+    # ── Kotlin MCP server instructions ──
+    - github/awesome-copilot/instructions/kotlin-mcp-server.instructions.md

@@ -15,6 +15,6 @@ dependencies:
     # ── Copilot SDK — build agentic apps in Python/Go/TS ──
     - github/awesome-copilot/plugins/copilot-sdk
 
-    # ── LangSmith trace debugging for LangGraph agents ──
-    - OthmanAdi/langsmith-fetch-skill
+    # ── Arize AX — LLM observability, evaluation, tracing ──
+    - github/awesome-copilot/plugins/arize-ax
 

@@ -1,0 +1,19 @@
+name: code-java
+version: 0.0.1
+description: >
+  Java/JVM development — Spring Boot, Java MCP servers,
+  Maven/Gradle, and enterprise patterns.
+
+dependencies:
+  apm:
+    # ── Java development best practices ──
+    - github/awesome-copilot/plugins/java-development
+
+    # ── Java MCP server development ──
+    - github/awesome-copilot/plugins/java-mcp-development
+
+    # ── Spring Boot instructions ──
+    - github/awesome-copilot/instructions/springboot.instructions.md
+
+    # ── Java MCP server instructions ──
+    - github/awesome-copilot/instructions/java-mcp-server.instructions.md

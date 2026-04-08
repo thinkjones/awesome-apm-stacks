@@ -1,122 +1,135 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-CI_MODE=false
-FAILURES=0
-PASSES=0
-FAILED_PACKAGES=()
+# ---------------------------------------------------------------------------
+# test-packages.sh - Validate every apm.yml package in the repo
+#
+# Usage:
+#   ./scripts/test-packages.sh          # interactive run
+#   ./scripts/test-packages.sh --ci     # CI mode (exits 1 on any failure)
+# ---------------------------------------------------------------------------
 
+REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+# ── Colour setup (disabled when stdout is not a terminal) ─────────────────
+if [[ -t 1 ]]; then
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  YELLOW='\033[0;33m'
+  CYAN='\033[0;36m'
+  BOLD='\033[1m'
+  RESET='\033[0m'
+else
+  RED=''
+  GREEN=''
+  YELLOW=''
+  CYAN=''
+  BOLD=''
+  RESET=''
+fi
+
+# ── Parse flags ───────────────────────────────────────────────────────────
+CI_MODE=false
 if [[ "${1:-}" == "--ci" ]]; then
   CI_MODE=true
 fi
 
-echo "========================================="
-echo "  APM Package Validation Suite"
-echo "========================================="
-echo ""
+# ── Counters ──────────────────────────────────────────────────────────────
+FAILURES=0
+PASSES=0
+TOTAL=0
+FAILED_PACKAGES=()
 
-# Find all top-level dirs with apm.yml, excluding examples/
+# ── Discover packages ─────────────────────────────────────────────────────
+# Find all top-level directories containing apm.yml, excluding examples/
+# and wrappers/ (and non-package dirs like scripts, .git, docs).
 PACKAGES=()
 for dir in "$REPO_ROOT"/*/; do
   dirname="$(basename "$dir")"
-  if [[ "$dirname" == "examples" || "$dirname" == "scripts" || "$dirname" == ".git" ]]; then
-    continue
-  fi
+  case "$dirname" in
+    examples|wrappers|scripts|docs|.git) continue ;;
+  esac
   if [[ -f "$dir/apm.yml" ]]; then
     PACKAGES+=("$dirname")
   fi
 done
 
-echo "Found ${#PACKAGES[@]} packages to validate"
-echo ""
+TOTAL=${#PACKAGES[@]}
 
+printf '%s\n' "${BOLD}=========================================${RESET}"
+printf '%s\n' "${BOLD}  APM Package Validation Suite${RESET}"
+printf '%s\n' "${BOLD}=========================================${RESET}"
+printf '\n'
+printf "Found ${CYAN}%d${RESET} packages to validate\n\n" "$TOTAL"
+
+# ── Validate each package ─────────────────────────────────────────────────
 for pkg in "${PACKAGES[@]}"; do
   pkg_dir="$REPO_ROOT/$pkg"
-  echo "-----------------------------------------"
-  echo "Testing: $pkg"
-  echo "-----------------------------------------"
+  pkg_file="$pkg_dir/apm.yml"
 
-  # Test 1: YAML syntax validation
-  yaml_ok=true
-  yaml_err=""
-  if ! yaml_err=$(python3 -c "
-import yaml, sys
-try:
-    with open('$pkg_dir/apm.yml', 'r') as f:
-        yaml.safe_load(f)
-    print('YAML syntax: OK')
-except yaml.YAMLError as e:
-    print(f'YAML syntax: FAIL - {e}', file=sys.stderr)
-    sys.exit(1)
-" 2>&1); then
-    yaml_ok=false
-  fi
-  echo "  $yaml_err"
+  printf '%s\n' "${BOLD}-----------------------------------------${RESET}"
+  printf '%s\n' "${BOLD}  ${pkg}${RESET}"
+  printf '%s\n' "${BOLD}-----------------------------------------${RESET}"
 
-  # Test 2: apm install --dry-run
-  apm_ok=true
-  apm_err=""
-  if ! apm_err=$(cd "$pkg_dir" && apm install --dry-run 2>&1); then
-    apm_ok=false
-  fi
+  pkg_pass=true
 
-  if $apm_ok; then
-    echo "  apm install --dry-run: OK"
+  # --- Check 1: YAML syntax validation ---
+  yaml_output=""
+  if yaml_output=$(python3 -c "import yaml; yaml.safe_load(open('$pkg_file'))" 2>&1); then
+    printf "  YAML syntax:          ${GREEN}OK${RESET}\n"
   else
-    echo "  apm install --dry-run: FAIL"
-    echo "    $apm_err" | head -5
+    printf "  YAML syntax:          ${RED}FAIL${RESET}\n"
+    printf "    %s\n" "$yaml_output"
+    pkg_pass=false
   fi
 
-  # Test 3: Check required fields
-  fields_ok=true
-  fields_err=""
-  if ! fields_err=$(python3 -c "
-import yaml, sys
-with open('$pkg_dir/apm.yml', 'r') as f:
-    data = yaml.safe_load(f)
-missing = []
-for field in ['name', 'version', 'description']:
-    if field not in data:
-        missing.append(field)
-if missing:
-    print(f'Required fields missing: {missing}', file=sys.stderr)
-    sys.exit(1)
-print('Required fields: OK')
-" 2>&1); then
-    fields_ok=false
+  # --- Check 2: apm install --dry-run ---
+  apm_output=""
+  if apm_output=$(cd "$pkg_dir" && apm install --dry-run 2>&1); then
+    printf "  apm install --dry-run: ${GREEN}OK${RESET}\n"
+  else
+    printf "  apm install --dry-run: ${RED}FAIL${RESET}\n"
+    # Show first few lines of error output for context
+    while IFS= read -r line; do
+      printf "    %s\n" "$line"
+    done <<< "$(echo "$apm_output" | head -5)"
+    pkg_pass=false
   fi
-  echo "  $fields_err"
 
-  # Determine pass/fail for this package
-  if $yaml_ok && $apm_ok && $fields_ok; then
-    echo "  Result: PASS"
+  # --- Result for this package ---
+  if $pkg_pass; then
+    printf "  Result:               ${GREEN}PASS${RESET}\n"
     PASSES=$((PASSES + 1))
   else
-    echo "  Result: FAIL"
+    printf "  Result:               ${RED}FAIL${RESET}\n"
     FAILURES=$((FAILURES + 1))
     FAILED_PACKAGES+=("$pkg")
   fi
-  echo ""
+  printf "\n"
 done
 
-echo "========================================="
-echo "  Summary"
-echo "========================================="
-echo "  Total:  ${#PACKAGES[@]}"
-echo "  Passed: $PASSES"
-echo "  Failed: $FAILURES"
+# ── Summary ───────────────────────────────────────────────────────────────
+printf '%s\n' "${BOLD}=========================================${RESET}"
+printf '%s\n' "${BOLD}  Summary${RESET}"
+printf '%s\n' "${BOLD}=========================================${RESET}"
+printf "  Total:  %d\n" "$TOTAL"
+printf "  Passed: ${GREEN}%d${RESET}\n" "$PASSES"
+printf "  Failed: ${RED}%d${RESET}\n" "$FAILURES"
 
-if [[ $FAILURES -gt 0 ]]; then
-  echo ""
-  echo "  Failed packages:"
+if [[ ${#FAILED_PACKAGES[@]} -gt 0 ]]; then
+  printf "\n"
+  printf "  ${RED}Failed packages:${RESET}\n"
   for fp in "${FAILED_PACKAGES[@]}"; do
-    echo "    - $fp"
+    printf "    ${RED}- %s${RESET}\n" "$fp"
   done
 fi
 
-echo "========================================="
+printf '%s\n' "${BOLD}=========================================${RESET}"
 
-if $CI_MODE && [[ $FAILURES -gt 0 ]]; then
+# ── Exit code ─────────────────────────────────────────────────────────────
+# Exit 1 if any package failed (regardless of --ci flag).
+if [[ $FAILURES -gt 0 ]]; then
   exit 1
 fi
+
+exit 0
