@@ -5,8 +5,10 @@ set -euo pipefail
 # test-packages.sh - Validate every apm.yml package in the repo
 #
 # Usage:
-#   ./scripts/test-packages.sh          # interactive run
-#   ./scripts/test-packages.sh --ci     # CI mode (exits 1 on any failure)
+#   ./scripts/test-packages.sh                          # test all packages, interactive
+#   ./scripts/test-packages.sh --ci                     # test all packages, CI mode
+#   ./scripts/test-packages.sh code-python code-go      # test specific packages
+#   ./scripts/test-packages.sh --ci code-python code-go # test specific packages, CI mode
 # ---------------------------------------------------------------------------
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -30,9 +32,14 @@ fi
 
 # ── Parse flags ───────────────────────────────────────────────────────────
 CI_MODE=false
-if [[ "${1:-}" == "--ci" ]]; then
-  CI_MODE=true
-fi
+REQUESTED_PACKAGES=()
+
+for arg in "$@"; do
+  case "$arg" in
+    --ci) CI_MODE=true ;;
+    *)    REQUESTED_PACKAGES+=("$arg") ;;
+  esac
+done
 
 # ── Counters ──────────────────────────────────────────────────────────────
 FAILURES=0
@@ -41,18 +48,29 @@ TOTAL=0
 FAILED_PACKAGES=()
 
 # ── Discover packages ─────────────────────────────────────────────────────
-# Find all top-level directories containing apm.yml, excluding examples/
-# and wrappers/ (and non-package dirs like scripts, .git, docs).
 PACKAGES=()
-for dir in "$REPO_ROOT"/*/; do
-  dirname="$(basename "$dir")"
-  case "$dirname" in
-    examples|wrappers|scripts|docs|.git) continue ;;
-  esac
-  if [[ -f "$dir/apm.yml" ]]; then
-    PACKAGES+=("$dirname")
-  fi
-done
+if [[ ${#REQUESTED_PACKAGES[@]} -gt 0 ]]; then
+  # Use explicitly requested packages — validate each exists
+  for pkg in "${REQUESTED_PACKAGES[@]}"; do
+    if [[ ! -f "$REPO_ROOT/$pkg/apm.yml" ]]; then
+      printf "  ${RED}ERROR: Package '%s' not found (no %s/apm.yml)${RESET}\n" "$pkg" "$pkg" >&2
+      exit 1
+    fi
+    PACKAGES+=("$pkg")
+  done
+else
+  # Find all top-level directories containing apm.yml, excluding examples/
+  # and wrappers/ (and non-package dirs like scripts, .git, docs).
+  for dir in "$REPO_ROOT"/*/; do
+    dirname="$(basename "$dir")"
+    case "$dirname" in
+      examples|wrappers|scripts|docs|.git) continue ;;
+    esac
+    if [[ -f "$dir/apm.yml" ]]; then
+      PACKAGES+=("$dirname")
+    fi
+  done
+fi
 
 TOTAL=${#PACKAGES[@]}
 
@@ -61,6 +79,13 @@ printf '%s\n' "${BOLD}  APM Package Validation Suite${RESET}"
 printf '%s\n' "${BOLD}=========================================${RESET}"
 printf '\n'
 printf "Found ${CYAN}%d${RESET} packages to validate\n\n" "$TOTAL"
+
+# ── Check apm availability ────────────────────────────────────────────────
+APM_AVAILABLE=true
+if ! command -v apm &>/dev/null; then
+  printf "  ${YELLOW}WARNING: apm CLI not found – skipping dry-run checks${RESET}\n\n"
+  APM_AVAILABLE=false
+fi
 
 # ── Validate each package ─────────────────────────────────────────────────
 for pkg in "${PACKAGES[@]}"; do
@@ -84,16 +109,20 @@ for pkg in "${PACKAGES[@]}"; do
   fi
 
   # --- Check 2: apm install --dry-run ---
-  apm_output=""
-  if apm_output=$(cd "$pkg_dir" && apm install --dry-run 2>&1); then
-    printf "  apm install --dry-run: ${GREEN}OK${RESET}\n"
+  if $APM_AVAILABLE; then
+    apm_output=""
+    if apm_output=$(cd "$pkg_dir" && apm install --dry-run 2>&1); then
+      printf "  apm install --dry-run: ${GREEN}OK${RESET}\n"
+    else
+      printf "  apm install --dry-run: ${RED}FAIL${RESET}\n"
+      # Show first few lines of error output for context
+      while IFS= read -r line; do
+        printf "    %s\n" "$line"
+      done <<< "$(echo "$apm_output" | head -5)"
+      pkg_pass=false
+    fi
   else
-    printf "  apm install --dry-run: ${RED}FAIL${RESET}\n"
-    # Show first few lines of error output for context
-    while IFS= read -r line; do
-      printf "    %s\n" "$line"
-    done <<< "$(echo "$apm_output" | head -5)"
-    pkg_pass=false
+    printf "  apm install --dry-run: ${YELLOW}SKIPPED${RESET}\n"
   fi
 
   # --- Result for this package ---

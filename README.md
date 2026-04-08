@@ -120,9 +120,44 @@ apm install thinkjones/awesome-everything/global-core#v1.0.0
 
 ## Testing
 
+The test suite validates every APM package manifest in the repository.
+
+### What it validates
+
+1. **YAML syntax** — each `apm.yml` is parsed with `python3`/`pyyaml` to catch syntax errors
+2. **Dependency resolution** — `apm install --dry-run` verifies all declared dependencies can be resolved (skipped if `apm` CLI is not installed)
+
+### Run locally
+
+Test all packages:
+
+```bash
+./scripts/test-packages.sh
+```
+
+Test specific packages:
+
+```bash
+./scripts/test-packages.sh code-python code-go
+```
+
+CI mode (no colours, same exit-code behaviour — used by GitHub Actions):
+
 ```bash
 ./scripts/test-packages.sh --ci
+./scripts/test-packages.sh --ci code-python code-go
 ```
+
+> **Note:** The script requires `python3` with the `pyyaml` package (`pip install pyyaml`).
+> If the `apm` CLI is not installed, dry-run checks are skipped with a warning.
+
+### CI
+
+Tests run automatically via GitHub Actions (`.github/workflows/test-packages.yml`):
+
+- **On push to main** — tests only the packages whose files changed
+- **Daily (6 AM UTC)** — runs all package tests if there were commits in the last 24 hours, or on Mondays as a weekly sweep
+- **Manual** — trigger from the Actions tab; optionally specify packages
 
 ## After install
 
