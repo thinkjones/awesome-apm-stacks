@@ -1,0 +1,113 @@
+---
+const categories = [
+  {
+    name: 'Foundation',
+    accent: 'var(--brand-orange)',
+    packages: [
+      { name: 'user-core', desc: 'Skill discovery, verification, CLAUDE.md management, task automation' },
+      { name: 'code-core', desc: 'TDD, code review, PR toolkit, git workflows, semantic code search' },
+    ],
+  },
+  {
+    name: 'Language stacks',
+    accent: 'var(--signal-process)',
+    packages: [
+      { name: 'code-python', desc: 'Python, FastMCP, pytest, debugging' },
+      { name: 'code-typescript', desc: 'TS/Node, React, NestJS, TS MCP SDK' },
+      { name: 'code-go', desc: 'Go, go-sdk MCP, debugging' },
+      { name: 'code-java', desc: 'Java, Spring Boot, Maven/Gradle, MCP' },
+      { name: 'code-rust', desc: 'Rust, systems programming, cargo, MCP' },
+      { name: 'code-csharp', desc: 'C#/.NET, ASP.NET, MCP servers' },
+      { name: 'code-mobile', desc: 'Flutter, Swift, Kotlin, mobile MCP' },
+    ],
+  },
+  {
+    name: 'Architecture & infrastructure',
+    accent: 'var(--signal-architecture)',
+    packages: [
+      { name: 'architect-devops', desc: 'Docker, CI/CD, Terraform, incident triage' },
+      { name: 'architect-dataops', desc: 'PostgreSQL, SQL, CSV analysis, data pipelines' },
+      { name: 'architect-mlops', desc: 'LLM observability, eval pipelines, Arize' },
+      { name: 'architect-cloud', desc: 'Azure/AWS IaC, serverless, cost optimization' },
+    ],
+  },
+  {
+    name: 'Quality gates',
+    accent: 'var(--brand-rose)',
+    packages: [
+      { name: 'security-core', desc: 'OWASP, secure coding, vulnerability scanning, agent safety' },
+      { name: 'test-core', desc: 'E2E, integration testing, Playwright, polyglot test agents' },
+    ],
+  },
+  {
+    name: 'Design & planning',
+    accent: 'var(--signal-measure)',
+    packages: [
+      { name: 'design-frontend', desc: 'UI/UX, React design, theming, accessibility' },
+      { name: 'plan-core', desc: 'PRD, requirements, epics, QA, task breakdown' },
+      { name: 'plan-docs', desc: 'docx/pdf/pptx/xlsx, co-authoring, brand, comms' },
+    ],
+  },
+  {
+    name: 'Agents & business',
+    accent: 'var(--signal-people)',
+    packages: [
+      { name: 'ai-agents', desc: 'Agent swarms, orchestration, MCP builder, LangGraph' },
+      { name: 'business-core', desc: 'Business workflow tooling' },
+    ],
+  },
+];
+
+const repoBase = 'https://github.com/thinkjones/awesome-apm-stacks/tree/main';
+---
+
+<section id="packages" class="py-24">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-16">
+      <span class="section-label">// 20 Stacks, Six Concerns</span>
+      <h2 class="font-serif text-headline-lg md:text-display-md tracking-tighter text-text-primary mb-4">
+        Pick your stacks.<br />Compose like npm.
+      </h2>
+      <div class="section-divider"></div>
+      <p class="text-body-lg text-text-secondary">
+        Each package is a small, opinionated bundle — 30 lines of YAML composing battle-tested
+        dependencies from repos with 1,000+ GitHub stars. Open any <code class="font-mono text-body-md">apm.yml</code>
+        and comment out what you don't need.
+      </p>
+    </div>
+
+    <div class="space-y-16">
+      {categories.map(({ name, accent, packages }) => (
+        <div>
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-2 h-2 rounded-full" style={`background: ${accent}`}></span>
+            <h3 class="font-mono text-label-lg uppercase tracking-widest text-text-primary">{name}</h3>
+            <span class="h-px flex-1 bg-border"></span>
+            <span class="font-mono text-label-sm text-text-muted">{packages.length.toString().padStart(2, '0')}</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {packages.map(({ name: pkg, desc }) => (
+              <a
+                href={`${repoBase}/${pkg}`}
+                class="sculptural-panel flex flex-col h-full group"
+                target="_blank"
+                rel="noopener"
+              >
+                <div class="flex items-center justify-between mb-3">
+                  <code class="font-mono text-body-md font-semibold text-text-primary group-hover:text-brand-orange transition-colors">
+                    {pkg}
+                  </code>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-text-muted group-hover:text-brand-orange transition-colors">
+                    <path d="M7 17L17 7M17 7H8M17 7v9" />
+                  </svg>
+                </div>
+                <p class="text-body-sm text-text-secondary leading-relaxed">{desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

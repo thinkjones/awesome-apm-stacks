@@ -1,0 +1,26 @@
+name: ai-agents
+version: 0.0.1
+description: >
+  Agent swarms, multi-agent orchestration, MCP server building,
+  LangGraph/LangChain observability, and agentic SDK tooling.
+
+dependencies:
+  apm:
+    # ── Anthropic Agent SDK development tools ──
+    - anthropics/claude-plugins-official/plugins/agent-sdk-dev
+
+    # ── MCP server development tools ──
+    - anthropics/claude-plugins-official/plugins/mcp-server-dev
+
+    # ── Multi-agent orchestration (DAG planning, TDD verification) ──
+    - github/awesome-copilot/plugins/gem-team
+
+    # ── MCP server building (Python FastMCP + TypeScript SDK) ──
+    - anthropics/skills/skills/mcp-builder
+
+    # ── Copilot SDK — build agentic apps in Python/Go/TS ──
+    - github/awesome-copilot/plugins/copilot-sdk
+
+    # ── Arize AX — LLM observability, evaluation, tracing ──
+    - github/awesome-copilot/plugins/arize-ax
+

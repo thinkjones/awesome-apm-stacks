@@ -1,0 +1,25 @@
+name: plan-docs
+version: 0.0.1
+description: >
+  Document generation and deliverables — Word, PDF, PowerPoint, Excel,
+  doc co-authoring, internal comms, and brand guidelines.
+
+dependencies:
+  apm:
+    # ── Document creation skills (Anthropic official) ──
+    - anthropics/skills/skills/docx
+    - anthropics/skills/skills/pdf
+    - anthropics/skills/skills/pptx
+    - anthropics/skills/skills/xlsx
+
+    # ── Structured doc co-authoring workflow ──
+    - anthropics/skills/skills/doc-coauthoring
+
+    # ── Internal communications (status reports, newsletters, FAQs) ──
+    - anthropics/skills/skills/internal-comms
+
+    # ── Brand guidelines application ──
+    - anthropics/skills/skills/brand-guidelines
+
+    # ── Webapp testing (Playwright for UI verification) ──
+    - anthropics/skills/skills/webapp-testing

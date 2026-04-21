@@ -1,0 +1,128 @@
+name: Release APM Packages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  release:
+    if: "!contains(github.event.head_commit.message, 'chore: bump versions')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate YAML syntax
+        run: |
+          errors=0
+          for pkg in ai-agents architect-mlops architect-cloud code-go code-typescript plan-docs design-frontend architect-devops architect-dataops code-python code-core plan-core business-core user-core; do
+            manifest="${pkg}/apm.yml"
+            if [ ! -f "$manifest" ]; then
+              echo "::error::Missing ${manifest}"
+              errors=$((errors + 1))
+              continue
+            fi
+
+            # Validate YAML syntax using python (available on ubuntu runners)
+            if ! python3 -c "import yaml, sys; yaml.safe_load(open(sys.argv[1]))" "$manifest" 2>/dev/null; then
+              echo "::error::Invalid YAML in ${manifest}"
+              errors=$((errors + 1))
+            else
+              echo "  ${pkg}: valid YAML"
+            fi
+          done
+
+          if [ $errors -gt 0 ]; then
+            echo "::error::${errors} validation error(s) found"
+            exit 1
+          fi
+          echo "All package manifests validated."
+
+      - name: Detect changed packages
+        id: changes
+        run: |
+          PREV_SHA="${{ github.event.before }}"
+          if [ "$PREV_SHA" = "0000000000000000000000000000000000000000" ]; then
+            PREV_SHA=$(git rev-list --max-parents=0 HEAD)
+          fi
+
+          changed=""
+          for pkg in ai-agents architect-mlops architect-cloud code-go code-typescript plan-docs design-frontend architect-devops architect-dataops code-python code-core plan-core business-core user-core; do
+            if git diff --name-only "$PREV_SHA" HEAD | grep -q "^${pkg}/"; then
+              changed="${changed} ${pkg}"
+            fi
+          done
+
+          echo "packages=${changed}" >> "$GITHUB_OUTPUT"
+          echo "Changed packages:${changed:-  (none)}"
+
+      - name: Bump versions and tag
+        if: steps.changes.outputs.packages != ''
+        env:
+          CHANGED_PACKAGES: ${{ steps.changes.outputs.packages }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          tags_created=""
+
+          for pkg in $CHANGED_PACKAGES; do
+            manifest="${pkg}/apm.yml"
+            current=$(grep '^version:' "$manifest" | awk '{print $2}')
+
+            IFS='.' read -r major minor patch <<< "$current"
+            new_version="${major}.${minor}.$((patch + 1))"
+
+            sed -i "s/^version: ${current}/version: ${new_version}/" "$manifest"
+
+            tag="${pkg}/v${new_version}"
+            tags_created="${tags_created} ${tag}"
+
+            echo "  ${pkg}: ${current} -> ${new_version} (${tag})"
+          done
+
+          git add */apm.yml
+
+          commit_body=""
+          for pkg in $CHANGED_PACKAGES; do
+            manifest="${pkg}/apm.yml"
+            v=$(grep '^version:' "$manifest" | awk '{print $2}')
+            commit_body="${commit_body}  ${pkg}: v${v}\n"
+          done
+
+          git commit -m "$(printf 'chore: bump versions for changed packages\n\n%b' "$commit_body")"
+          git push
+
+          for tag in $tags_created; do
+            git tag "$tag"
+          done
+          git push --tags
+
+          echo "TAGS=${tags_created}" >> "$GITHUB_ENV"
+
+      - name: Create GitHub releases
+        if: steps.changes.outputs.packages != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for tag in $TAGS; do
+            pkg=$(echo "$tag" | cut -d'/' -f1)
+            version=$(echo "$tag" | cut -d'/' -f2)
+
+            gh release create "$tag" \
+              --title "${pkg} ${version}" \
+              --notes "Automated release for \`${pkg}\` package.
+
+          Install:
+          \`\`\`
+          apm install thinkjones/awesome-apm-stacks?path=${pkg}#${tag}
+          \`\`\`" \
+              --latest=false
+          done

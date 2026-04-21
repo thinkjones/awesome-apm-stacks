@@ -1,0 +1,10 @@
+name: awesome-apm-stacks
+version: 0.0.1
+description: APM project for awesome-apm-stacks
+author: Gene Conroy-Jones
+dependencies:
+  apm:
+  - ./user-core
+  - thinkjones/fs-apm/core-coding-standards
+  mcp: []
+scripts: {}

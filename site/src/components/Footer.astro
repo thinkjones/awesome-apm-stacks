@@ -1,0 +1,50 @@
+---
+const year = new Date().getFullYear();
+const repoUrl = 'https://github.com/thinkjones/awesome-apm-stacks';
+---
+
+<footer class="border-t border-border py-16 mt-24">
+  <div class="container-wide">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+      <div class="md:col-span-5">
+        <div class="brand-name mb-4">awesome-apm-stacks</div>
+        <p class="text-body-md text-text-secondary max-w-md">
+          A curated library of Agent Package Manager stacks for engineering teams — so the next AI
+          coding agent your team adopts doesn't cost you another weekend rewriting your setup.
+        </p>
+      </div>
+
+      <div class="md:col-span-3">
+        <div class="font-mono text-label-sm uppercase tracking-widest text-text-muted mb-4">Project</div>
+        <ul class="space-y-2">
+          <li><a href={repoUrl} target="_blank" rel="noopener" class="text-body-md">GitHub repository</a></li>
+          <li><a href={`${repoUrl}#packages`} target="_blank" rel="noopener" class="text-body-md">All 20 packages</a></li>
+          <li><a href={`${repoUrl}/tree/main/examples`} target="_blank" rel="noopener" class="text-body-md">Example configurations</a></li>
+          <li><a href="https://microsoft.github.io/apm/" target="_blank" rel="noopener" class="text-body-md">What is APM?</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-4">
+        <div class="font-mono text-label-sm uppercase tracking-widest text-text-muted mb-4">Built by</div>
+        <p class="text-body-md text-text-primary mb-2">
+          <a href="https://foursignals.dev" target="_blank" rel="noopener" class="underline decoration-brand-orange/40 hover:decoration-brand-orange">Four Signals</a>
+          — engineering health diagnostics for startup CTOs.
+        </p>
+        <p class="text-body-sm text-text-muted">
+          Gene Conroy-Jones · Startup CTO · PhD Civil Eng.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-border flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="font-mono text-label-sm text-text-muted">
+        © {year} Four Signals. MIT licensed.
+      </div>
+      <div class="flex items-center gap-6 font-mono text-label-sm text-text-muted">
+        <a href="https://github.com/thinkjones" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/drgenejones" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://foursignalsdev.substack.com" target="_blank" rel="noopener">Substack</a>
+      </div>
+    </div>
+  </div>
+</footer>

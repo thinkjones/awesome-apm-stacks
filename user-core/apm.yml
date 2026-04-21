@@ -1,0 +1,34 @@
+name: user-core
+version: 0.0.1
+description: >
+  Universal skills, agents, and hooks for every project — context engineering,
+  prompt craft, research, verification, and task automation.
+
+dependencies:
+  apm:
+    # ── Claude Code setup and configuration ──
+    - anthropics/claude-plugins-official/plugins/claude-code-setup
+
+    # ── CLAUDE.md file management (audit, improve, update) ──
+    - anthropics/claude-plugins-official/plugins/claude-md-management/
+
+    # ── Recurring task automation (polling, monitoring) ──
+    - anthropics/claude-plugins-official/plugins/ralph-loop
+
+    # ── Skill creation meta-tool ──
+    - anthropics/claude-plugins-official/plugins/skill-creator
+
+    # ── Skill discovery ──
+    - vercel-labs/skills/skills/find-skills
+
+    # ── Context engineering — structured context for better outputs ──
+    - github/awesome-copilot/plugins/context-engineering
+
+    # ── Hallucination verification pipeline ──
+    - github/awesome-copilot/plugins/doublecheck
+
+    # ── Challenge assumptions before committing ──
+    - github/awesome-copilot/agents/devils-advocate.agent.md
+
+    # ── Public repository for Agent Skills (docs, research, content, design) ──
+    - anthropics/skills

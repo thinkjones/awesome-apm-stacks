@@ -1,0 +1,28 @@
+name: plan-core
+version: 0.0.1
+description: >
+  Planning and task management — PRD generation, requirements refinement,
+  epic/feature breakdown, QA planning, and implementation strategy.
+
+dependencies:
+  apm:
+    # ── Project planning (epics, features, tasks, technical spikes) ──
+    - github/awesome-copilot/plugins/project-planning
+
+    # ── PRD generator agent ──
+    - github/awesome-copilot/agents/prd-generator.agent.md
+
+    # ── Requirements → acceptance criteria, edge cases, NFRs ──
+    - github/awesome-copilot/agents/requirements-refiner.agent.md
+
+    # ── QA — test planning, bug hunting, edge-case analysis ──
+    - github/awesome-copilot/agents/qa-tester.agent.md
+
+    # ── mattpocock/skills — planning skills ──
+    - mattpocock/skills/write-a-prd
+    - mattpocock/skills/prd-to-plan
+    - mattpocock/skills/prd-to-issues
+    - mattpocock/skills/qa
+    - mattpocock/skills/triage-issue
+    - mattpocock/skills/github-triage
+    - mattpocock/skills/request-refactor-plan

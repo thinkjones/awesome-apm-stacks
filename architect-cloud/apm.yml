@@ -1,0 +1,19 @@
+name: architect-cloud
+version: 0.0.1
+description: >
+  Cloud architecture — Azure/AWS IaC, serverless patterns,
+  cost optimization, and API design.
+
+dependencies:
+  apm:
+    # ── Azure cloud dev (IaC, serverless, architecture, cost) ──
+    - github/awesome-copilot/plugins/azure-cloud-development
+
+    # ── Terraform on Azure instructions ──
+    - github/awesome-copilot/instructions/terraform-azure.instructions.md
+
+    # ── Cloud design patterns (42 patterns: reliability, perf, security) ──
+    - github/awesome-copilot/skills/cloud-design-patterns
+
+    # ── Supabase Postgres best practices ──
+    - supabase/agent-skills

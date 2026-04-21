@@ -1,0 +1,16 @@
+name: code-rust
+version: 0.0.1
+description: >
+  Rust development — systems programming, Rust MCP servers,
+  cargo patterns, and memory safety.
+
+dependencies:
+  apm:
+    # ── Rust best practices instructions ──
+    - github/awesome-copilot/instructions/rust.instructions.md
+
+    # ── Rust MCP server development ──
+    - github/awesome-copilot/plugins/rust-mcp-development
+
+    # ── Rust MCP server instructions ──
+    - github/awesome-copilot/instructions/rust-mcp-server.instructions.md

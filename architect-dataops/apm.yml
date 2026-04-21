@@ -1,0 +1,19 @@
+name: architect-dataops
+version: 0.0.1
+description: >
+  Data operations and data architecture — database management,
+  PostgreSQL, SQL optimization, data modelling, and ETL patterns.
+
+dependencies:
+  apm:
+    # ── Database admin, SQL optimization, PostgreSQL, SQL Server ──
+    - github/awesome-copilot/plugins/database-data-management
+
+    # ── Supabase agent skills (PostgreSQL management, queries, auth) ──
+    - supabase/agent-skills
+
+    # ── CSV data analysis and summarisation (from composio-skills wrapper) ──
+    - ComposioHQ/awesome-claude-skills/csv-data-summarizer
+
+    # ── Root cause tracing for data pipeline failures (from composio-skills wrapper) ──
+    - ComposioHQ/awesome-claude-skills/root-cause-tracing

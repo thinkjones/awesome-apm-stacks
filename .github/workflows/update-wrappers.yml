@@ -1,0 +1,39 @@
+name: Update APM Wrappers
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly Monday 6am UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Generate wrappers
+        run: python scripts/generate-wrappers.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "apm-wrapper-bot"
+          git config user.email "apm-wrapper-bot@users.noreply.github.com"
+          git diff --quiet || (
+            git add wrappers/
+            git commit -m 'chore: regenerate APM wrappers [skip ci]'
+            git push
+          )

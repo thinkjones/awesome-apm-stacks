@@ -1,0 +1,52 @@
+---
+const points = [
+  {
+    title: 'Reproducible across teammates',
+    body: 'git clone && apm install and every developer gets the exact same agent setup. No more "works on my machine" for AI tooling.',
+  },
+  {
+    title: 'Portable across runtimes',
+    body: 'Switch from Claude Code to Copilot to Cursor without rewriting a single skill. Same apm.yml, re-compile, done.',
+  },
+  {
+    title: 'Composable by concern',
+    body: 'Small focused packages combine via transitive deps, just like npm. Pull in only what each project needs.',
+  },
+  {
+    title: 'Versioned like real software',
+    body: 'Pin exact versions, lock files, audit history. Treat agent config with the same discipline as application code.',
+  },
+  {
+    title: 'Secure by default',
+    body: 'apm install scans for hidden Unicode and compromised packages before your agent ever reads them.',
+  },
+  {
+    title: 'Battle-tested sources only',
+    body: 'Every dependency comes from a repo with 1,000+ GitHub stars. Most have 10K+. No abandoned forks, no homemade scripts.',
+  },
+];
+---
+
+<section class="py-24 bg-bg-secondary/60">
+  <div class="container-wide">
+    <div class="max-w-3xl mb-16">
+      <span class="section-label">// Why Teams Adopt This</span>
+      <h2 class="font-serif text-headline-lg md:text-display-md tracking-tighter text-text-primary mb-4">
+        Different teammates.<br />Different agents.<br />Same standards.
+      </h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {points.map(({ title, body }) => (
+        <div class="flex flex-col">
+          <div class="flex items-start gap-3 mb-3">
+            <span class="mt-2 w-6 h-px bg-brand-orange shrink-0"></span>
+            <h3 class="font-serif text-headline-sm tracking-tighter text-text-primary">{title}</h3>
+          </div>
+          <p class="text-body-md text-text-secondary pl-9">{body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

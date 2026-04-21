@@ -1,0 +1,27 @@
+---
+const stats = [
+  { number: '20', label: 'Curated stacks' },
+  { number: '10', label: 'Battle-tested sources' },
+  { number: '300K+', label: 'Combined GitHub stars' },
+  { number: '5', label: 'Supported agents' },
+];
+---
+
+<section class="py-12 border-y border-border">
+  <div class="container-wide">
+    <div class="flex flex-wrap items-center justify-center gap-12 md:gap-20">
+      {stats.map(({ number, label }) => (
+        <div class="text-center">
+          <div class="font-serif text-stat-number font-bold tracking-tighter text-text-primary">
+            {number}
+          </div>
+          <div class="font-sans text-body-sm text-text-muted mt-1">{label}</div>
+        </div>
+      ))}
+      <div class="inline-flex items-center gap-2 px-4 py-2 border border-brand-orange rounded-sm">
+        <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+        <span class="font-mono text-label-md uppercase tracking-widest text-brand-orange">Production-ready</span>
+      </div>
+    </div>
+  </div>
+</section>

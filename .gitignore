@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+
+# Environment
+.env
+.env.*
+
+**/.github/**
+!/.github/
+!/.github/workflows/
+!/.github/workflows/**
+
+
+# APM dependencies
+apm_modules/
+.claude/
+.github/*
+!.github/workflows/
+
+# Scratch / continuation notes (never committed)
+docs/tmp/

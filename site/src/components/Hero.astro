@@ -1,0 +1,61 @@
+---
+const repoUrl = 'https://github.com/thinkjones/awesome-apm-stacks';
+---
+
+<section class="relative py-24 md:py-32 overflow-hidden">
+  <div class="absolute inset-0 grid-overlay opacity-60" aria-hidden="true"></div>
+  <div class="container-wide relative">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7">
+        <span class="section-label">// APM × Coding Agents</span>
+        <h1 class="font-serif text-display-lg md:text-display-xl tracking-tightest text-text-primary mb-6">
+          npm for <span class="text-brand-orange">agentic artifacts.</span>
+        </h1>
+        <p class="text-body-lg text-text-secondary max-w-2xl mb-10">
+          A library of <strong class="text-text-primary font-medium">Agent Package Manager (APM)</strong> stacks that lets engineering teams share skills, agents, hooks, and coding standards once — and have every teammate get the same setup, whether they use Claude Code, Copilot, Cursor, or OpenCode.
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href={repoUrl} class="btn-primary" target="_blank" rel="noopener">
+            Get started on GitHub
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="#how" class="btn-outline">
+            How it works
+          </a>
+          <a href="#packages" class="btn-tertiary">
+            Browse 20 stacks
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="sculptural-panel font-mono text-body-sm !p-0 overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-3 border-b border-border">
+            <span class="w-2.5 h-2.5 rounded-full bg-accent-rose"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-accent-amber"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-accent-green"></span>
+            <span class="ml-2 text-text-muted text-label-sm uppercase">apm.yml</span>
+          </div>
+          <pre class="p-5 text-text-primary leading-relaxed overflow-x-auto"><code><span class="text-text-muted"># apm.yml</span>
+<span class="text-brand-rose">name</span>: my-project
+<span class="text-brand-rose">version</span>: 1.0.0
+
+<span class="text-brand-rose">dependencies</span>:
+  <span class="text-brand-rose">apm</span>:
+    - thinkjones/awesome-apm-stacks/<span class="text-brand-orange">code-core</span>
+    - thinkjones/awesome-apm-stacks/<span class="text-brand-orange">code-python</span>
+    - thinkjones/awesome-apm-stacks/<span class="text-brand-orange">security-core</span>
+    - thinkjones/awesome-apm-stacks/<span class="text-brand-orange">test-core</span>
+</code></pre>
+          <div class="px-5 py-3 border-t border-border bg-bg-secondary/50 font-mono text-body-sm flex items-center gap-2">
+            <span class="text-brand-orange">$</span>
+            <span class="text-text-primary">apm install && apm compile</span>
+            <span class="ml-auto text-text-muted text-label-sm">→ one setup, every agent</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

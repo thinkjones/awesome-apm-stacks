@@ -1,0 +1,19 @@
+name: code-typescript
+version: 0.0.1
+description: >
+  TypeScript/Node.js development — MCP server building, React,
+  frontend web dev, NestJS, and debugging support.
+
+dependencies:
+  apm:
+    # ── TypeScript MCP server building (official SDK) ──
+    - github/awesome-copilot/plugins/typescript-mcp-development
+
+    # ── Frontend — React, Angular, Vue, TypeScript, CSS ──
+    - github/awesome-copilot/plugins/frontend-web-dev
+
+    # ── Node.js/TypeScript Copilot SDK instructions ──
+    - github/awesome-copilot/instructions/nodejs-copilot-sdk.instructions.md
+
+    # ── NestJS best practices ──
+    - github/awesome-copilot/instructions/nestjs.instructions.md

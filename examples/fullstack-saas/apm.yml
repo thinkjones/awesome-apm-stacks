@@ -1,0 +1,18 @@
+name: my-fullstack-saas
+version: 0.0.1
+description: >
+  Fullstack SaaS — Go API + React frontend + ML features.
+  Composes flavour packages by concern.
+
+dependencies:
+  apm:
+    - thinkjones/awesome-apm-stacks/code-core             # Engineering fundamentals (every project)
+    - thinkjones/awesome-apm-stacks/code-go               # Go API development
+    - thinkjones/awesome-apm-stacks/code-typescript       # React/TS frontend
+    - thinkjones/awesome-apm-stacks/design-frontend       # UI/UX, theming, accessible design
+    - thinkjones/awesome-apm-stacks/architect-mlops       # Model observability, eval pipelines
+    - thinkjones/awesome-apm-stacks/architect-dataops     # PostgreSQL, data modelling
+    - thinkjones/awesome-apm-stacks/architect-devops      # Docker, CI/CD, Terraform
+    - thinkjones/awesome-apm-stacks/architect-cloud       # Cloud architecture, IaC
+    - thinkjones/awesome-apm-stacks/plan-core             # PRD, requirements, QA
+    - thinkjones/awesome-apm-stacks/plan-docs             # Deliverables, reports, decks

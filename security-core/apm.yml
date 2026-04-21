@@ -1,0 +1,16 @@
+name: security-core
+version: 0.0.1
+description: >
+  Security fundamentals — OWASP, secure coding, vulnerability scanning,
+  secrets management, and agent safety.
+
+dependencies:
+  apm:
+    # ── OWASP top 10 guidelines ──
+    - github/awesome-copilot/instructions/security-and-owasp.instructions.md
+
+    # ── Security best practices plugin ──
+    - github/awesome-copilot/plugins/security-best-practices
+
+    # ── Agent safety instructions ──
+    - github/awesome-copilot/instructions/agent-safety.instructions.md

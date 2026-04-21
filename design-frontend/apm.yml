@@ -1,0 +1,31 @@
+name: design-frontend
+version: 0.0.1
+description: >
+  UI/UX design — anti-AI-slop frontend design, React component building,
+  accessible colour/typography, theming, and web artifacts.
+
+dependencies:
+  apm:
+    # ── Production-grade frontend interface design (HTML/CSS/React) ──
+    - anthropics/claude-plugins-official/plugins/frontend-design
+
+    # ── Frontend design (bold decisions, anti-generic aesthetics) ──
+    - anthropics/skills/skills/frontend-design
+
+    # ── Complex multi-component artifacts (React/shadcn/Tailwind) ──
+    - anthropics/skills/skills/web-artifacts-builder
+
+    # ── Theme factory (10 presets + on-the-fly generation) ──
+    - anthropics/skills/skills/theme-factory
+
+    # ── Accessible colour and typography instructions ──
+    - github/awesome-copilot/instructions/color-usage.instructions.md
+
+    # ── Algorithmic art (p5.js, generative design) ──
+    - anthropics/skills/skills/algorithmic-art
+
+    # ── Canvas design (posters, static visuals) ──
+    - anthropics/skills/skills/canvas-design
+
+    # ── Vercel React best practices + web design guidelines ──
+    - vercel-labs/agent-skills

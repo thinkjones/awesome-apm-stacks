@@ -1,0 +1,58 @@
+---
+const steps = [
+  {
+    num: '01',
+    title: 'Declare',
+    accent: 'var(--signal-architecture)',
+    description: 'List the stacks your project needs in a single apm.yml — skills, agents, hooks, MCP servers, instructions.',
+    code: 'dependencies:\n  apm:\n    - code-core\n    - security-core',
+  },
+  {
+    num: '02',
+    title: 'Install',
+    accent: 'var(--signal-process)',
+    description: 'apm install fetches packages, scans for hidden Unicode or compromised deps, and caches them locally.',
+    code: '$ apm install\n\n✓ resolved 7 packages\n✓ security scan clean',
+  },
+  {
+    num: '03',
+    title: 'Compile',
+    accent: 'var(--signal-measure)',
+    description: 'apm compile emits the right shape for your agent — CLAUDE.md, AGENTS.md, .cursor/, .opencode/.',
+    code: '$ apm compile\n\n→ CLAUDE.md\n→ AGENTS.md\n→ .cursor/',
+  },
+];
+---
+
+<section id="how" class="py-24 relative">
+  <div class="absolute inset-0 grid-overlay opacity-40" aria-hidden="true"></div>
+  <div class="container-wide relative">
+    <div class="max-w-3xl mb-16">
+      <span class="section-label">// Workflow</span>
+      <h2 class="font-serif text-headline-lg md:text-display-md tracking-tighter text-text-primary mb-4">
+        Three commands. Any agent.
+      </h2>
+      <div class="section-divider"></div>
+      <p class="text-body-lg text-text-secondary">
+        Author once in open formats — <a href="https://agentskills.io" class="underline decoration-brand-orange/40 hover:decoration-brand-orange">Agent Skills</a>,
+        <a href="https://agents.md" class="underline decoration-brand-orange/40 hover:decoration-brand-orange">AGENTS.md</a>,
+        <a href="https://modelcontextprotocol.io" class="underline decoration-brand-orange/40 hover:decoration-brand-orange">MCP</a> —
+        and APM compiles to whichever runtime your team is using this quarter.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {steps.map(({ num, title, description, code, accent }) => (
+        <div class="sculptural-panel flex flex-col h-full">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="font-mono text-label-sm uppercase tracking-widest" style={`color: ${accent}`}>{num}</span>
+            <span class="h-px flex-1" style={`background: ${accent}; opacity: 0.4`}></span>
+          </div>
+          <h3 class="font-serif text-headline-sm tracking-tighter text-text-primary mb-3">{title}</h3>
+          <p class="text-body-md text-text-secondary mb-6 flex-1">{description}</p>
+          <pre class="font-mono text-body-sm bg-bg-secondary/60 border border-border p-4 text-text-primary leading-relaxed overflow-x-auto"><code>{code}</code></pre>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

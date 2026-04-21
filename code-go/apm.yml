@@ -1,0 +1,13 @@
+name: code-go
+version: 0.0.1
+description: >
+  Go development — MCP server building with go-sdk, Go idioms,
+  testing patterns, and debugging support.
+
+dependencies:
+  apm:
+    # ── Go MCP server building (official go-sdk) ──
+    - github/awesome-copilot/plugins/go-mcp-development
+
+    # ── Go MCP server best practices instructions ──
+    - github/awesome-copilot/instructions/go-mcp-server.instructions.md

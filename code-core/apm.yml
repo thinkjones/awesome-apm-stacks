@@ -1,0 +1,42 @@
+name: code-core
+version: 0.0.1
+description: >
+  Code architecture quality gates — API design agents and architecture review.
+  Extends user-core with code-specific concerns.
+
+dependencies:
+  apm:
+    - thinkjones/awesome-apm-stacks/user-core
+
+    # ── Architecture agents ──
+    - github/awesome-copilot/agents/api-architect.agent.md
+
+    # ── Software development methodology framework (TDD, debugging, code review, git worktrees) ──
+    - obra/superpowers
+
+    # ── Semantic code retrieval and editing MCP toolkit ──
+    - anthropics/claude-plugins-official/external_plugins/serena
+
+    # ── Automated code review for style and best practices ──
+    - anthropics/claude-plugins-official/plugins/code-review
+
+    # ── Code simplification for clarity and maintainability ──
+    - anthropics/claude-plugins-official/plugins/code-simplifier
+
+    # ── Git commit, push, and PR creation workflows ──
+    - anthropics/claude-plugins-official/plugins/commit-commands
+
+    # ── Guided feature development with codebase understanding ──
+    - anthropics/claude-plugins-official/plugins/feature-dev
+
+    # ── Interactive HTML playground generation ──
+    - anthropics/claude-plugins-official/plugins/playground
+
+    # ── Comprehensive PR review (code-reviewer, silent-failure-hunter, type-design-analyzer) ──
+    - anthropics/claude-plugins-official/plugins/pr-review-toolkit
+
+    # ── Matt Pocock skills bundle (TDD, git-guardrails, pre-commit, refactor, QA, triage) ──
+    - thinkjones/awesome-apm-stacks/wrappers/github.com/mattpocock/skills
+
+    # ── TDD Guard: blocks file changes that violate TDD principles ──
+    - nizos/tdd-guard/plugin

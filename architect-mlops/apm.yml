@@ -1,0 +1,13 @@
+name: architect-mlops
+version: 0.0.1
+description: >
+  ML operations — model observability, evaluation pipelines,
+  experiment tracking, and LLM instrumentation.
+
+dependencies:
+  apm:
+    # ── Arize AX — LLM observability, evaluation, tracing ──
+    - github/awesome-copilot/plugins/arize-ax
+
+    # ── Multi-agent orchestration (DAG planning, TDD verification) ──
+    - github/awesome-copilot/plugins/gem-team
