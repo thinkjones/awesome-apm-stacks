@@ -1,0 +1,73 @@
+---
+const steps = [
+  {
+    num: '01',
+    title: 'Install APM',
+    accent: 'var(--signal-architecture)',
+    description: 'One-line install of the Agent Package Manager. Works on macOS, Linux, and Windows.',
+    code: '$ curl -sSL https://aka.ms/apm-unix | sh',
+  },
+  {
+    num: '02',
+    title: 'Install the skill',
+    accent: 'var(--signal-process)',
+    description: 'Pull the ai-tooling package globally so every project on your machine can use the apm-retrofit skill.',
+    code: '$ apm install -g \\\n    thinkjones/awesome-apm-stacks/ai-tooling',
+  },
+  {
+    num: '03',
+    title: 'Retrofit your repo',
+    accent: 'var(--signal-measure)',
+    description: 'From inside your skills repo, invoke the skill. It inventories every primitive, proposes an apm.yml, and dry-runs the result before you commit.',
+    code: '> /apm-retrofit\n\n✓ found 4 primitives\n✓ wrote apm.yml\n✓ apm install --dry-run OK',
+  },
+];
+---
+
+<section id="retrofit" class="py-24 relative">
+  <div class="container-wide relative">
+    <div class="max-w-3xl mb-16">
+      <span class="section-label">// For Skill Authors</span>
+      <h2 class="font-serif text-headline-lg md:text-display-md tracking-tighter text-text-primary mb-4">
+        Already maintain a skills repo?<br />Make it APM-compliant in three commands.
+      </h2>
+      <div class="section-divider"></div>
+      <p class="text-body-lg text-text-secondary">
+        Microsoft APM ships <code class="font-mono text-body-md">apm init</code>, but it's deliberately minimal — it drops a stub manifest without looking at what's actually in your repo. The
+        <a href="https://github.com/thinkjones/awesome-apm-stacks/tree/main/ai-tooling" class="underline decoration-brand-orange/40 hover:decoration-brand-orange" target="_blank" rel="noopener">ai-tooling</a>
+        package fills that gap. The <code class="font-mono text-body-md">apm-retrofit</code> skill walks your repo, classifies every SKILL.md, plugin.json, AGENTS.md, MCP manifest, hook, command, and sub-agent it finds, then proposes a correctly-shaped <code class="font-mono text-body-md">apm.yml</code> for you to review.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      {steps.map(({ num, title, description, code, accent }) => (
+        <div class="sculptural-panel flex flex-col h-full">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="font-mono text-label-sm uppercase tracking-widest" style={`color: ${accent}`}>{num}</span>
+            <span class="h-px flex-1" style={`background: ${accent}; opacity: 0.4`}></span>
+          </div>
+          <h3 class="font-serif text-headline-sm tracking-tighter text-text-primary mb-3">{title}</h3>
+          <p class="text-body-md text-text-secondary mb-6 flex-1">{description}</p>
+          <pre class="font-mono text-body-sm bg-bg-secondary/60 border border-border p-4 text-text-primary leading-relaxed overflow-x-auto"><code>{code}</code></pre>
+        </div>
+      ))}
+    </div>
+
+    <div class="sculptural-panel">
+      <div class="flex items-start gap-4">
+        <span class="mt-2 w-6 h-px bg-brand-orange shrink-0"></span>
+        <div class="flex-1">
+          <h3 class="font-serif text-headline-sm tracking-tighter text-text-primary mb-3">
+            What the skill actually does
+          </h3>
+          <p class="text-body-md text-text-secondary mb-4">
+            It inventories primitives from every layout APM recognises — root <code class="font-mono text-body-sm">SKILL.md</code>, <code class="font-mono text-body-sm">skills/*/SKILL.md</code>, <code class="font-mono text-body-sm">.claude/</code>, <code class="font-mono text-body-sm">.github/plugin/</code>, <code class="font-mono text-body-sm">.cursor-plugin/</code>, <code class="font-mono text-body-sm">.mcp.json</code>, <code class="font-mono text-body-sm">hooks.json</code>, <code class="font-mono text-body-sm">commands/</code>, <code class="font-mono text-body-sm">agents/</code>, <code class="font-mono text-body-sm">AGENTS.md</code>, <code class="font-mono text-body-sm">CLAUDE.md</code>. It auto-detects <code class="font-mono text-body-sm">target:</code> from the directories present, infers <code class="font-mono text-body-sm">type:</code> from the primitive mix, and derives <code class="font-mono text-body-sm">name</code>/<code class="font-mono text-body-sm">version</code>/<code class="font-mono text-body-sm">description</code> from existing signals — never inventing values.
+          </p>
+          <p class="text-body-md text-text-secondary">
+            Before writing, it diffs against any existing <code class="font-mono text-body-sm">apm.yml</code> and asks for confirmation. After writing, it validates with <code class="font-mono text-body-sm">apm install --dry-run</code>. It never deletes existing files. It never pushes anything.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
