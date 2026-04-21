@@ -18,7 +18,7 @@ If you maintain a skills repo, a Copilot plugin, a Claude plugin, or any other a
 
 | Skill | What it does |
 |-------|--------------|
-| [`apm-retrofit`](skills/apm-retrofit/SKILL.md) | Walks the current repo, classifies every primitive it finds (SKILL.md, plugin.json, `.github/`, `.claude/`, `.cursor/`, MCP manifests, hooks, commands, agents, instructions), auto-detects `target:` and `type:`, and emits a correctly-shaped `apm.yml` at the repo root. Handles monorepos with multiple skills. |
+| [`apm-retrofit`](.apm/skills/apm-retrofit/SKILL.md) | Walks the current repo, classifies every primitive it finds (SKILL.md, plugin.json, `.github/`, `.claude/`, `.cursor/`, MCP manifests, hooks, commands, agents, instructions), auto-detects `target:` and `type:`, and emits a correctly-shaped `apm.yml` at the repo root. Handles monorepos with multiple skills. |
 
 ## Usage
 

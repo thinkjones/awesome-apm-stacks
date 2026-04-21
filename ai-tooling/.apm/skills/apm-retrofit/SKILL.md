@@ -36,7 +36,43 @@ Use `Glob` and `Read` (not Bash find) to scan the repo. Record every match with 
 
 If none of the above is found, stop and tell the user: "No APM-compatible primitives found in this repo. APM manages skills, plugins, agents, hooks, MCP servers, instructions, and slash commands — is this the right directory?"
 
-### 2. Classify `type:`
+### 2. Choose the layout (critical)
+
+APM's subpath resolver (`apm install owner/repo/subdir`) accepts exactly three layouts. Pick the smallest-diff match and record which primitives — if any — need to be moved to make the repo conform.
+
+| Signal | Layout | Primitives live at | `apm.yml` |
+|--------|--------|--------------------|-----------|
+| Any `plugin.json` present (root, `.github/plugin/`, `.claude-plugin/`, or `.cursor-plugin/`) | **Plugin** | Root: `skills/<name>/SKILL.md`, `agents/`, `commands/`, `hooks/` | Optional |
+| Single root `SKILL.md`, no other primitives | **Claude Skill** | Root: `SKILL.md` | Optional — APM auto-synthesises on install |
+| Multiple primitives, no `plugin.json` | **APM package** | `.apm/skills/<name>/SKILL.md`, `.apm/agents/`, `.apm/commands/`, `.apm/hooks/`, `.apm/instructions/`, `.apm/prompts/`, `.apm/chatmodes/` | Required |
+
+**The broken shape**: `apm.yml` at root with skills still at `skills/<name>/SKILL.md` outside `.apm/`. APM rejects this with `Subdirectory is not a valid APM package or Claude Skill: Missing required directory: .apm/`. If the target repo has this shape, files must move or a `plugin.json` must be added.
+
+#### Pick the path
+
+- **Repo already has `plugin.json`** → Plugin layout. No primitives need to move. Add `apm.yml` alongside; primitives stay at root.
+- **Repo has a single root `SKILL.md` and nothing else** → Claude Skill. Optionally add `apm.yml` for explicit metadata. No moves.
+- **Repo has primitives at `skills/`, `agents/`, `commands/`, `hooks/` and NO `plugin.json`** → APM package. Propose moving each primitive directory into `.apm/` (see below) OR propose adding a minimal `plugin.json` if the user prefers to keep the flat layout.
+- **Repo already uses `.apm/` paths** → APM package. No moves.
+
+#### Propose moves as a git-mv block
+
+When moves are required, propose them explicitly and wait for confirmation. Render as a single block the user can apply verbatim. Skip any source that doesn't exist:
+
+```bash
+git mv skills .apm/skills
+git mv agents .apm/agents
+git mv commands .apm/commands
+git mv hooks .apm/hooks
+git mv instructions .apm/instructions     # if at root
+git mv prompts .apm/prompts                # if at root
+```
+
+Do **not** move `.claude/`, `.github/`, `.cursor/`, `.codex/`, or `.opencode/` — those are target-shape directories APM emits into at compile time, not sources. Do **not** move `AGENTS.md` or `CLAUDE.md` — those stay at repo root as instructions.
+
+`SKILL.md` frontmatter `name:` is what APM keys the deployed skill off — not the directory path — so moves don't rename anything consumers see.
+
+### 3. Classify `type:`
 
 Use the APM manifest schema v0.1 rules (see `https://microsoft.github.io/apm/reference/primitive-types/`):
 
@@ -49,7 +85,7 @@ Use the APM manifest schema v0.1 rules (see `https://microsoft.github.io/apm/ref
 
 If a `plugin.json` is present, you may omit `type:` and let APM infer it — but if you are confident, emit `hybrid` explicitly.
 
-### 3. Detect `target:`
+### 4. Detect `target:`
 
 Look for these directories or files as evidence of the runtime(s) the repo was authored for:
 
@@ -65,7 +101,7 @@ Look for these directories or files as evidence of the runtime(s) the repo was a
 
 Prefer `all` over guessing when in doubt; APM will emit what each runtime needs at compile time.
 
-### 4. Derive the manifest fields
+### 5. Derive the manifest fields
 
 - `name` — kebab-case, lowercase, alphanumeric + hyphens. Source, in order: existing `apm.yml` → existing `plugin.json.name` → existing `package.json.name` → repo directory name. If the source string contains uppercase or underscores, convert to kebab-case.
 - `version` — semver. Source, in order: existing `apm.yml.version` → existing `plugin.json.version` → existing `package.json.version` → latest git tag that parses as semver → `0.1.0`.
@@ -73,7 +109,7 @@ Prefer `all` over guessing when in doubt; APM will emit what each runtime needs 
 - `author` — `git config user.name` if not already set.
 - `license` — read from `LICENSE`/`LICENSE.txt`/`package.json.license` if unambiguous; omit otherwise.
 
-### 5. Enumerate dependencies
+### 6. Enumerate dependencies
 
 If the repo already depends on other APM packages or MCP servers (e.g. a `plugin.json` lists `mcpServers`, or a `package.json` declares agent-related deps), translate them to APM's `dependencies:` shape:
 
@@ -88,33 +124,38 @@ dependencies:
       args: [-y, "@modelcontextprotocol/server-postgres"]
 ```
 
-If you cannot find any dependencies, emit `dependencies: {apm: []}` or omit the section entirely — both are valid. Do **not** invent dependencies.
+If you cannot find any dependencies, omit the `dependencies:` section entirely (it's optional). Do **not** emit `dependencies: {apm: []}` — some APM versions reject the empty-list shape. Do **not** invent dependencies.
 
-### 6. Propose, diff, confirm, write
+### 7. Propose, diff, confirm, write
 
-Before writing anything:
+Before writing or moving anything:
 
-1. Render the proposed `apm.yml` to the user in a fenced code block.
-2. If an `apm.yml` already exists, show a unified diff between the existing file and your proposal. Highlight fields that changed and fields the user might want to keep (e.g. a hand-written description).
-3. List every primitive you found and how APM will see it after install. Example:
+1. **Proposed moves** — if Step 2 identified any, render them as a `git mv` block and explain why (e.g. "`skills/` at root with no `plugin.json` would be rejected by APM; moving to `.apm/skills/` aligns the repo with the APM package layout").
+2. **Proposed `apm.yml`** — render in a fenced code block.
+3. **Diff against existing `apm.yml`** if present — unified diff, highlight changed fields, flag fields the user might want to hand-edit (e.g. a tailored description).
+4. **Primitive map** — list every primitive and the path it will live at *after* moves, plus the install-time name consumers will see. Example:
    ```
-   Found 3 primitives:
-     - skills/pdf-generator/SKILL.md       → installs as skill `pdf-generator`
-     - agents/code-reviewer.agent.md       → installs as agent `code-reviewer`
-     - .github/instructions/style.md       → installs as instruction `style`
+   Found 3 primitives (current: skills/ at root, no plugin.json → APM-package-incompatible):
+     - skills/pdf-generator/SKILL.md  →  move to .apm/skills/pdf-generator/SKILL.md  →  deploys as skill `pdf-generator`
+     - agents/code-reviewer.agent.md  →  move to .apm/agents/code-reviewer.agent.md  →  deploys as agent `code-reviewer`
+     - .github/instructions/style.md  →  unchanged                                   →  deploys as instruction `style`
+
+   Proposed moves:
+     git mv skills .apm/skills
+     git mv agents .apm/agents
    ```
-4. Ask the user to confirm ("Write this `apm.yml`?") and only then use `Write` to create or replace the file.
+5. Ask the user to confirm ("Apply moves and write this `apm.yml`?"). Only then: execute moves via `Bash` (`git mv`), then `Write` the manifest. Run moves before writing the manifest so validation in Step 8 sees the final shape.
 
-### 7. Validate
+### 8. Validate
 
-After writing, do two checks — in this order, and report results:
+After moves and manifest are in place, do two checks — in this order, and report results:
 
 1. **YAML syntax** — parse the file with `python3 -c "import yaml; yaml.safe_load(open('apm.yml'))"`. If it fails, the skill has produced invalid YAML; stop and fix before anything else.
-2. **`apm install --dry-run`** — only if the `apm` CLI is available (`command -v apm`). Run from the repo root. On success, report "APM accepts this manifest." On failure, paste the error and propose a fix.
+2. **`apm install --dry-run`** — only if the `apm` CLI is available (`command -v apm`). Run from the repo root. On success, report "APM accepts this manifest." On failure, paste the error and propose a fix. A recurring failure mode to check for: "Missing required directory: .apm/" — that means the layout decision in Step 2 was wrong (primitives still outside `.apm/` with no `plugin.json`). Offer to re-plan moves.
 
 Do **not** run `apm install` without `--dry-run`. Do **not** run `apm compile` — the user decides when to compile.
 
-### 8. Follow-ups (optional, only if asked)
+### 9. Follow-ups (optional, only if asked)
 
 Suggest but do not execute:
 
@@ -124,7 +165,7 @@ Suggest but do not execute:
 
 ## Edge cases
 
-- **Monorepo with multiple skills.** Emit a single `apm.yml` at the repo root. APM resolves each skill via virtual path (`apm install owner/repo/skill-name`) at install time — you do **not** need one manifest per skill, and writing several will confuse consumers. Call this out in your report so the user understands the install URL shape.
+- **Monorepo with multiple skills.** Emit a single `apm.yml` at the repo root. APM resolves each skill via virtual path (`apm install owner/repo/skill-name`) at install time — you do **not** need one manifest per skill, and writing several will confuse consumers. Under the APM-package layout each skill lives at `.apm/skills/<name>/SKILL.md`; APM deploys every one of them as a top-level entry keyed by frontmatter `name:`. Call this out in your report so the user understands the install URL shape.
 - **Fork of an existing APM package.** If a valid upstream `apm.yml` exists, preserve it verbatim unless the user explicitly asks you to rewrite it. Bump the `version:` only if the user asks.
 - **Repo with a single-file skill (root `SKILL.md` only).** Emit `type: skill` and a minimal manifest. Don't invent a `skills/` directory.
 - **Repo with only `CLAUDE.md` / `AGENTS.md`.** Emit `type: instructions`. The instructions files are primitives in their own right.
@@ -135,10 +176,12 @@ Suggest but do not execute:
 Your final message to the user must include, in order:
 
 1. **Inventory** — bullet list of every primitive found, with paths.
-2. **Classification** — one line: `type: X`, `target: Y`.
-3. **Proposed manifest** — fenced YAML block.
-4. **Diff against existing** — if relevant.
-5. **Validation results** — YAML parse + dry-run status.
-6. **Next step** — one sentence on what the user should do next (commit, push, publish, compile).
+2. **Layout decision** — one line: "Layout: `APM package` | `plugin` | `Claude skill`", plus the reason (e.g. "no `plugin.json` found → APM package").
+3. **Proposed moves** — `git mv` block, or "No moves needed" if the current shape already matches.
+4. **Classification** — one line: `type: X`, `target: Y`.
+5. **Proposed manifest** — fenced YAML block.
+6. **Diff against existing** — if relevant.
+7. **Validation results** — YAML parse + dry-run status.
+8. **Next step** — one sentence on what the user should do next (commit the moves and manifest, push, tag a release, install globally).
 
 Keep the tone factual. No emojis, no marketing copy, no "this will transform your workflow" language. This is a tool for maintainers, not a pitch deck.

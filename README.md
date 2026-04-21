@@ -193,7 +193,7 @@ apm install -g thinkjones/awesome-apm-stacks/ai-tooling
 
 The skill reports what it found, shows you the proposed `apm.yml`, diffs it against any existing manifest, and only writes the file after you confirm. It never deletes existing files, and it runs `apm install --dry-run` against the result so you know the manifest is valid before you commit it.
 
-Full details: [`ai-tooling/skills/apm-retrofit/SKILL.md`](ai-tooling/skills/apm-retrofit/SKILL.md).
+Full details: [`ai-tooling/.apm/skills/apm-retrofit/SKILL.md`](ai-tooling/.apm/skills/apm-retrofit/SKILL.md).
 
 ## Packages
 
