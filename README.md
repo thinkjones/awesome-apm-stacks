@@ -59,7 +59,7 @@ APM has **two native scopes** (user and project), plus two workflow patterns mos
 
 | Scope | How | Where it lands | When to use |
 | --- | --- | --- | --- |
-| **User (global)** | `apm install -g <pkg>` | Cache: `~/.apm/` · Primitives: `~/.claude/`, `~/.copilot/`, `~/.cursor/`, `~/.config/opencode/` | Your personal toolkit — universals you want on *every* project (e.g. `user-core`). |
+| **User (global)** | `apm install -g <pkg>` | Cache: `~/.apm/` · Primitives: `~/.claude/`, `~/.copilot/`, `~/.cursor/`, `~/.config/opencode/` | Rarely useful in practice — teams are better served by project-scope installs that ship with the repo. Reach for `-g` only for personal tooling you want available outside any project (e.g. ad-hoc skill authoring). |
 | **Project** | `apm install` from a project root with an `apm.yml` | Cache: `./apm_modules/` (gitignored) · Primitives: `./.claude/`, `./.github/`, etc. | Stack- and team-specific deps that ship with the repo. Every clone gets the same setup. |
 | **Organisational** | Publish an internal APM package (e.g. `acme-corp/standards`) and list it in each project's `apm.yml` | Pulled in *as a project dep* — but maintained centrally and versioned across the org | Company-wide engineering standards, internal review checklists, security policies. |
 | **Temporary** | `apm install <pkg>` in a throwaway dir or git worktree without committing | Local only, never reaches the project's `apm.yml` | Trying a package out before committing, or running a one-off task with extra skills. |
@@ -98,15 +98,15 @@ brew install microsoft/apm/apm
 
 See the [APM docs](https://microsoft.github.io/apm/) or [GitHub repo](https://github.com/microsoft/apm) for more.
 
-### 2. Install `user-core` — your personal toolkit for every project, coding or not
+### 2. Install `user-core` — the recommended baseline for every project
 
-Install `user-core` once and every project on your machine gets the universals (skill discovery, doublecheck verification, devil's-advocate review, claude-md management, ralph-loop):
+`user-core` bundles the universals (skill discovery, doublecheck verification, devil's-advocate review, claude-md management, ralph-loop). Add it to your project's `apm.yml` as the first dependency — every other stack composes on top:
 
 ```bash
-apm install -g thinkjones/awesome-apm-stacks/user-core
+apm install thinkjones/awesome-apm-stacks/user-core
 ```
 
-**Where it lands:** packages cached at `~/.apm/`; primitives deployed to `~/.claude/`, `~/.copilot/`, etc. — picked up by every project on your machine. (See [APM Scopes](#apm-scopes) above for the full picture.)
+This writes `user-core` into your project's `apm.yml` and caches the package at `./apm_modules/`. Run `apm compile` (step 4) to deploy the primitives into `.claude/`, `.github/`, etc.
 
 ### 3. Project-scope install — pick the stacks needed per repo
 
@@ -183,12 +183,15 @@ Microsoft APM ships `apm init`, but it's deliberately minimal — it drops a stu
 # 1. Install APM (once per machine)
 curl -sSL https://aka.ms/apm-unix | sh
 
-# 2. Install the retrofit skill globally
-apm install -g thinkjones/awesome-apm-stacks/ai-tooling
+# 2. From inside the repo you want to retrofit, pull ai-tooling
+#    as a project dep and compile so your agent picks up the skill:
+apm init -y                                           # only if no apm.yml yet
+apm install thinkjones/awesome-apm-stacks/ai-tooling
+apm compile
 
-# 3. From inside your repo, ask your agent:
+# 3. In your agent (Claude Code, Copilot, etc.), invoke:
 #      "Use apm-retrofit to make this repo APM-compliant"
-#    (or run the /apm-retrofit slash command in Claude Code)
+#    (or run /apm-retrofit as a slash command)
 ```
 
 The skill reports what it found, shows you the proposed `apm.yml`, diffs it against any existing manifest, and only writes the file after you confirm. It never deletes existing files, and it runs `apm install --dry-run` against the result so you know the manifest is valid before you commit it.

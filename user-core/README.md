@@ -5,8 +5,10 @@ Universal skills, agents, and hooks for every project -- context engineering, pr
 ## Install
 
 ```bash
-apm install -g thinkjones/awesome-apm-stacks/user-core
+apm install thinkjones/awesome-apm-stacks/user-core
 ```
+
+Writes `user-core` into your project's `apm.yml` and caches it under `./apm_modules/`. Run `apm compile` to deploy the primitives into your agent's directories.
 
 ## Dependencies
 

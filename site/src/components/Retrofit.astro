@@ -11,8 +11,8 @@ const steps = [
     num: '02',
     title: 'Install the skill',
     accent: 'var(--signal-process)',
-    description: 'Pull the ai-tooling package globally so every project on your machine can use the apm-retrofit skill.',
-    code: '$ apm install -g \\\n    thinkjones/awesome-apm-stacks/ai-tooling',
+    description: 'Inside the repo you want to retrofit, declare ai-tooling as a project dep and compile. This stages the apm-retrofit skill into .claude/ (or .github/, .cursor/, etc.) so your agent picks it up.',
+    code: '$ cd your-repo && apm init -y\n$ apm install \\\n    thinkjones/awesome-apm-stacks/ai-tooling\n$ apm compile',
   },
   {
     num: '03',
@@ -29,7 +29,7 @@ const steps = [
     <div class="max-w-3xl mb-16">
       <span class="section-label">// For Skill Authors</span>
       <h2 class="font-serif text-headline-lg md:text-display-md tracking-tighter text-text-primary mb-4">
-        Already maintain a skills repo?<br />Make it APM-compliant in three commands.
+        Already maintain a skills repo?<br />Make it APM-compliant in three steps.
       </h2>
       <div class="section-divider"></div>
       <p class="text-body-lg text-text-secondary">
