@@ -171,6 +171,30 @@ applyTo: "**/*.py,**/*.go,**/*.ts"
 - Fail fast: Validate inputs at boundaries. Return errors early.
 ```
 
+## Got an existing skills repo? Make it APM-compliant
+
+If you already maintain a skills repo, a Claude/Copilot/Cursor plugin, a collection of `.agent.md` files, or any other agent-facing bundle, you can turn it into an APM package so consumers can pull it with `apm install owner/repo`.
+
+Microsoft APM ships `apm init`, but it's deliberately minimal — it drops a stub manifest without looking at what's actually in your repo. The [`ai-tooling`](ai-tooling/) package in this repo fills that gap with an `apm-retrofit` skill that walks your repo, classifies every primitive (SKILL.md, plugin.json, AGENTS.md, MCP manifests, hooks, commands, sub-agents, instructions, chatmodes), and proposes a correctly-shaped `apm.yml` for you to review and commit.
+
+### Three steps
+
+```bash
+# 1. Install APM (once per machine)
+curl -sSL https://aka.ms/apm-unix | sh
+
+# 2. Install the retrofit skill globally
+apm install -g thinkjones/awesome-apm-stacks/ai-tooling
+
+# 3. From inside your repo, ask your agent:
+#      "Use apm-retrofit to make this repo APM-compliant"
+#    (or run the /apm-retrofit slash command in Claude Code)
+```
+
+The skill reports what it found, shows you the proposed `apm.yml`, diffs it against any existing manifest, and only writes the file after you confirm. It never deletes existing files, and it runs `apm install --dry-run` against the result so you know the manifest is valid before you commit it.
+
+Full details: [`ai-tooling/skills/apm-retrofit/SKILL.md`](ai-tooling/skills/apm-retrofit/SKILL.md).
+
 ## Packages
 
 The 21 packages below are **one developer's opinion** of how to slice the AI-coding-agent space into composable APM bundles — they're meant to be *illustrative* of what's possible, not definitive. Your idea of a good package layout might look very different, and that's exactly the point: APM lets a thousand opinionated bundles bloom.
