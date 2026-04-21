@@ -1,5 +1,6 @@
 ---
 const repoUrl = 'https://github.com/thinkjones/awesome-apm-stacks';
+const apmUrl = 'https://microsoft.github.io/apm/';
 ---
 
 <section class="relative py-24 md:py-32 overflow-hidden">
@@ -7,12 +8,15 @@ const repoUrl = 'https://github.com/thinkjones/awesome-apm-stacks';
   <div class="container-wide relative">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
       <div class="lg:col-span-7">
-        <span class="section-label">// APM × Coding Agents</span>
+        <span class="section-label">// Stacks for Microsoft APM</span>
         <h1 class="font-serif text-display-lg md:text-display-xl tracking-tightest text-text-primary mb-6">
           npm for <span class="text-brand-orange">agentic artifacts.</span>
         </h1>
-        <p class="text-body-lg text-text-secondary max-w-2xl mb-10">
-          A library of <strong class="text-text-primary font-medium">Agent Package Manager (APM)</strong> stacks that lets engineering teams share skills, agents, hooks, and coding standards once — and have every teammate get the same setup, whether they use Claude Code, Copilot, Cursor, or OpenCode.
+        <p class="text-body-lg text-text-secondary max-w-2xl mb-6">
+          A curated library of stacks for <a href={apmUrl} target="_blank" rel="noopener" class="text-text-primary font-medium underline decoration-brand-orange/40 hover:decoration-brand-orange">Microsoft's open-source Agent Package Manager (APM)</a> — so engineering teams share skills, agents, hooks, and coding standards once, and every teammate gets the same setup, whether they use Claude Code, Copilot, Cursor, or OpenCode.
+        </p>
+        <p class="font-mono text-label-md text-text-muted max-w-2xl mb-10">
+          APM is built by Microsoft. This repo curates the stacks we run on top of it.
         </p>
         <div class="flex flex-wrap items-center gap-4">
           <a href={repoUrl} class="btn-primary" target="_blank" rel="noopener">
@@ -26,6 +30,9 @@ const repoUrl = 'https://github.com/thinkjones/awesome-apm-stacks';
           </a>
           <a href="#packages" class="btn-tertiary">
             Browse 20 stacks
+          </a>
+          <a href={apmUrl} class="btn-tertiary" target="_blank" rel="noopener">
+            What is APM? ↗
           </a>
         </div>
       </div>

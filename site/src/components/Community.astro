@@ -1,0 +1,66 @@
+---
+const repoUrl = 'https://github.com/thinkjones/awesome-apm-stacks';
+const issueUrl = `${repoUrl}/issues/new?title=Stack+proposal%3A+%3Cstack-name%3E&body=%23%23+What+the+stack+does%0A%0A%23%23+Who+it%27s+for%0A%0A%23%23+Upstream+dependencies+%28repos+%2B+stars%29%0A%0A%23%23+Draft+apm.yml%0A%60%60%60yaml%0A%60%60%60%0A`;
+const prUrl = `${repoUrl}/compare`;
+---
+
+<section id="contribute" class="py-24 bg-bg-secondary/60">
+  <div class="container-wide">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-7">
+        <span class="section-label">// Your goto stack belongs here</span>
+        <h2 class="font-serif text-headline-lg md:text-display-md tracking-tighter text-text-primary mb-4">
+          Got a stack<br />your team can't live without?
+        </h2>
+        <div class="section-divider"></div>
+        <p class="text-body-lg text-text-secondary mb-6">
+          These 20 stacks are a starting point, not an endpoint. If you've wired up something your team runs every day — a niche language bundle, a domain-specific skill set, an eval-driven agent workflow, a vertical-specific hook stack — put it in front of everyone else running APM.
+        </p>
+        <p class="text-body-md text-text-secondary mb-10">
+          Open an issue to propose it first if you'd like feedback on scope, or send a pull request straight in if it's ready to land. Either path works.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <a href={issueUrl} class="btn-primary" target="_blank" rel="noopener">
+            Propose a stack
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href={prUrl} class="btn-outline" target="_blank" rel="noopener">
+            Open a pull request
+          </a>
+          <a href={`${repoUrl}/issues`} class="btn-tertiary" target="_blank" rel="noopener">
+            Browse open issues ↗
+          </a>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="sculptural-panel">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="font-mono text-label-sm uppercase tracking-widest text-brand-orange">// What we're looking for</span>
+          </div>
+          <ul class="space-y-4 text-body-md text-text-secondary">
+            <li class="flex items-start gap-3">
+              <span class="mt-2 w-6 h-px bg-brand-orange shrink-0"></span>
+              <span><strong class="text-text-primary font-medium">Battle-tested.</strong> At least one team running it in real work.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 w-6 h-px bg-brand-orange shrink-0"></span>
+              <span><strong class="text-text-primary font-medium">Upstream sources.</strong> Dependencies from repos with real maintainers — not one-off scripts or forks.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 w-6 h-px bg-brand-orange shrink-0"></span>
+              <span><strong class="text-text-primary font-medium">Focused.</strong> One concern per stack. Compose rather than bundle everything.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-2 w-6 h-px bg-brand-orange shrink-0"></span>
+              <span><strong class="text-text-primary font-medium">Short apm.yml.</strong> ~30 lines of YAML. If it needs more, split it.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

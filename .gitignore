@@ -32,3 +32,6 @@ apm_modules/
 
 # Scratch / continuation notes (never committed)
 docs/tmp/
+
+# Playwright MCP verification artifacts
+.playwright-mcp/
