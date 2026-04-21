@@ -343,7 +343,28 @@ Pull requests are welcome — especially new packages for under-served domains.
 - Follow existing structure: one directory, one `apm.yml`, one `README.md`
 - All dependencies must come from repos with 1,000+ GitHub stars
 - Run `./scripts/test-packages.sh --ci` before submitting
+- **Bump the `version:` in every package you touch** (see [Versioning](#versioning))
 - Open an issue first if you want to discuss a new package idea
+
+### Versioning
+
+Each package carries its own semver in `apm.yml`. When you change files inside a package directory, you must bump that package's version in the same PR — CI rejects PRs that modify a package without a version bump.
+
+Pick the bump type yourself:
+
+- **Patch** (`0.1.3 → 0.1.4`) — bug fix, doc tweak, no behaviour change for consumers
+- **Minor** (`0.1.3 → 0.2.0`) — additive change (new dep, new primitive, additional option)
+- **Major** (`0.1.3 → 1.0.0`) — breaking change (removed dep, renamed primitive, incompatible option)
+
+Helper script:
+
+```bash
+./scripts/bump-version.sh ai-agents patch
+./scripts/bump-version.sh code-python minor
+./scripts/bump-version.sh architect-cloud major
+```
+
+On merge to `main`, the release workflow detects each package whose version increased and publishes a tag + GitHub Release automatically. No bot commits touch `main`, so `git pull` always fast-forwards.
 
 ### A note on `docs/internal/`
 

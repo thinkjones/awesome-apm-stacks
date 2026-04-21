@@ -1,0 +1,107 @@
+name: Version Check
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  version-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Enforce version bump for changed packages
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          errors=0
+          checked=0
+
+          # Inline python comparator: exits 0 iff argv[2] > argv[1] as semver.
+          cmp_semver() {
+            python3 -c 'import sys; p=lambda v: tuple(int(x) for x in v.split(".")); sys.exit(0 if p(sys.argv[2]) > p(sys.argv[1]) else 1)' "$1" "$2"
+          }
+
+          for dir in */; do
+            pkg="${dir%/}"
+            case "$pkg" in
+              examples|wrappers|scripts|docs|site|apm_modules|.github|.claude) continue ;;
+            esac
+
+            base_manifest="$(git show "${BASE_SHA}:${pkg}/apm.yml" 2>/dev/null || true)"
+            head_manifest="$(git show "${HEAD_SHA}:${pkg}/apm.yml" 2>/dev/null || true)"
+
+            # Not a package directory in either base or head — skip
+            if [ -z "$base_manifest" ] && [ -z "$head_manifest" ]; then
+              continue
+            fi
+
+            # No files changed inside this package directory — skip
+            if ! git diff --name-only "${BASE_SHA}" "${HEAD_SHA}" -- "${pkg}/" | grep -q .; then
+              continue
+            fi
+
+            base_version="$(printf '%s\n' "$base_manifest" | awk '/^version:/ {print $2; exit}')"
+            head_version="$(printf '%s\n' "$head_manifest" | awk '/^version:/ {print $2; exit}')"
+
+            # New package: any head version is fine, just ensure one exists
+            if [ -z "$base_manifest" ]; then
+              if [ -z "$head_version" ]; then
+                echo "::error file=${pkg}/apm.yml::${pkg}: new package is missing 'version:' in apm.yml"
+                errors=$((errors + 1))
+              else
+                echo "  ${pkg}: new package at ${head_version}"
+                checked=$((checked + 1))
+              fi
+              continue
+            fi
+
+            # Deleted package: nothing to check
+            if [ -z "$head_manifest" ]; then
+              echo "  ${pkg}: removed"
+              continue
+            fi
+
+            # Existing package with file changes: require strictly greater semver
+            if ! printf '%s' "$head_version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+              echo "::error file=${pkg}/apm.yml::${pkg}: version '${head_version}' is not valid semver X.Y.Z"
+              errors=$((errors + 1))
+              continue
+            fi
+
+            if cmp_semver "$base_version" "$head_version"; then
+              echo "  ${pkg}: ${base_version} -> ${head_version}"
+              checked=$((checked + 1))
+            else
+              echo "::error file=${pkg}/apm.yml::${pkg}: files changed but version not bumped (base ${base_version}, head ${head_version}). Run: ./scripts/bump-version.sh ${pkg} <patch|minor|major>"
+              errors=$((errors + 1))
+            fi
+          done
+
+          echo ""
+          if [ "$errors" -gt 0 ]; then
+            echo "::error::${errors} package(s) changed without a valid version bump."
+            echo "Fix: run ./scripts/bump-version.sh <package> <patch|minor|major> for each package flagged above, commit, and push."
+            exit 1
+          fi
+
+          if [ "$checked" -eq 0 ]; then
+            echo "No package directories changed — nothing to verify."
+          else
+            echo "All ${checked} changed package(s) have valid version bumps."
+          fi
