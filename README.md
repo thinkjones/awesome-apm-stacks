@@ -1,7 +1,7 @@
 # awesome-apm-stacks
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![APM Packages](https://img.shields.io/badge/APM_Packages-20-green.svg)](#packages)
+[![APM Packages](https://img.shields.io/badge/APM_Packages-21-green.svg)](#packages)
 [![Curated Sources](https://img.shields.io/badge/Curated_Sources-10-orange.svg)](#dependency-sources)
 
 ## Overview
@@ -173,7 +173,7 @@ applyTo: "**/*.py,**/*.go,**/*.ts"
 
 ## Packages
 
-The 20 packages below are **one developer's opinion** of how to slice the AI-coding-agent space into composable APM bundles — they're meant to be *illustrative* of what's possible, not definitive. Your idea of a good package layout might look very different, and that's exactly the point: APM lets a thousand opinionated bundles bloom.
+The 21 packages below are **one developer's opinion** of how to slice the AI-coding-agent space into composable APM bundles — they're meant to be *illustrative* of what's possible, not definitive. Your idea of a good package layout might look very different, and that's exactly the point: APM lets a thousand opinionated bundles bloom.
 
 | Package | Concern | When to Use |
 | --- | --- | --- |
@@ -187,6 +187,7 @@ The 20 packages below are **one developer's opinion** of how to slice the AI-cod
 | [`code-csharp`](code-csharp/) | C#/.NET, ASP.NET, C# MCP servers | Per stack |
 | [`code-mobile`](code-mobile/) | Flutter, Swift, Kotlin, mobile MCP servers | Per stack |
 | [`ai-agents`](ai-agents/) | Agent swarms, orchestration, MCP builder, LangGraph/LangChain observability | When building agents |
+| [`ai-tooling`](ai-tooling/) | Meta-tooling for APM package authors — retrofit existing skills/plugins repos into APM-compliant packages | When authoring or maintaining APM packages |
 | [`architect-dataops`](architect-dataops/) | PostgreSQL, SQL, CSV analysis, data pipelines | When data-heavy |
 | [`architect-mlops`](architect-mlops/) | LLM observability, eval pipelines, Arize | When ML involved |
 | [`architect-devops`](architect-devops/) | Docker, CI/CD, Terraform, incident triage | Most projects |
@@ -233,6 +234,7 @@ apm install thinkjones/awesome-apm-stacks/design-frontend
 
 # Agents & business
 apm install thinkjones/awesome-apm-stacks/ai-agents
+apm install thinkjones/awesome-apm-stacks/ai-tooling
 apm install thinkjones/awesome-apm-stacks/business-core
 ```
 
