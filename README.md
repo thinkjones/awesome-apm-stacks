@@ -8,7 +8,7 @@
 
 ### What is APM?
 
-[APM (Agent Package Manager)](https://microsoft.github.io/apm/) is Microsoft's open-source dependency manager for AI coding agents — think `npm` for everything that configures an AI agent. You declare what you want in an `apm.yml`, and APM resolves, fetches, and wires it into whatever AI tool you're using.
+[APM (Agent Package Manager)](https://microsoft.github.io/apm/) is an open-source project hosted under Microsoft's OSS org, created and maintained by [Daniel Meppiel](https://github.com/danielmeppiel). This repo curates the stacks we run on top of it. Think `npm` for everything that configures an AI agent — declare what you want in an `apm.yml`, and APM resolves, fetches, and wires it into whatever AI tool you're using.
 
 ### Why APM?
 
@@ -30,7 +30,7 @@ The standards are still emerging — there isn't yet one canonical format for ev
 
 ## APM (Agent Package Manager)
 
-[APM (Agent Package Manager)](https://microsoft.github.io/apm/) is Microsoft's open-source dependency manager for AI coding agents — think `npm` for everything that configures an AI agent. You declare what you want in an `apm.yml`, and APM resolves, fetches, and wires it into whatever AI tool you're using.
+[APM](https://microsoft.github.io/apm/) is an open-source cross-agent dependency manager — an independent project by [Daniel Meppiel](https://github.com/danielmeppiel), hosted under Microsoft's OSS org. You declare what you want in an `apm.yml` and APM resolves, fetches, and wires it into whatever AI tool you're using.
 
 ### What APM manages
 
@@ -86,7 +86,7 @@ APM is the engine. **awesome-apm-stacks** is the curated, ready-to-use library o
 
 ## Installation
 
-### 1. Install Microsoft APM first
+### 1. Install APM first
 
 ```bash
 # macOS / Linux
@@ -175,7 +175,7 @@ applyTo: "**/*.py,**/*.go,**/*.ts"
 
 If you already maintain a skills repo, a Claude/Copilot/Cursor plugin, a collection of `.agent.md` files, or any other agent-facing bundle, you can turn it into an APM package so consumers can pull it with `apm install owner/repo`.
 
-Microsoft APM ships `apm init`, but it's deliberately minimal — it drops a stub manifest without looking at what's actually in your repo. The [`ai-tooling`](ai-tooling/) package in this repo fills that gap with an `apm-retrofit` skill that walks your repo, classifies every primitive (SKILL.md, plugin.json, AGENTS.md, MCP manifests, hooks, commands, sub-agents, instructions, chatmodes), and proposes a correctly-shaped `apm.yml` for you to review and commit.
+APM ships `apm init`, but it's deliberately minimal — it drops a stub manifest without looking at what's actually in your repo. The [`ai-tooling`](ai-tooling/) package in this repo fills that gap with an `apm-retrofit` skill that walks your repo, classifies every primitive (SKILL.md, plugin.json, AGENTS.md, MCP manifests, hooks, commands, sub-agents, instructions, chatmodes), and proposes a correctly-shaped `apm.yml` for you to review and commit.
 
 ### Three steps
 

@@ -83,6 +83,11 @@ printf "Found ${CYAN}%d${RESET} packages to validate\n\n" "$TOTAL"
 # ── Check apm availability ────────────────────────────────────────────────
 APM_AVAILABLE=true
 if ! command -v apm &>/dev/null; then
+  if $CI_MODE; then
+    printf "  ${RED}ERROR: apm CLI not found — required in --ci mode${RESET}\n" >&2
+    printf "  ${RED}Install with: curl -sSL https://aka.ms/apm-unix | sh${RESET}\n\n" >&2
+    exit 1
+  fi
   printf "  ${YELLOW}WARNING: apm CLI not found – skipping dry-run checks${RESET}\n\n"
   APM_AVAILABLE=false
 fi

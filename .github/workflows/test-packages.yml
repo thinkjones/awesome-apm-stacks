@@ -3,6 +3,8 @@ name: Test APM Packages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   schedule:
     - cron: '0 6 * * *' # Daily at 6 AM UTC
   workflow_dispatch:
@@ -20,7 +22,7 @@ env:
 
 jobs:
   detect-changes:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.diff.outputs.packages }}
@@ -28,25 +30,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Detect changed package directories
         id: diff
         env:
-          PREV_COMMIT_SHA: ${{ github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          PREV_SHA="$PREV_COMMIT_SHA"
-          if [ "$PREV_SHA" = "0000000000000000000000000000000000000000" ]; then
-            PREV_SHA=$(git rev-list --max-parents=0 HEAD)
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            PREV_SHA="$PR_BASE_SHA"
+            HEAD_SHA="$PR_HEAD_SHA"
+          else
+            PREV_SHA="$PUSH_BEFORE"
+            HEAD_SHA="HEAD"
+            if [ "$PREV_SHA" = "0000000000000000000000000000000000000000" ]; then
+              PREV_SHA=$(git rev-list --max-parents=0 HEAD)
+            fi
           fi
 
           changed_packages=""
           for dir in */; do
             dirname="$(basename "$dir")"
             case "$dirname" in
-              examples|wrappers|scripts|docs|.git) continue ;;
+              examples|wrappers|scripts|docs|site|apm_modules|.git|.github|.claude) continue ;;
             esac
-            if [ -f "$dir/apm.yml" ] && git diff --name-only "$PREV_SHA" HEAD | grep -q "^${dirname}/"; then
+            if [ -f "$dir/apm.yml" ] && git diff --name-only "$PREV_SHA" "$HEAD_SHA" | grep -q "^${dirname}/"; then
               changed_packages="$changed_packages $dirname"
             fi
           done
@@ -93,7 +104,7 @@ jobs:
     needs: [detect-changes, should-run-scheduled]
     if: |
       always() && (
-        (github.event_name == 'push' && needs.detect-changes.outputs.has_changes == 'true') ||
+        ((github.event_name == 'push' || github.event_name == 'pull_request') && needs.detect-changes.outputs.has_changes == 'true') ||
         (github.event_name == 'schedule' && needs.should-run-scheduled.outputs.should_run == 'true') ||
         github.event_name == 'workflow_dispatch'
       )
@@ -108,6 +119,20 @@ jobs:
       - name: Install pyyaml
         run: pip install pyyaml
 
+      - name: Install APM CLI
+        run: |
+          set -euo pipefail
+          curl -sSL https://aka.ms/apm-unix | sh
+          # The installer drops the binary in one of these; add each existing
+          # candidate to GITHUB_PATH so every subsequent step finds `apm`.
+          for p in "$HOME/.apm/bin" "$HOME/.local/bin" "/usr/local/bin"; do
+            [ -x "$p/apm" ] && echo "$p" >> "$GITHUB_PATH"
+          done
+          # Verify in the current step too (GITHUB_PATH only affects later steps).
+          export PATH="$HOME/.apm/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+          command -v apm
+          apm --version
+
       - name: Determine packages to test
         id: packages
         env:
@@ -115,7 +140,7 @@ jobs:
           CHANGED_PACKAGES: ${{ needs.detect-changes.outputs.packages }}
           INPUT_PACKAGES: ${{ github.event.inputs.packages }}
         run: |
-          if [ "$EVENT_NAME" = "push" ]; then
+          if [ "$EVENT_NAME" = "push" ] || [ "$EVENT_NAME" = "pull_request" ]; then
             echo "args=$CHANGED_PACKAGES" >> "$GITHUB_OUTPUT"
             echo "Testing changed packages: $CHANGED_PACKAGES"
           elif [ "$EVENT_NAME" = "workflow_dispatch" ] && [ -n "$INPUT_PACKAGES" ]; then
