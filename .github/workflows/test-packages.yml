@@ -120,17 +120,35 @@ jobs:
         run: pip install pyyaml
 
       - name: Install APM CLI
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          curl -sSL https://aka.ms/apm-unix | sh
-          # The installer drops the binary in one of these; add each existing
-          # candidate to GITHUB_PATH so every subsequent step finds `apm`.
-          for p in "$HOME/.apm/bin" "$HOME/.local/bin" "/usr/local/bin"; do
-            [ -x "$p/apm" ] && echo "$p" >> "$GITHUB_PATH"
-          done
-          # Verify in the current step too (GITHUB_PATH only affects later steps).
-          export PATH="$HOME/.apm/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
-          command -v apm
+          # We can't use the official installer (aka.ms/apm-unix): it fetches
+          # release metadata from the unauthenticated GitHub API, which hits
+          # the shared-IP rate limit on GitHub-hosted runners. Its
+          # fallback-to-auth branch only triggers on "Not Found" responses,
+          # not "API rate limit exceeded", so rate-limited runs fail hard.
+          # Download the release asset directly via gh (authenticated via
+          # GH_TOKEN) and install manually.
+          #
+          # The tarball structure is:
+          #   apm-linux-x86_64/apm            (main binary)
+          #   apm-linux-x86_64/_internal/...  (runtime deps — must stay next
+          #                                    to the binary)
+          # We strip the top-level dir so the binary and _internal/ land in
+          # the install dir together. We deliberately avoid $HOME/.apm
+          # because APM itself caches user-scope packages there.
+          tmp="$(mktemp -d)"
+          install_dir="$HOME/apm-cli"
+          gh release download --repo microsoft/apm \
+            --pattern '*linux*x86_64*.tar.gz' \
+            --dir "$tmp"
+          mkdir -p "$install_dir"
+          tar -xzf "$tmp"/*linux*x86_64*.tar.gz --strip-components=1 -C "$install_dir"
+          chmod +x "$install_dir/apm"
+          echo "$install_dir" >> "$GITHUB_PATH"
+          export PATH="$install_dir:$PATH"
           apm --version
 
       - name: Determine packages to test
