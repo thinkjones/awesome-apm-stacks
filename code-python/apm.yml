@@ -1,5 +1,5 @@
 name: code-python
-version: 0.0.1
+version: 0.0.2
 description: >
   Python development — best practices, FastMCP server building,
   pytest patterns, typing, and Python SDK guidance.
