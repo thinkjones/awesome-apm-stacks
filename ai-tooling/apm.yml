@@ -1,5 +1,5 @@
 name: ai-tooling
-version: 0.0.3
+version: 0.0.4
 description: >
   Meta-tooling for APM package authors — retrofit existing skills/plugins/agents
   repos into APM-compliant packages, scaffold manifests, and audit compliance.
