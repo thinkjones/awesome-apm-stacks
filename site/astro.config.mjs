@@ -5,5 +5,13 @@ import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
   site: "https://awesome-apm-stacks.foursignals.dev",
-  integrations: [sitemap(), tailwind()],
+  integrations: [
+    sitemap({
+      serialize(item) {
+        item.lastmod = new Date().toISOString().split('T')[0];
+        return item;
+      },
+    }),
+    tailwind(),
+  ],
 });
