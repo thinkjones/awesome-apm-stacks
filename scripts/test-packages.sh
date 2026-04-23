@@ -113,7 +113,42 @@ for pkg in "${PACKAGES[@]}"; do
     pkg_pass=false
   fi
 
-  # --- Check 2: apm install --dry-run ---
+  # --- Check 2: Subpath layout ---
+  # When a consumer runs `apm install thinkjones/awesome-apm-stacks/<pkg>`,
+  # APM's subpath resolver requires the dir to match one of three layouts:
+  #   Plugin:      plugin.json present (root, .github/plugin/,
+  #                .claude-plugin/, or .cursor-plugin/)
+  #   Claude Skill: root SKILL.md
+  #   APM package: .apm/ directory present
+  # Missing all three triggers:
+  #   "Subdirectory is not a valid APM package or Claude Skill:
+  #    Missing required directory: .apm/"
+  # The inside-the-package dry-run in Check 3 does NOT catch this — that
+  # only validates the package's own dependency graph, not how a downstream
+  # consumer would see it. Keep this check deterministic and offline.
+  layout=""
+  if   [[ -d "$pkg_dir/.apm" ]];                           then layout="apm-package"
+  elif [[ -f "$pkg_dir/plugin.json" ]] \
+    || [[ -f "$pkg_dir/.github/plugin/plugin.json" ]] \
+    || [[ -f "$pkg_dir/.claude-plugin/plugin.json" ]] \
+    || [[ -f "$pkg_dir/.cursor-plugin/plugin.json" ]];     then layout="plugin"
+  elif [[ -f "$pkg_dir/SKILL.md" ]];                       then layout="claude-skill"
+  fi
+
+  if [[ -n "$layout" ]]; then
+    printf "  Subpath layout:       ${GREEN}OK${RESET} (%s)\n" "$layout"
+  else
+    printf "  Subpath layout:       ${RED}FAIL${RESET}\n"
+    printf "    No .apm/ directory, plugin.json, or root SKILL.md found.\n"
+    printf "    Downstream 'apm install thinkjones/awesome-apm-stacks/%s' would fail\n" "$pkg"
+    printf "    with: 'Subdirectory is not a valid APM package or Claude Skill:\n"
+    printf "           Missing required directory: .apm/'\n"
+    printf "    Fix: add an empty .apm/.gitkeep for wrapper-only packages, or a\n"
+    printf "         plugin.json, or a root SKILL.md.\n"
+    pkg_pass=false
+  fi
+
+  # --- Check 3: apm install --dry-run ---
   if $APM_AVAILABLE; then
     apm_output=""
     if apm_output=$(cd "$pkg_dir" && apm install --dry-run 2>&1); then
