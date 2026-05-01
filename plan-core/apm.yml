@@ -1,5 +1,5 @@
 name: plan-core
-version: 0.0.1
+version: 0.0.2
 description: >
   Planning and task management — PRD generation, requirements refinement,
   epic/feature breakdown, QA planning, and implementation strategy.

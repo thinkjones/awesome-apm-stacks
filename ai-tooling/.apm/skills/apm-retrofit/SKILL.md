@@ -148,10 +148,19 @@ Before writing or moving anything:
 
 ### 8. Validate
 
-After moves and manifest are in place, do two checks — in this order, and report results:
+After moves and manifest are in place, do three checks — in this order, and report results:
 
 1. **YAML syntax** — parse the file with `python3 -c "import yaml; yaml.safe_load(open('apm.yml'))"`. If it fails, the skill has produced invalid YAML; stop and fix before anything else.
-2. **`apm install --dry-run`** — only if the `apm` CLI is available (`command -v apm`). Run from the repo root. On success, report "APM accepts this manifest." On failure, paste the error and propose a fix. A recurring failure mode to check for: "Missing required directory: .apm/" — that means the layout decision in Step 2 was wrong (primitives still outside `.apm/` with no `plugin.json`). Offer to re-plan moves.
+
+2. **Subpath layout** — the repo root (and every subdirectory that has its own `apm.yml`, e.g. a monorepo stack) must match one of APM's three consumer-install layouts, otherwise a downstream `apm install owner/repo[/subdir]` will fail with `Subdirectory is not a valid APM package or Claude Skill: Missing required directory: .apm/`. Crucially, a local `apm install --dry-run` run from *inside* the package will NOT catch this — it only validates the package's own dependency graph, not how a consumer sees it. Check each package dir for at least one of:
+
+   - a `.apm/` directory (APM package layout) — for pure wrappers with no primitives of their own, an empty `.apm/.gitkeep` is sufficient and is the correct fix;
+   - a `plugin.json` at root, `.github/plugin/`, `.claude-plugin/`, or `.cursor-plugin/` (plugin layout);
+   - a root `SKILL.md` (Claude-skill layout).
+
+   If none of the three is present, propose creating `.apm/.gitkeep` (or an appropriate primitive directory) and re-run validation. Do not mark the retrofit complete until this check passes.
+
+3. **`apm install --dry-run`** — only if the `apm` CLI is available (`command -v apm`). Run from the repo root. On success, report "APM accepts this manifest." On failure, paste the error and propose a fix. If the error is `Missing required directory: .apm/` despite Check 2 passing at the root, the failure is in a transitively-depended-on subpath — surface the path and repeat Check 2 there.
 
 Do **not** run `apm install` without `--dry-run`. Do **not** run `apm compile` — the user decides when to compile.
 

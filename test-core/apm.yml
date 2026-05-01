@@ -1,5 +1,5 @@
 name: test-core
-version: 0.0.1
+version: 0.0.2
 description: >
   Testing automation — E2E, integration testing, Playwright, polyglot
   test agents, and test planning.
