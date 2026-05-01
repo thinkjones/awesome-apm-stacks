@@ -11,9 +11,17 @@ dependencies:
     - google-labs-code/stitch-skills/skills/react-components
     - anthropics/knowledge-work-plugins/partner-built/brand-voice
   mcp:
-    - name: stitch
-      command: npx
-      args: [-y, "@_davideast/stitch-mcp", "proxy"]
-    - name: magic
-      command: npx
-      args: [-y, "@21st-dev/magic@latest"]
+  - name: filesystem
+    registry: false
+    transport: stdio
+    command: npx
+    args:
+    - -y
+    - '@_davideast/stitch-mcp'
+  - name: magic
+    registry: false
+    transport: stdio
+    command: npx
+    args:
+    - -y
+    - '@21st-dev/magic'
