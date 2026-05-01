@@ -27,6 +27,8 @@ node_modules/
 # APM dependencies
 apm_modules/
 .claude/
+.opencode/
+opencode.json
 .github/*
 !.github/workflows/
 

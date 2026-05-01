@@ -1,0 +1,119 @@
+lockfile_version: '1'
+generated_at: '2026-05-01T22:24:00.470551+00:00'
+apm_version: 0.11.0
+dependencies:
+- repo_url: anthropics/knowledge-work-plugins
+  host: github.com
+  resolved_commit: 9789ea78ad66e395a9c709146cacecdc14ce2abf
+  virtual_path: partner-built/brand-voice
+  is_virtual: true
+  package_type: marketplace_plugin
+  deployed_files:
+  - .opencode/agents/content-generation.md
+  - .opencode/agents/conversation-analysis.md
+  - .opencode/agents/discover-brand.md
+  - .opencode/agents/document-analysis.md
+  - .opencode/agents/quality-assurance.md
+  - .opencode/commands/discover-brand.md
+  - .opencode/commands/enforce-voice.md
+  - .opencode/commands/generate-guidelines.md
+  - .opencode/skills/brand-voice-enforcement
+  - .opencode/skills/discover-brand
+  - .opencode/skills/guideline-generation
+  deployed_file_hashes:
+    .opencode/agents/content-generation.md: sha256:ce35b5079520611a455590f23bc18f591c639b3da766f94f350250c32e7e145e
+    .opencode/agents/conversation-analysis.md: sha256:56f4372a35e6f82c1c8c837d7738d26d25cdc62c97c385c098209e924666af5e
+    .opencode/agents/discover-brand.md: sha256:1fe968c860d85ec9b210eb0c213da6308675937464a8ac7f870029c092068932
+    .opencode/agents/document-analysis.md: sha256:6bea19cfe763c7cd219efe02be995092699ffe3c2933f988a0922aea92d46ad4
+    .opencode/agents/quality-assurance.md: sha256:49f61dcd82f2cd7e00061b7c1fc973e83dc0f17e44b6b8156d79bbb0be798fe5
+    .opencode/commands/discover-brand.md: sha256:f6d5670358c1ba25362ae096031e164aec3c9e24ecbcbdca9ce1fe31a7c6be8f
+    .opencode/commands/enforce-voice.md: sha256:064f78f42a6e6734c946ea6ad8f8d17a33f651797756e62ec0882057a809abee
+    .opencode/commands/generate-guidelines.md: sha256:571c85a37b09d0e5e7b320185294a19a7096fe32bccca3a6eefc28903e8c837e
+  content_hash: sha256:ab11db040ab88bac713f9565fc8c2c0bc5f07d09011487bf3d2e17c6c0375c9e
+- repo_url: google-labs-code/stitch-skills
+  host: github.com
+  resolved_commit: 6c0cbdb909b7d256c8b9b3854c8c8f87aab2c140
+  virtual_path: skills/react-components
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .opencode/skills/react-components
+  content_hash: sha256:3966974b309281d45a99d6df54479347997a5a22c1d8690a8285ac369a9e2dfa
+- repo_url: google-labs-code/stitch-skills
+  host: github.com
+  resolved_commit: 6c0cbdb909b7d256c8b9b3854c8c8f87aab2c140
+  virtual_path: skills/stitch-design
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .opencode/skills/stitch-design
+  content_hash: sha256:399e548fbae5e7d29ee1ee09ffdc7ff62534d35126d86dcd94eb085580cb10f4
+- repo_url: nextlevelbuilder/ui-ux-pro-max-skill
+  host: github.com
+  resolved_commit: b7e3af80f6e331f6fb456667b82b12cade7c9d35
+  package_type: marketplace_plugin
+  deployed_files:
+  - .opencode/skills/ui-ux-pro-max
+  content_hash: sha256:f967740cfa8aced3860967f06558f8b3df7d843b325b104284201d7e645d17d4
+mcp_servers:
+- atlassian
+- box
+- figma
+- filesystem
+- gong
+- granola
+- magic
+- microsoft-365
+- notion
+mcp_configs:
+  atlassian:
+    name: atlassian
+    transport: http
+    registry: false
+    url: https://mcp.atlassian.com/v1/mcp
+  box:
+    name: box
+    transport: http
+    registry: false
+    url: https://mcp.box.com
+  figma:
+    name: figma
+    transport: http
+    registry: false
+    url: https://mcp.figma.com/mcp
+  filesystem:
+    name: filesystem
+    transport: stdio
+    args:
+    - -y
+    - '@_davideast/stitch-mcp'
+    registry: false
+    command: npx
+  gong:
+    name: gong
+    transport: http
+    registry: false
+    url: https://mcp.gong.io/mcp
+  granola:
+    name: granola
+    transport: http
+    registry: false
+    url: https://mcp.granola.ai/mcp
+  magic:
+    name: magic
+    transport: stdio
+    args:
+    - -y
+    - '@21st-dev/magic'
+    registry: false
+    command: npx
+  microsoft-365:
+    name: microsoft-365
+    transport: http
+    registry: false
+    url: https://microsoft365.mcp.claude.com/mcp
+  notion:
+    name: notion
+    transport: http
+    registry: false
+    url: https://mcp.notion.com/mcp
