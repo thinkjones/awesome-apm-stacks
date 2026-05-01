@@ -1,0 +1,19 @@
+name: website-ui-ux-with-stitch
+version: 0.0.1
+description: Google stitch website design workflow
+author: Gene Conroy-Jones
+type: hybrid
+target: all
+dependencies:
+  apm:
+    - nextlevelbuilder/ui-ux-pro-max-skill
+    - google-labs-code/stitch-skills/skills/stitch-design
+    - google-labs-code/stitch-skills/skills/react-components
+    - anthropics/knowledge-work-plugins/partner-built/brand-voice
+  mcp:
+    - name: stitch
+      command: npx
+      args: [-y, "@_davideast/stitch-mcp", "proxy"]
+    - name: magic
+      command: npx
+      args: [-y, "@21st-dev/magic@latest"]
