@@ -1,4 +1,6 @@
-# awesome-apm-stacks
+# Awesome (Agent Package Manager) APM Stacks
+
+[Sponsor me here](https://github.com/sponsors/thinkjones)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![APM Packages](https://img.shields.io/badge/APM_Packages-21-green.svg)](#packages)
