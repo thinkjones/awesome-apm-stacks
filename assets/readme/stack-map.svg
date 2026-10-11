@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="584" viewBox="0 0 1200 584" role="img" aria-labelledby="title desc">
+  <title id="title">The 21 stacks, grouped by concern</title>
+  <desc id="desc">Foundation: user-core, code-core. Language stacks: code-python, code-typescript, code-go, code-java, code-rust, code-csharp, code-mobile. Architecture and infrastructure: architect-devops, architect-dataops, architect-mlops, architect-cloud. Quality gates: security-core, test-core. Design and planning: design-frontend, plan-core, plan-docs. Agents and business: ai-agents, ai-tooling, business-core.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#000000" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect id="background" x="0.5" y="0.5" width="1199" height="583" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
+  <rect id="grid-overlay" x="0.5" y="0.5" width="1199" height="583" rx="4" fill="url(#grid)"/>
+  <g id="foundation">
+    <rect x="64.5" y="40.5" width="341" height="148" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="94" cy="78" r="6" fill="#e85d26"/>
+    <text x="112" y="86" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="24" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-0.5">Foundation</text>
+    <text x="381" y="85" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="end">02</text>
+    <text x="92" y="132" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">user-core</text>
+    <text x="92" y="168" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-core</text>
+  </g>
+  <g id="quality-gates">
+    <rect x="64.5" y="208.5" width="341" height="148" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="94" cy="246" r="6" fill="#EB5570"/>
+    <text x="112" y="254" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="24" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-0.5">Quality gates</text>
+    <text x="381" y="253" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="end">02</text>
+    <text x="92" y="300" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">security-core</text>
+    <text x="92" y="336" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">test-core</text>
+  </g>
+  <g id="agents-business">
+    <rect x="64.5" y="376.5" width="341" height="168" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="94" cy="414" r="6" fill="#00ff88"/>
+    <text x="112" y="422" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="24" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-0.5">Agents &amp; business</text>
+    <text x="381" y="421" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="end">03</text>
+    <text x="92" y="468" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">ai-agents</text>
+    <text x="92" y="500" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">ai-tooling</text>
+    <text x="92" y="532" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">business-core</text>
+  </g>
+  <g id="language-stacks">
+    <rect x="429.5" y="40.5" width="341" height="504" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="459" cy="78" r="6" fill="#00f5ff"/>
+    <text x="477" y="86" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="24" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-0.5">Language stacks</text>
+    <text x="746" y="85" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="end">07</text>
+    <text x="457" y="132" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-python</text>
+    <text x="457" y="194" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-typescript</text>
+    <text x="457" y="256" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-go</text>
+    <text x="457" y="318" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-java</text>
+    <text x="457" y="380" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-rust</text>
+    <text x="457" y="442" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-csharp</text>
+    <text x="457" y="504" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">code-mobile</text>
+  </g>
+  <g id="architecture">
+    <rect x="794.5" y="40.5" width="341" height="272" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="824" cy="78" r="6" fill="#d000ff"/>
+    <text x="842" y="86" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="24" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-0.5">Architecture</text>
+    <text x="1111" y="85" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="end">04</text>
+    <text x="822" y="132" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">architect-devops</text>
+    <text x="822" y="180" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">architect-dataops</text>
+    <text x="822" y="228" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">architect-mlops</text>
+    <text x="822" y="276" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">architect-cloud</text>
+  </g>
+  <g id="design-planning">
+    <rect x="794.5" y="332.5" width="341" height="212" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="824" cy="370" r="6" fill="#ffb800"/>
+    <text x="842" y="378" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="24" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-0.5">Design &amp; planning</text>
+    <text x="1111" y="377" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="end">03</text>
+    <text x="822" y="424" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">design-frontend</text>
+    <text x="822" y="468" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">plan-core</text>
+    <text x="822" y="512" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="500" fill="#0f172a" text-anchor="start">plan-docs</text>
+  </g>
+</svg>
