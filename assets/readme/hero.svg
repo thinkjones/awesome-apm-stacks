@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Awesome APM Stacks</title>
+  <desc id="desc">Curated, composable stacks of skills, agents and hooks for any AI coding agent. Four example stacks — security-core, code-python, code-core and user-core — are layered into one apm.yml.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#000000" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect id="background" x="0.5" y="0.5" width="1199" height="419" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
+  <rect id="grid-overlay" x="0.5" y="0.5" width="1199" height="419" rx="4" fill="url(#grid)"/>
+  <g id="title-block">
+    <g id="mark" fill="#e85d26"><rect x="64" y="58" width="8" height="8"/><rect x="76" y="58" width="8" height="8"/><rect x="88" y="58" width="8" height="8"/><rect x="64" y="70" width="8" height="8"/><rect x="76" y="70" width="8" height="8"/><rect x="88" y="70" width="8" height="8"/><rect x="64" y="82" width="8" height="8"/><rect x="76" y="82" width="8" height="8"/><rect x="88" y="82" width="8" height="8"/></g>
+    <text x="116" y="83" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="start" letter-spacing="3">// STACKS FOR MICROSOFT APM</text>
+    <text x="60" y="182" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="80" font-weight="700" fill="#0f172a" text-anchor="start" letter-spacing="-3">Awesome</text>
+    <text x="60" y="264" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="80" font-weight="700" fill="#e85d26" text-anchor="start" letter-spacing="-3">APM Stacks.</text>
+    <text x="64" y="316" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="400" fill="#475569" text-anchor="start">Curated, composable stacks of skills, agents</text>
+    <text x="64" y="348" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="400" fill="#475569" text-anchor="start">and hooks for any AI coding agent.</text>
+    <text x="64" y="392" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="start">21 stacks · 10 upstream sources · 1,000+ stars each</text>
+  </g>
+  <g id="stack-proof">
+    <text x="700" y="83" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="start" letter-spacing="1">// ONE apm.yml, LAYERED BY CONCERN</text>
+    <rect x="700.5" y="106.5" width="436" height="56" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="726" cy="134" r="6" fill="#EB5570"/>
+    <text x="746" y="141" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="600" fill="#0f172a" text-anchor="start">security-core</text>
+    <text x="1116" y="141" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="end">quality gate</text>
+    <rect x="700.5" y="172.5" width="436" height="56" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="726" cy="200" r="6" fill="#00f5ff"/>
+    <text x="746" y="207" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="600" fill="#0f172a" text-anchor="start">code-python</text>
+    <text x="1116" y="207" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="end">language stack</text>
+    <rect x="700.5" y="238.5" width="436" height="56" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="726" cy="266" r="6" fill="#e85d26"/>
+    <text x="746" y="273" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="600" fill="#0f172a" text-anchor="start">code-core</text>
+    <text x="1116" y="273" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="end">engineering baseline</text>
+    <rect x="700.5" y="304.5" width="436" height="56" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <circle cx="726" cy="332" r="6" fill="#e85d26"/>
+    <text x="746" y="339" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="600" fill="#0f172a" text-anchor="start">user-core</text>
+    <text x="1116" y="339" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="end">every project</text>
+    <text x="700" y="394" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="600" fill="#e85d26" text-anchor="start">&gt; apm install &amp;&amp; apm compile</text>
+  </g>
+</svg>

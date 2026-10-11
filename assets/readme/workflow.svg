@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+  <title id="title">How APM stacks reach your agent</title>
+  <desc id="desc">Three steps: declare stacks in apm.yml, run apm install to fetch and lock them into apm_modules, then run apm compile to emit the files your agent reads, such as CLAUDE.md and AGENTS.md.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#000000" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect id="background" x="0.5" y="0.5" width="1199" height="399" rx="4" fill="#f8fafc" stroke="#e2e8f0"/>
+  <rect id="grid-overlay" x="0.5" y="0.5" width="1199" height="399" rx="4" fill="url(#grid)"/>
+  <g id="step-1">
+    <rect x="64.5" y="40.5" width="336" height="250" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="92" y="86" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="600" fill="#e85d26" text-anchor="start" letter-spacing="2">01 // DECLARE</text>
+    <text x="92" y="136" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="32" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-1">List your stacks</text>
+    <text x="92" y="178" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="400" fill="#475569" text-anchor="start">One line per stack in</text>
+    <text x="92" y="206" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="400" fill="#475569" text-anchor="start">your project's apm.yml.</text>
+    <rect x="92.5" y="230.5" width="280" height="40" rx="2" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="108" y="257" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">apm.yml</text>
+    <path d="M406 165h18m-7 -7l7 7l-7 7" fill="none" stroke="#e85d26" stroke-width="2"/>
+  </g>
+  <g id="step-2">
+    <rect x="432.5" y="40.5" width="336" height="250" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="460" y="86" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="600" fill="#e85d26" text-anchor="start" letter-spacing="2">02 // INSTALL</text>
+    <text x="460" y="136" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="32" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-1">Fetch and lock</text>
+    <text x="460" y="178" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="400" fill="#475569" text-anchor="start">Resolves every dependency</text>
+    <text x="460" y="206" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="400" fill="#475569" text-anchor="start">into apm_modules/.</text>
+    <rect x="460.5" y="230.5" width="280" height="40" rx="2" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="476" y="257" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">$ apm install</text>
+    <path d="M774 165h18m-7 -7l7 7l-7 7" fill="none" stroke="#e85d26" stroke-width="2"/>
+  </g>
+  <g id="step-3">
+    <rect x="800.5" y="40.5" width="336" height="250" rx="4" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="828" y="86" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="600" fill="#e85d26" text-anchor="start" letter-spacing="2">03 // COMPILE</text>
+    <text x="828" y="136" font-family="'Source Serif 4', Georgia, 'Times New Roman', serif" font-size="32" font-weight="600" fill="#0f172a" text-anchor="start" letter-spacing="-1">Emit agent files</text>
+    <text x="828" y="178" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="400" fill="#475569" text-anchor="start">Writes the instruction files</text>
+    <text x="828" y="206" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="400" fill="#475569" text-anchor="start">your agent actually reads.</text>
+    <rect x="828.5" y="230.5" width="280" height="40" rx="2" fill="#f8fafc" stroke="#e2e8f0"/>
+    <text x="844" y="257" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">$ apm compile</text>
+  </g>
+  <g id="outputs">
+    <text x="64" y="349" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="500" fill="#475569" text-anchor="start" letter-spacing="2">LANDS IN YOUR REPO AS</text>
+    <rect x="340.5" y="322.5" width="132" height="40" rx="2" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="354" y="349" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">CLAUDE.md</text>
+    <rect x="484.5" y="322.5" width="132" height="40" rx="2" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="498" y="349" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">AGENTS.md</text>
+    <rect x="628.5" y="322.5" width="120" height="40" rx="2" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="642" y="349" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">.claude/</text>
+    <rect x="760.5" y="322.5" width="120" height="40" rx="2" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="774" y="349" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">.github/</text>
+    <rect x="892.5" y="322.5" width="120" height="40" rx="2" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="906" y="349" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">.cursor/</text>
+    <rect x="1024.5" y="322.5" width="144" height="40" rx="2" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="1038" y="349" font-family="'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" font-weight="500" fill="#0f172a" text-anchor="start">.opencode/</text>
+  </g>
+</svg>
