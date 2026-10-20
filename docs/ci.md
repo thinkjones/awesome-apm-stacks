@@ -19,8 +19,22 @@ Branch protection on `main` requires both checks below. The protection object li
 | `.github/workflows/test-packages-daily.yml` | `schedule` `0 6 * * *`, `workflow_dispatch`, `push` to `main` | Validates every package in the repository. Unconditional — no commit-recency and no day-of-week throttle. |
 | `.github/workflows/version-check.yml` | `pull_request` against `main` | Version-bump enforcement. |
 | `.github/workflows/update-wrappers.yml` | `schedule` `0 6 * * 1` (Mondays), `workflow_dispatch` | Regenerates `wrappers/`. Independent of package validation. |
-| `.github/workflows/release.yml` | Tag push | Publishes a tag and GitHub Release for every version bump. |
+| `.github/workflows/release.yml` | `push` to `main` | Publishes a tag and GitHub Release for every version bump. |
 | `.github/workflows/deploy-site.yml` | Site deployment | Deploys the `site/` Astro project. |
+
+## Prerequisite
+
+`test-packages` must be a live workflow before it is added to the required status checks for `main`. The `test-packages` workflow is currently disabled in this repository (`disabled_inactivity`, workflow id `257954234`), so it reports nothing — a required check that never reports blocks every merge to `main` instead of gating it.
+
+Re-enable it (a repository-settings mutation, deliberately left to a maintainer):
+
+```bash
+gh api --method PUT repos/thinkjones/awesome-apm-stacks/actions/workflows/257954234/enable
+```
+
+`.github/workflows/test-packages-daily.yml` is new in this change, so it is created active by default and needs no re-enable. Re-enable **after** the pull request merges: the enabled copy on `main` is the pre-change file, and re-enabling earlier would resume the old throttled daily sweep.
+
+Confirm that a `test-packages` check reports on a pull request before applying the branch-protection change below.
 
 ## Changing the required checks
 
