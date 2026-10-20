@@ -13,6 +13,7 @@ set -euo pipefail
 #   entrypoint  - scripts/pre-commit-validate.sh refuses a commit whose staged
 #                 packages fail validation
 #   wiring      - husky installs the gate in a fresh clone
+#   pre-push    - .husky/pre-push refuses a push to refs/heads/main
 #
 # The mapper and entrypoint sections need neither `apm` nor the network: every
 # case builds a throwaway git repository in a temporary directory and runs the
@@ -560,6 +561,66 @@ if git -C "$clone" check-ignore -q package-lock.json; then
 else
   pass "wiring 5  package-lock.json is not ignored"
 fi
+
+# ── Section: pre-push ──────────────────────────────────────────────────────
+#
+# The pre-push section needs a real push, so each case gets its own clone with
+# a bare remote. The clone needs `npm install` too: without it core.hooksPath
+# is unset, no hook exists in the clone at all, and the refusal cases could
+# never observe one.
+
+section "pre-push"
+
+push_clone() {
+  # push_clone <dir> - clone the repository, point origin at a bare remote and
+  # install the hook. Prints the clone's path.
+  local dir="$1"
+  local remote="$TMP_ROOT/$(basename "$dir")-remote.git"
+  git init --bare --quiet "$remote"
+  clone_repo "$dir" >/dev/null
+  git -C "$dir" remote set-url origin "$remote"
+  npm_install "$dir"
+  printf '%s\n' "$dir"
+}
+
+PUSH_OUT=""
+PUSH_EXIT=0
+
+push_to() {
+  # push_to <clone> <refspec...> - push and capture the output
+  local dir="$1"
+  shift
+  PUSH_OUT=""
+  PUSH_EXIT=0
+  if PUSH_OUT="$(git -C "$dir" push origin "$@" 2>&1)"; then
+    PUSH_EXIT=0
+  else
+    PUSH_EXIT=$?
+  fi
+}
+
+# Case 1: a push that does not update refs/heads/main goes through.
+clone="$(push_clone "$TMP_ROOT/push-feature")"
+git -C "$clone" checkout -q -b feature/x
+push_to "$clone" feature/x
+expect_eq "pre-push 1  pushing a feature branch succeeds" 0 "$PUSH_EXIT"
+
+# Case 2: a push that updates refs/heads/main is refused. The branch is
+# created from the clone's own HEAD: main does not carry the hook files yet,
+# and checking main out would delete them from the clone.
+clone="$(push_clone "$TMP_ROOT/push-main")"
+git -C "$clone" checkout -q -b main
+push_to "$clone" main
+expect_eq "pre-push 2  pushing main is refused" 1 "$PUSH_EXIT"
+expect_contains "pre-push 2  the refusal names the branch" "$PUSH_OUT" "refs/heads/main"
+
+# Case 3: the refusal reads the pushed refs, not the current branch - a
+# detached HEAD pushing refs/heads/main is refused as well.
+clone="$(push_clone "$TMP_ROOT/push-detached")"
+git -C "$clone" checkout -q -b main
+git -C "$clone" checkout -q --detach refs/heads/main
+push_to "$clone" refs/heads/main
+expect_eq "pre-push 3  pushing main from a detached HEAD is refused" 1 "$PUSH_EXIT"
 
 # ── Summary ────────────────────────────────────────────────────────────────
 
