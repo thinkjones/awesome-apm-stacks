@@ -275,11 +275,11 @@ The test suite validates every APM package manifest in the repository:
 
 > **Note:** The script requires `python3` with the `pyyaml` package (`pip install pyyaml`). If the `apm` CLI is not installed, dry-run checks are skipped with a warning.
 
-Tests run automatically via GitHub Actions (`.github/workflows/test-packages.yml`):
+Tests run automatically via GitHub Actions — `.github/workflows/test-packages.yml` on pull requests, `.github/workflows/test-packages-daily.yml` for the daily sweep:
 
-- **On push to main** — tests only the packages whose files changed
-- **Daily (6 AM UTC)** — runs all package tests if there were commits in the last 24 hours, or on Mondays as a weekly sweep
-- **Manual** — trigger from the Actions tab; optionally specify packages
+- **On pull requests** — validates the packages the pull request changed, as the required `test-packages` status check
+- **Daily (6 AM UTC)** — validates every package, every day, with no throttle
+- **Manual** — trigger the daily sweep from the Actions tab; optionally specify packages
 
 ## About this repo
 
