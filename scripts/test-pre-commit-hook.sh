@@ -622,6 +622,22 @@ git -C "$clone" checkout -q --detach refs/heads/main
 push_to "$clone" refs/heads/main
 expect_eq "pre-push 3  pushing main from a detached HEAD is refused" 1 "$PUSH_EXIT"
 
+# Case 4: the decision is made from the remote ref, not the local one.
+# `git push origin HEAD:main` updates refs/heads/main on the remote while
+# the local ref is HEAD, so it must be refused.
+clone="$(push_clone "$TMP_ROOT/push-head-to-main")"
+push_to "$clone" HEAD:main
+expect_eq "pre-push 4  pushing HEAD to main is refused" 1 "$PUSH_EXIT"
+expect_contains "pre-push 4  the refusal names the branch" "$PUSH_OUT" "refs/heads/main"
+
+# Case 5: the companion of case 4 - a push that names main locally but
+# updates another branch on the remote never touches refs/heads/main, so it
+# must be allowed.
+clone="$(push_clone "$TMP_ROOT/push-main-to-side")"
+git -C "$clone" checkout -q -b main
+push_to "$clone" main:refs/heads/side
+expect_eq "pre-push 5  pushing main to a side branch succeeds" 0 "$PUSH_EXIT"
+
 # ── Summary ────────────────────────────────────────────────────────────────
 
 printf '\n%s checks, %s failed\n' "$CHECKS" "$FAILURES"
