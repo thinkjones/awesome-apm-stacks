@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Refuse a commit that breaks an APM package's shape.
+root="$(git rev-parse --show-toplevel)"
+exec "$root/scripts/pre-commit-validate.sh"

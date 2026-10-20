@@ -12,11 +12,14 @@ set -euo pipefail
 #                 set of affected APM packages
 #   entrypoint  - scripts/pre-commit-validate.sh refuses a commit whose staged
 #                 packages fail validation
+#   wiring      - husky installs the gate in a fresh clone
 #
 # The mapper and entrypoint sections need neither `apm` nor the network: every
 # case builds a throwaway git repository in a temporary directory and runs the
 # gate inside it. The entrypoint section puts an `apm` stub on PATH, or takes
-# the real `apm` off PATH, so the branch under test is the one that runs.
+# the real `apm` off PATH, so the branch under test is the one that runs. The
+# wiring section clones the repository and runs `npm install` in the clone, so
+# it needs the npm registry.
 #
 # Every check prints PASS <name> or FAIL <name>. The script prints a final
 # "N checks, M failed" line and exits 1 if any check failed.
@@ -453,6 +456,110 @@ git -C "$repo" rm -q pkg/.apm/.gitkeep
 git -C "$repo" add pkg/valid-plugin.json pkg/plugin.json
 run_hook with-apm "$repo"
 expect_eq "hook 10 plugin layout exits 0" 0 "$HOOK_EXIT"
+
+# ── Section: wiring ────────────────────────────────────────────────────────
+#
+# The wiring section clones the repository under test and installs the hook
+# there. `git clone` carries only committed state, so the wiring files have to
+# be committed before this section can observe them.
+
+section "wiring"
+
+clone_repo() {
+  # clone_repo <dir> - clone the repository under test, configure the clone
+  # and print its path
+  local dir="$1"
+  local branch
+  branch="$(git -C "$REPO_ROOT" branch --show-current)"
+  git clone --quiet --branch "$branch" "$REPO_ROOT" "$dir"
+  git -C "$dir" config user.email "hook-test@example.com"
+  git -C "$dir" config user.name "Hook Test"
+  git -C "$dir" config commit.gpgsign false
+  printf '%s\n' "$dir"
+}
+
+npm_install() {
+  # npm_install <dir> - run the dependency install in a throwaway clone.
+  # A failure is reported but does not abort the harness: the assertions that
+  # follow say exactly what the missing install broke.
+  local dir="$1"
+  local log="$TMP_ROOT/npm-install.log"
+  if (cd "$dir" && npm install --no-audit --no-fund) >"$log" 2>&1; then
+    return 0
+  fi
+  printf 'npm install failed in %s:\n' "$dir" >&2
+  cat "$log" >&2
+  return 0
+}
+
+commit_in() {
+  # commit_in <clone> <message> - commit in the clone and capture the output.
+  # The commit runs with apm absent, exactly as the entrypoint cases do, so
+  # the assertion does not depend on whether the machine has the CLI.
+  local dir="$1" message="$2"
+  COMMIT_OUT=""
+  COMMIT_EXIT=0
+  if without_apm sh -c 'cd "$1" && git commit --allow-empty -m "$2"' sh "$dir" "$message" \
+      >"$TMP_ROOT/commit-out.txt" 2>&1; then
+    COMMIT_EXIT=0
+  else
+    COMMIT_EXIT=$?
+  fi
+  COMMIT_OUT="$(cat "$TMP_ROOT/commit-out.txt")"
+}
+
+# Case 1: a fresh clone where the contributor never ran the dependency install
+# has no hook at all and the commit proceeds ungated. That absence is the
+# documented state, not a defect.
+clone="$(clone_repo "$TMP_ROOT/wiring-no-install")"
+hooks_path="$(git -C "$clone" config --get core.hooksPath || true)"
+expect_eq "wiring 1  core.hooksPath is unset without the install" "" "$hooks_path"
+if [ -e "$clone/.git/hooks/pre-commit" ]; then
+  fail "wiring 1  .git/hooks/pre-commit does not exist without the install"
+else
+  pass "wiring 1  .git/hooks/pre-commit does not exist without the install"
+fi
+commit_in "$clone" "no hook installed"
+expect_eq "wiring 1  an empty commit succeeds without the install" 0 "$COMMIT_EXIT"
+
+# Cases 2-5: the same clone after `npm install`.
+clone="$(clone_repo "$TMP_ROOT/wiring-installed")"
+npm_install "$clone"
+hooks_path="$(git -C "$clone" config --get core.hooksPath || true)"
+expect_eq "wiring 2  core.hooksPath is .husky/_ after the install" ".husky/_" "$hooks_path"
+if [ -f "$clone/.husky/_/pre-commit" ]; then
+  pass "wiring 2  .husky/_/pre-commit exists after the install"
+else
+  fail "wiring 2  .husky/_/pre-commit exists after the install"
+fi
+
+status_out="$(git -C "$clone" status --porcelain)"
+expect_not_contains "wiring 3  git status shows no .husky/_ entry" "$status_out" ".husky/_"
+
+mkdir -p "$clone/pkg/.apm"
+write_manifest "$clone/pkg/apm.yml" "pkg"
+: > "$clone/pkg/.apm/.gitkeep"
+printf 'name: [unclosed\n' > "$clone/pkg/apm.yml"
+git -C "$clone" add pkg/apm.yml pkg/.apm/.gitkeep
+commit_in "$clone" "broken manifest"
+expect_eq "wiring 4  the commit is refused" 1 "$COMMIT_EXIT"
+expect_contains "wiring 4  the refusal names the offending path" "$COMMIT_OUT" "pkg/apm.yml"
+expect_contains "wiring 4  the refusal names the failing rule" "$COMMIT_OUT" "YAML syntax"
+
+if [ -f "$clone/package-lock.json" ]; then
+  pass "wiring 5  package-lock.json exists in the working tree"
+else
+  fail "wiring 5  package-lock.json exists in the working tree"
+fi
+# npm writes an empty lockfile even when the install itself fails, so the
+# lockfile has to be the project's own to count.
+expect_contains "wiring 5  package-lock.json is the project's lockfile" \
+  "$(cat "$clone/package-lock.json" 2>/dev/null || true)" "husky"
+if git -C "$clone" check-ignore -q package-lock.json; then
+  fail "wiring 5  package-lock.json is not ignored"
+else
+  pass "wiring 5  package-lock.json is not ignored"
+fi
 
 # ── Summary ────────────────────────────────────────────────────────────────
 
