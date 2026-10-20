@@ -1,0 +1,45 @@
+name: Test APM Packages (Daily)
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Daily at 06:00 UTC — unconditional, no throttle
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: 'Space-separated package names to test (empty = all)'
+        required: false
+        default: ''
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  test-packages-daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: Install APM CLI
+        uses: ./.github/actions/install-apm
+
+      - name: Run package tests
+        env:
+          INPUT_PACKAGES: ${{ github.event.inputs.packages }}
+        run: |
+          if [ -n "$INPUT_PACKAGES" ]; then
+            ./scripts/test-packages.sh --ci $INPUT_PACKAGES
+          else
+            ./scripts/test-packages.sh --ci
+          fi
