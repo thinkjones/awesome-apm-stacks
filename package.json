@@ -1,0 +1,13 @@
+{
+  "name": "awesome-apm-stacks",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Curated APM stacks, skills, and agent tooling",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}

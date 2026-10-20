@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+# Refuse a push that would update refs/heads/main.
+#
+# git runs this hook with the push's ref list on stdin, one line per updated
+# ref: "<local ref> <local sha> <remote ref> <remote sha>". The decision is
+# made from the remote ref, so a push of main from a detached HEAD is refused.
+#
+# Usage: run by git as the pre-push hook; no arguments are needed.
+#
+# Exit codes:
+#   0  the push does not update refs/heads/main
+#   1  the push would update refs/heads/main
+
+while IFS=' ' read -r local_ref local_sha remote_ref remote_sha || [ -n "$local_ref" ]; do
+  if [ "$remote_ref" = "refs/heads/main" ]; then
+    printf 'pre-push: refusing to update refs/heads/main.\n'
+    printf 'pre-push: open a pull request instead of pushing to main.\n'
+    exit 1
+  fi
+done
+
+exit 0
