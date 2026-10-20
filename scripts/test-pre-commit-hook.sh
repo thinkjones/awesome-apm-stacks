@@ -10,10 +10,13 @@ set -euo pipefail
 # Sections:
 #   mapper      - scripts/staged-packages.sh maps the staged changeset to the
 #                 set of affected APM packages
+#   entrypoint  - scripts/pre-commit-validate.sh refuses a commit whose staged
+#                 packages fail validation
 #
-# The mapper section needs neither `apm` nor the network: every case builds a
-# throwaway git repository in a temporary directory and runs the mapper inside
-# it.
+# The mapper and entrypoint sections need neither `apm` nor the network: every
+# case builds a throwaway git repository in a temporary directory and runs the
+# gate inside it. The entrypoint section puts an `apm` stub on PATH, or takes
+# the real `apm` off PATH, so the branch under test is the one that runs.
 #
 # Every check prints PASS <name> or FAIL <name>. The script prints a final
 # "N checks, M failed" line and exits 1 if any check failed.
@@ -93,6 +96,8 @@ make_repo() {
   write_manifest "$dir/pkg/apm.yml" "pkg"
   : > "$dir/pkg/.apm/.gitkeep"
   printf 'print("fixture")\n' > "$dir/pkg/src/main.py"
+  printf 'name: [unclosed\n' > "$dir/pkg/broken.yml"
+  printf '{}\n' > "$dir/pkg/valid-plugin.json"
   write_manifest "$dir/pkg2/apm.yml" "pkg2"
   : > "$dir/pkg2/.apm/.gitkeep"
   write_manifest "$dir/examples/demo/apm.yml" "demo"
@@ -150,6 +155,114 @@ expect_mapper() {
   else
     fail "$name - expected stdout=[$expected_out] exit=[$expected_exit], got stdout=[$out] exit=[$exit_code]"
   fi
+}
+
+HOOK_OUT=""
+HOOK_ERR=""
+HOOK_EXIT=0
+
+run_hook() {
+  # run_hook <mode> <dir> - run the entrypoint inside the fixture repository.
+  # mode is plain, with-apm or without-apm. The results land in HOOK_OUT,
+  # HOOK_ERR and HOOK_EXIT.
+  local mode="$1" dir="$2"
+  local out_file="$TMP_ROOT/hook-out.txt" err_file="$TMP_ROOT/hook-err.txt"
+  HOOK_OUT=""
+  HOOK_ERR=""
+  HOOK_EXIT=0
+
+  case "$mode" in
+    plain)
+      if (cd "$dir" && scripts/pre-commit-validate.sh >"$out_file" 2>"$err_file"); then
+        HOOK_EXIT=0
+      else
+        HOOK_EXIT=$?
+      fi
+      ;;
+    with-apm)
+      if with_apm 0 sh -c 'cd "$1" && scripts/pre-commit-validate.sh' sh "$dir" \
+          >"$out_file" 2>"$err_file"; then
+        HOOK_EXIT=0
+      else
+        HOOK_EXIT=$?
+      fi
+      ;;
+    without-apm)
+      if without_apm sh -c 'cd "$1" && scripts/pre-commit-validate.sh' sh "$dir" \
+          >"$out_file" 2>"$err_file"; then
+        HOOK_EXIT=0
+      else
+        HOOK_EXIT=$?
+      fi
+      ;;
+    *)
+      fail "run_hook: unknown mode $mode"
+      return 0
+      ;;
+  esac
+
+  HOOK_OUT="$(cat "$out_file")"
+  HOOK_ERR="$(cat "$err_file")"
+}
+
+# ── PATH helpers ───────────────────────────────────────────────────────────
+#
+# `apm` is installed on the maintainer's machine, so a case that needs the
+# "apm is absent" branch has to take the real binary out of PATH - outranking
+# it with a stub is not enough.
+
+path_without_apm() {
+  # Print a PATH in which the real `apm` cannot be found. The directory that
+  # holds it is replaced by a mirror of itself without `apm`, so every other
+  # tool stays reachable.
+  local apm_path="" apm_dir="" entry out=""
+  apm_path="$(command -v apm || true)"
+  if [ -n "$apm_path" ]; then
+    apm_dir="$(cd "$(dirname "$apm_path")" && pwd)"
+  fi
+
+  local mirror="$TMP_ROOT/path-without-apm"
+  mkdir -p "$mirror"
+  if [ -n "$apm_dir" ]; then
+    for entry in "$apm_dir"/*; do
+      [ -e "$entry" ] || continue
+      case "$(basename "$entry")" in
+        apm) continue ;;
+      esac
+      ln -sf "$entry" "$mirror/$(basename "$entry")" 2>/dev/null || true
+    done
+  fi
+
+  local old_ifs="$IFS"
+  IFS=':'
+  for entry in $PATH; do
+    [ -n "$entry" ] || continue
+    if [ -n "$apm_dir" ] && [ "$(cd "$entry" 2>/dev/null && pwd)" = "$apm_dir" ]; then
+      out="$out:$mirror"
+    else
+      out="$out:$entry"
+    fi
+  done
+  IFS="$old_ifs"
+  printf '%s\n' "${out#:}"
+}
+
+with_apm() {
+  # with_apm <exit_code> <command...> - run a command with an `apm` stub that
+  # exits with the given code, and with the real apm removed from PATH
+  local exit_code="$1"
+  shift
+  local stub_dir="$TMP_ROOT/apm-stub"
+  mkdir -p "$stub_dir"
+  printf '#!/usr/bin/env sh\nexit %s\n' "$exit_code" > "$stub_dir/apm"
+  chmod +x "$stub_dir/apm"
+  PATH="$stub_dir:$(path_without_apm)" "$@"
+}
+
+without_apm() {
+  # without_apm <command...> - run a command with the real apm removed from
+  # PATH and no stub at all
+  PATH="$(path_without_apm)" "$@"
 }
 
 # ── Section: mapper ────────────────────────────────────────────────────────
@@ -254,6 +367,92 @@ if [ "$out" = "" ] && [ "$exit_code" = "2" ]; then
 else
   fail "mapper 17 run outside a git repository - expected stdout=[] exit=[2], got stdout=[$out] exit=[$exit_code]"
 fi
+
+# ── Section: entrypoint ────────────────────────────────────────────────────
+
+section "entrypoint"
+
+repo="$(fixture_repo hook-none)"
+run_hook plain "$repo"
+expect_eq "hook 1  nothing staged exits 0" 0 "$HOOK_EXIT"
+expect_eq "hook 1  nothing staged prints nothing on stdout" "" "$HOOK_OUT"
+expect_eq "hook 1  nothing staged prints nothing on stderr" "" "$HOOK_ERR"
+
+repo="$(fixture_repo hook-readme)"
+touch_content "$repo/README.md"
+git -C "$repo" add README.md
+run_hook plain "$repo"
+expect_eq "hook 2  only README.md staged exits 0" 0 "$HOOK_EXIT"
+expect_eq "hook 2  only README.md staged prints nothing on stdout" "" "$HOOK_OUT"
+expect_eq "hook 2  only README.md staged prints nothing on stderr" "" "$HOOK_ERR"
+
+repo="$(fixture_repo hook-site)"
+touch_content "$repo/site/index.astro"
+git -C "$repo" add site/index.astro
+run_hook plain "$repo"
+expect_eq "hook 3  only site/index.astro staged exits 0" 0 "$HOOK_EXIT"
+expect_eq "hook 3  only site/index.astro staged prints nothing on stdout" "" "$HOOK_OUT"
+expect_eq "hook 3  only site/index.astro staged prints nothing on stderr" "" "$HOOK_ERR"
+
+repo="$(fixture_repo hook-valid)"
+touch_content "$repo/pkg/apm.yml"
+git -C "$repo" add pkg/apm.yml
+run_hook with-apm "$repo"
+expect_eq "hook 4  valid package exits 0" 0 "$HOOK_EXIT"
+expect_contains "hook 4  stdout names the package" "$HOOK_OUT" "pkg"
+expect_contains "hook 4  stdout shows the result" "$HOOK_OUT" "Result:"
+expect_contains "hook 4  stdout shows the verdict" "$HOOK_OUT" "PASS"
+expect_contains "hook 4  stdout shows the package count" "$HOOK_OUT" "Total:"
+expect_contains "hook 4  stdout shows the passed count" "$HOOK_OUT" "Passed:"
+
+repo="$(fixture_repo hook-broken-yaml)"
+cp "$repo/pkg/broken.yml" "$repo/pkg/apm.yml"
+git -C "$repo" add pkg/apm.yml
+run_hook with-apm "$repo"
+expect_eq "hook 5  broken manifest exits 1" 1 "$HOOK_EXIT"
+expect_contains "hook 5  stdout names the offending path" "$HOOK_OUT" "pkg/apm.yml"
+expect_contains "hook 5  stdout names the failing rule" "$HOOK_OUT" "YAML syntax"
+expect_contains "hook 5  stdout shows the verdict" "$HOOK_OUT" "FAIL"
+
+repo="$(fixture_repo hook-broken-layout)"
+git -C "$repo" rm -q pkg/.apm/.gitkeep
+run_hook with-apm "$repo"
+expect_eq "hook 6  missing .apm/ exits 1" 1 "$HOOK_EXIT"
+expect_contains "hook 6  stdout names the failing rule" "$HOOK_OUT" "Subpath layout"
+expect_contains "hook 6  stdout shows the verdict" "$HOOK_OUT" "FAIL"
+
+repo="$(fixture_repo hook-no-apm-valid)"
+touch_content "$repo/pkg/apm.yml"
+git -C "$repo" add pkg/apm.yml
+run_hook without-apm "$repo"
+expect_eq "hook 7  valid package without apm exits 0" 0 "$HOOK_EXIT"
+expect_contains "hook 7  stderr explains the missing CLI" "$HOOK_ERR" "apm CLI not found"
+expect_contains "hook 7  stderr gives the install command" "$HOOK_ERR" "curl -sSL https://aka.ms/apm-unix | sh"
+expect_not_contains "hook 7  stdout does not claim --ci needs apm" "$HOOK_OUT" "apm CLI not found — required in --ci mode"
+
+repo="$(fixture_repo hook-no-apm-broken)"
+cp "$repo/pkg/broken.yml" "$repo/pkg/apm.yml"
+git -C "$repo" add pkg/apm.yml
+run_hook without-apm "$repo"
+expect_eq "hook 8  broken manifest without apm exits 1" 1 "$HOOK_EXIT"
+expect_contains "hook 8  stdout names the offending path" "$HOOK_OUT" "pkg/apm.yml"
+expect_contains "hook 8  stdout names the failing rule" "$HOOK_OUT" "YAML syntax"
+expect_not_contains "hook 8  stdout does not blame the missing CLI" "$HOOK_OUT" "required in --ci mode"
+
+repo="$(fixture_repo hook-renamed-manifest)"
+git -C "$repo" mv pkg/apm.yml pkg/apm.yml.bak
+run_hook with-apm "$repo"
+expect_eq "hook 9  renamed manifest exits 1" 1 "$HOOK_EXIT"
+expect_contains "hook 9  stderr names the missing package" "$HOOK_ERR" "Package 'pkg' not found"
+expect_eq "hook 9  stdout is empty" "" "$HOOK_OUT"
+
+repo="$(fixture_repo hook-plugin-layout)"
+touch_content "$repo/pkg/valid-plugin.json"
+printf '{}\n' > "$repo/pkg/plugin.json"
+git -C "$repo" rm -q pkg/.apm/.gitkeep
+git -C "$repo" add pkg/valid-plugin.json pkg/plugin.json
+run_hook with-apm "$repo"
+expect_eq "hook 10 plugin layout exits 0" 0 "$HOOK_EXIT"
 
 # ── Summary ────────────────────────────────────────────────────────────────
 
