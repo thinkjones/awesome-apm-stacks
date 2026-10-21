@@ -37,3 +37,25 @@ docs/tmp/
 
 # Playwright MCP verification artifacts
 .playwright-mcp/
+
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/fs-app-design/
+!.claude/skills/scope-roadmap/
+!.claude/skills/business-logic-gap-analysis/
+.gemini/
+.codex/
+CLAUDE.md
+.gc
+.stitch
+
+# Gas City runtime state (never commit)
+.gc/
+.beads/
+.agents/
+.dolt-backup/
+.claude/
+# generated per-city tier fragments are committed; runtime is not
+*.log
+.DS_Store
