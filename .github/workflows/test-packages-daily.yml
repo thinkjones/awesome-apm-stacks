@@ -78,18 +78,32 @@ jobs:
             ./scripts/test-packages.sh --ci
           fi
 
-  check-upstream-drift:
-    # The root apm.lock.yaml pins the repository's own development
-    # dependencies. `apm outdated` reports the locked dependencies whose
-    # upstream refs have moved since the lock was written; a non-empty report
-    # means the lock is stale and the local development context no longer
-    # matches upstream.
-    #
-    # The packages this registry publishes are resolved from each package's
-    # apm.yml at consumer install time, not from this lock. Drift in those is
-    # caught by the package validation job above (a path that no longer exists
-    # fails to resolve) and by the wrapper freshness job below (an upstream
-    # that restructured moves the generated wrapper).
+  check-lockfile-in-sync:
+    # The root apm.lock.yaml must cover every dependency the root apm.yml
+    # declares. A dependency that was added to the manifest and never locked
+    # is how the lock stops describing what the project depends on.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: Check the lockfile against the manifest
+        run: ./scripts/check-lockfile-in-sync.sh
+
+  report-locked-dependency-drift:
+    # Which of the locked dependencies have newer upstream refs. This is a
+    # report, not a gate: a lockfile is supposed to pin versions, and the
+    # repositories this project draws from publish new commits constantly, so
+    # failing on this would make the daily sweep red every day without
+    # anything being wrong. The drift that breaks something - a dependency
+    # path that no longer exists - is a hard failure in the package
+    # validation job above.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -107,13 +121,7 @@ jobs:
       - name: Report outdated locked dependencies
         run: |
           set -euo pipefail
-          output="$(apm outdated 2>&1)"
-          printf '%s\n' "$output"
-          if printf '%s\n' "$output" | grep -qE '[0-9]+ outdated dependenc'; then
-            echo "::error::The locked dependencies have drifted from upstream."
-            echo "Run 'apm lock --update' and commit the refreshed apm.lock.yaml."
-            exit 1
-          fi
+          apm outdated || true
 
   check-wrapper-freshness:
     # wrappers/<host>/<owner>/<repo>/apm.yml is generated from the upstream

@@ -56,7 +56,9 @@ What consumers install from this registry is resolved from each package's `apm.y
 
 - **Package validation** over every package. A path that no longer exists upstream fails the resolve.
 - **Wrapper freshness.** `wrappers/<host>/<owner>/<repo>/apm.yml` is generated from the upstream repository by `scripts/generate-wrappers.py`. When upstream moves a skill, the generated manifest goes stale and every package that depends on the wrapper stops resolving. The daily sweep regenerates the wrappers and fails if the result differs from the committed copy. This is what the disabled `update-wrappers.yml` cron would have caught.
-- **Locked dependency drift.** The root `apm.lock.yaml` pins the repository's own development dependencies. `apm outdated` reports the locked dependencies whose upstream refs have moved since the lock was written. When it reports any, run `apm lock --update` and commit the refreshed `apm.lock.yaml`.
+- **Lockfile coverage.** `scripts/check-lockfile-in-sync.sh` fails when a dependency declared in the root `apm.yml` has no entry in `apm.lock.yaml`. A dependency that was added to the manifest and never locked is how the lock stops describing what the project depends on.
+
+The daily sweep also **reports** which of the locked dependencies have newer upstream refs, via `apm outdated`. That is deliberately not a failure: a lockfile is supposed to pin versions, and the repositories this project draws from publish new commits constantly, so failing on it would make the sweep red every day without anything being wrong. Refresh the lock when you want to — `apm lock --update` — and commit the result.
 
 ## Changing the required checks
 

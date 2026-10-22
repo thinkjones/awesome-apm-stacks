@@ -113,6 +113,8 @@ The daily sweep validates every package and reports upstream drift. It is not a 
 Two jobs in the daily sweep watch for upstream moving out from under the repository:
 
 - **Wrapper freshness** — `wrappers/<host>/<owner>/<repo>/apm.yml` is generated from its upstream repository. If the daily run says the generated wrappers have drifted from the committed ones, run `python scripts/generate-wrappers.py` and commit the result.
-- **Locked dependency drift** — the root `apm.lock.yaml` pins this repository's own development dependencies. If the daily run says the locked dependencies have drifted from upstream, run `apm lock --update` and commit the refreshed `apm.lock.yaml`.
+- **Locked dependency drift** — the daily run also *reports* which of the locked dependencies have newer upstream refs. That is informational, not a failure: a lockfile is supposed to pin versions, and the repositories this project draws from publish new commits constantly. Refresh the lock when you want to — `apm lock --update` — and commit the result.
+
+One thing in that area *is* a failure: a dependency declared in the root `apm.yml` with no entry in `apm.lock.yaml`. If you add a dependency to the root manifest, run `apm lock --update` and commit the refreshed lockfile with it.
 
 [`docs/ci.md`](docs/ci.md) is the full CI reference.
