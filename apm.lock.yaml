@@ -1,14 +1,18 @@
 lockfile_version: '1'
-generated_at: '2026-04-21T09:38:47.832121+00:00'
-apm_version: 0.8.11
+generated_at: '2026-10-22T02:32:09.655696+00:00'
+apm_version: 0.34.0
 dependencies:
 - repo_url: _local/user-core
+  name: user-core
+  version: 0.0.2
   package_type: apm_package
   source: local
   local_path: ./user-core
 - repo_url: anthropics/claude-plugins-official
+  name: claude-code-setup
   host: github.com
-  resolved_commit: 777db5c30b30fd1809cdc0ed26a6b2cec57628dd
+  resolved_commit: af59ee3a1051a29dda4a2e7a2af221aa457ae08b
+  version: 1.0.0
   virtual_path: plugins/claude-code-setup
   is_virtual: true
   depth: 2
@@ -17,10 +21,12 @@ dependencies:
   deployed_files:
   - .claude/skills/claude-automation-recommender
   - .github/skills/claude-automation-recommender
-  content_hash: sha256:ec1d6b7712f33a08de79bc015a5e8e19031fefc4b2ae2debc75e19bda8fcca05
+  content_hash: sha256:0d5e04178f68e6b309317411227873ce7715086cd96f30281be1f2b2abd1ce79
 - repo_url: anthropics/claude-plugins-official
+  name: claude-md-management
   host: github.com
-  resolved_commit: 777db5c30b30fd1809cdc0ed26a6b2cec57628dd
+  resolved_commit: af59ee3a1051a29dda4a2e7a2af221aa457ae08b
+  version: 1.0.0
   virtual_path: plugins/claude-md-management
   is_virtual: true
   depth: 2
@@ -31,21 +37,25 @@ dependencies:
   - .claude/skills/claude-md-improver
   - .github/prompts/revise-claude-md.prompt.md
   - .github/skills/claude-md-improver
-  content_hash: sha256:eef0aa5a71845be937066ef304fbd152d523d2574587474d342def4c3e8514d4
+  content_hash: sha256:7fcdd91cd4c5ff063663a201eb570c2a7037d1ae047aaa518f176efc6a63632a
 - repo_url: anthropics/claude-plugins-official
+  name: ralph-loop
   host: github.com
-  resolved_commit: 777db5c30b30fd1809cdc0ed26a6b2cec57628dd
+  resolved_commit: af59ee3a1051a29dda4a2e7a2af221aa457ae08b
+  version: 1.0.0
   virtual_path: plugins/ralph-loop
   is_virtual: true
   depth: 2
   resolved_by: _local/user-core
-  package_type: hook_package
+  package_type: marketplace_plugin
   deployed_files:
   - .github/hooks/ralph-loop-hooks.json
-  content_hash: sha256:e81ffee72a1b67c3e0393d6943b53b15d08453c014f0c5e54773ab444e2d2b97
+  content_hash: sha256:694f1394e4aa2ffc3a71ed9a430619b24085c7dedecdb4af0c280a92a1b6fd67
 - repo_url: anthropics/claude-plugins-official
+  name: skill-creator
   host: github.com
-  resolved_commit: 777db5c30b30fd1809cdc0ed26a6b2cec57628dd
+  resolved_commit: af59ee3a1051a29dda4a2e7a2af221aa457ae08b
+  version: af59ee3
   virtual_path: plugins/skill-creator
   is_virtual: true
   depth: 2
@@ -54,10 +64,12 @@ dependencies:
   deployed_files:
   - .claude/skills/skill-creator
   - .github/skills/skill-creator
-  content_hash: sha256:eb6bd12617ecd6d7a3e14ec4b50436b30c345c0276fc04706d7da5787e687325
+  content_hash: sha256:389dec78149b3dccbc4288fb03b722a8f4890588229e98c48543f9542093c777
 - repo_url: anthropics/skills
+  name: skills
   host: github.com
-  resolved_commit: b9e19e6f44773509fbdd7001d77ff41a49a486c1
+  resolved_commit: dbd4588f9e1033efb41dad4bef2f7947c8993d44
+  version: dbd4588
   depth: 2
   resolved_by: _local/user-core
   package_type: marketplace_plugin
@@ -96,22 +108,28 @@ dependencies:
   - .github/skills/web-artifacts-builder
   - .github/skills/webapp-testing
   - .github/skills/xlsx
-  content_hash: sha256:7dc086740d47bef69b0c615e5bf737c8254a564223d2f3dcc48ca0d33b144dde
+  content_hash: sha256:b0601199fb02d8b5d7b29929429cc382db25438a0d4c1a495419d8aea4846347
 - repo_url: github/awesome-copilot
+  name: awesome-copilot-devils-advocate
   host: github.com
+  resolved_commit: 26f4f4581b92775543e4cddda21dd1d1b296db2e
+  version: 1.0.0
   virtual_path: agents/devils-advocate.agent.md
   is_virtual: true
   depth: 2
   resolved_by: _local/user-core
-  content_hash: sha256:e67c42f28acfca9d1af01e917cda021e3729833f204d1381e18a43b91cb5e42b
+  package_type: apm_package
+  content_hash: sha256:af359d8518eaec345b7d3512db526c340d33f9b5d6b85fef68875cc29dd9e162
 - repo_url: github/awesome-copilot
+  name: context-engineering
   host: github.com
-  resolved_commit: 63d08d51f792d53feec8c1c06897cee870e83c18
+  resolved_commit: 26f4f4581b92775543e4cddda21dd1d1b296db2e
+  version: 1.0.0
   virtual_path: plugins/context-engineering
   is_virtual: true
   depth: 2
   resolved_by: _local/user-core
-  package_type: marketplace_plugin
+  package_type: agent_plugin
   deployed_files:
   - .claude/skills/context-map
   - .claude/skills/refactor-plan
@@ -119,22 +137,28 @@ dependencies:
   - .github/skills/context-map
   - .github/skills/refactor-plan
   - .github/skills/what-context-needed
-  content_hash: sha256:8aa73614daa1064310331cab62f0a6bb1037d8b9bc8f2d11bd1a9dba482e4103
+  content_hash: sha256:2f04290f2b4a514d04dd0fcbf8ca4c03745c04bdc63c123471bb0a52d590ca03
+  declared_license: MIT
 - repo_url: github/awesome-copilot
+  name: doublecheck
   host: github.com
-  resolved_commit: 63d08d51f792d53feec8c1c06897cee870e83c18
+  resolved_commit: 26f4f4581b92775543e4cddda21dd1d1b296db2e
+  version: 1.0.0
   virtual_path: plugins/doublecheck
   is_virtual: true
   depth: 2
   resolved_by: _local/user-core
-  package_type: marketplace_plugin
+  package_type: agent_plugin
   deployed_files:
   - .claude/skills/doublecheck
   - .github/skills/doublecheck
-  content_hash: sha256:52b00e9d311e02bc4b74bf87dfcdb521d278e83bd8e5b63800e300bdf1af2cec
+  content_hash: sha256:9b60ea1590367753a7977918cac5473902e9f06f145828e7333195da59164ef3
+  declared_license: MIT
 - repo_url: vercel-labs/skills
+  name: find-skills
   host: github.com
-  resolved_commit: bc21a37a12b90fcb5aec051c91baf5b227b704b1
+  resolved_commit: a80e4c9d12d607631249d4d7d059f835d4b2f13a
+  version: unknown
   virtual_path: skills/find-skills
   is_virtual: true
   depth: 2
@@ -143,4 +167,466 @@ dependencies:
   deployed_files:
   - .claude/skills/find-skills
   - .github/skills/find-skills
-  content_hash: sha256:d31e234f0c90694a670222cdd1dafa853e051d7066beda389f1097c22dadd461
+  content_hash: sha256:913b9d37d0d54047dd65222bb8c67b2bf04e3cb87dcad1729068d7a8b2c8c396
+deployments:
+- kind: project-relative
+  target: claude
+  value: .claude/commands/revise-claude-md.md
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/claude-md-management
+  active_owner: anthropics/claude-plugins-official/plugins/claude-md-management
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/algorithmic-art
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/brand-guidelines
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/canvas-design
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/claude-api
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/claude-automation-recommender
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/claude-code-setup
+  active_owner: anthropics/claude-plugins-official/plugins/claude-code-setup
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/claude-md-improver
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/claude-md-management
+  active_owner: anthropics/claude-plugins-official/plugins/claude-md-management
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/context-map
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/context-engineering
+  active_owner: github/awesome-copilot/plugins/context-engineering
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/doc-coauthoring
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/docx
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/doublecheck
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/doublecheck
+  active_owner: github/awesome-copilot/plugins/doublecheck
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/find-skills
+  runtime: null
+  scope: project
+  owners:
+  - vercel-labs/skills/skills/find-skills
+  active_owner: vercel-labs/skills/skills/find-skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/frontend-design
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/internal-comms
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/mcp-builder
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/pdf
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/pptx
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/refactor-plan
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/context-engineering
+  active_owner: github/awesome-copilot/plugins/context-engineering
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/skill-creator
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/skill-creator
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/slack-gif-creator
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/theme-factory
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/web-artifacts-builder
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/webapp-testing
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/what-context-needed
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/context-engineering
+  active_owner: github/awesome-copilot/plugins/context-engineering
+  content_hash: null
+- kind: project-relative
+  target: claude
+  value: .claude/skills/xlsx
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/hooks/ralph-loop-hooks.json
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/ralph-loop
+  active_owner: anthropics/claude-plugins-official/plugins/ralph-loop
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/prompts/revise-claude-md.prompt.md
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/claude-md-management
+  active_owner: anthropics/claude-plugins-official/plugins/claude-md-management
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/algorithmic-art
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/brand-guidelines
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/canvas-design
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/claude-api
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/claude-automation-recommender
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/claude-code-setup
+  active_owner: anthropics/claude-plugins-official/plugins/claude-code-setup
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/claude-md-improver
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/claude-md-management
+  active_owner: anthropics/claude-plugins-official/plugins/claude-md-management
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/context-map
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/context-engineering
+  active_owner: github/awesome-copilot/plugins/context-engineering
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/doc-coauthoring
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/docx
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/doublecheck
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/doublecheck
+  active_owner: github/awesome-copilot/plugins/doublecheck
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/find-skills
+  runtime: null
+  scope: project
+  owners:
+  - vercel-labs/skills/skills/find-skills
+  active_owner: vercel-labs/skills/skills/find-skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/frontend-design
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/internal-comms
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/mcp-builder
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/pdf
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/pptx
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/refactor-plan
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/context-engineering
+  active_owner: github/awesome-copilot/plugins/context-engineering
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/skill-creator
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/claude-plugins-official/plugins/skill-creator
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/slack-gif-creator
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/theme-factory
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/web-artifacts-builder
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/webapp-testing
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/what-context-needed
+  runtime: null
+  scope: project
+  owners:
+  - github/awesome-copilot/plugins/context-engineering
+  active_owner: github/awesome-copilot/plugins/context-engineering
+  content_hash: null
+- kind: project-relative
+  target: copilot
+  value: .github/skills/xlsx
+  runtime: null
+  scope: project
+  owners:
+  - anthropics/skills
+  active_owner: anthropics/skills
+  content_hash: null

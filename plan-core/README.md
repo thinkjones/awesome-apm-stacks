@@ -13,13 +13,10 @@ apm install thinkjones/awesome-apm-stacks/plan-core
 | Dependency | Source Repo | Stars |
 |------------|-------------|-------|
 | project-planning | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
-| prd-generator.agent.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
-| requirements-refiner.agent.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
-| qa-tester.agent.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
-| write-a-prd | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
-| prd-to-plan | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
-| prd-to-issues | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
-| qa | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
-| triage-issue | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
-| github-triage | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
-| request-refactor-plan | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
+| prd.agent.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
+| specification.agent.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
+| qa-subagent.agent.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
+| to-spec | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
+| wayfinder | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
+| to-tickets | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |
+| triage | [mattpocock/skills](https://github.com/mattpocock/skills) | 13,003 |

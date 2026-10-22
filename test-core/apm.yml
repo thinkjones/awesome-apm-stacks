@@ -1,16 +1,12 @@
 name: test-core
-version: 0.0.2
+version: 0.0.3
 description: >
-  Testing automation — E2E, integration testing, Playwright, polyglot
-  test agents, and test planning.
+  Testing automation — E2E, integration testing, Playwright, and test planning.
 
 dependencies:
   apm:
     # ── Testing automation plugin ──
     - github/awesome-copilot/plugins/testing-automation
-
-    # ── Multi-language testing agent ──
-    - github/awesome-copilot/plugins/polyglot-test-agent
 
     # ── Playwright TypeScript instructions ──
     - github/awesome-copilot/instructions/playwright-typescript.instructions.md

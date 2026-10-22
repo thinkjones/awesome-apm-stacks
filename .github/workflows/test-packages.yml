@@ -14,6 +14,10 @@ env:
 jobs:
   test-packages:
     name: test-packages
+    # Draft pull requests are skipped. A skipped job satisfies a required
+    # status check, but a draft pull request cannot be merged at all, and
+    # `ready_for_review` is in the trigger list above, so promoting a draft
+    # re-runs this job with the draft check false and a real result.
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
@@ -58,12 +62,25 @@ jobs:
             echo "No package directories changed"
           fi
 
-      - name: Run package tests
+      - name: Validate changed packages
         env:
           TEST_PACKAGES: ${{ steps.diff.outputs.packages }}
         run: |
+          set -euo pipefail
           if [ -n "$TEST_PACKAGES" ]; then
             ./scripts/test-packages.sh --ci $TEST_PACKAGES
           else
-            echo "No package directories changed — nothing to validate."
+            echo "::notice::No package directories changed - package validation is skipped."
+            echo "::notice::The pre-commit gate self-test below still runs, so this check is not a no-op."
           fi
+
+      - name: Self-test the pre-commit gate
+        # scripts/test-pre-commit-hook.sh exercises the local gate itself: the
+        # staged-package mapper, the pre-commit entrypoint, the husky wiring in
+        # a fresh clone, and the pre-push refusal. It needs node and the npm
+        # registry, and it runs against the checked-out commit.
+        run: |
+          set -euo pipefail
+          node --version
+          npm --version
+          ./scripts/test-pre-commit-hook.sh

@@ -45,24 +45,40 @@ def shallow_clone(upstream: str, branch: str, dest: str) -> str:
 
 
 def discover_folders(clone_dir: str, pattern: str, excludes: list[str]) -> list[str]:
-    """Glob for *pattern* inside *clone_dir* and return sorted folder names.
+    """Glob for *pattern* inside *clone_dir* and return sorted repo-relative folders.
 
-    Extracts the parent directory of each match, then takes just the
-    last component as the folder name. E.g. pattern ``skills/*/SKILL.md``
-    matching ``skills/tdd/SKILL.md`` yields folder name ``tdd``.
+    Returns the path of each matched folder relative to *clone_dir*, keeping
+    every intermediate directory. E.g. pattern ``skills/*/*/SKILL.md``
+    matching ``skills/engineering/tdd/SKILL.md`` yields
+    ``skills/engineering/tdd``, so the category survives into the emitted
+    dependency path.
+
+    A folder is excluded when its basename *or* any of its path components
+    appears in *excludes*. That covers both a bare skill name
+    (``migrate-to-shoehorn``) and a whole category (``in-progress``).
+    Hidden path components are always skipped.
     """
     matches = glob.glob(os.path.join(clone_dir, pattern))
     folders = []
     for match in matches:
         parent = os.path.dirname(match)
-        folder = os.path.basename(parent)
-        if folder not in excludes and not folder.startswith("."):
-            folders.append(folder)
+        folder = os.path.relpath(parent, clone_dir)
+        parts = folder.split(os.sep)
+        if any(part in excludes for part in parts):
+            continue
+        if any(part.startswith(".") for part in parts):
+            continue
+        folders.append(folder)
     return sorted(set(folders))
 
 
 def build_apm_yml(wrapper: dict, name: str, folders: list[str], sha: str) -> str:
-    """Return the generated apm.yml content as a string."""
+    """Return the generated apm.yml content as a string.
+
+    Each folder is a repo-relative path, so a dependency line reads
+    ``{prefix}/{folder}`` — e.g. ``mattpocock/skills/skills/engineering/tdd``
+    when *prefix* is the upstream repo.
+    """
     version = f"1.0.0-{sha}"
     upstream = wrapper["upstream"]
     prefix = wrapper.get("prefix", upstream)

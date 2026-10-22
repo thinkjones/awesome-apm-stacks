@@ -14,5 +14,5 @@ apm install thinkjones/awesome-apm-stacks/code-typescript
 |------------|-------------|-------|
 | typescript-mcp-development | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
 | frontend-web-dev | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
-| nodejs-copilot-sdk.instructions.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
+| copilot-sdk-nodejs.instructions.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
 | nestjs.instructions.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |

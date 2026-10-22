@@ -122,7 +122,7 @@ install_scripts_into() {
   # whole harness before any assertion runs.
   local dir="$1"
   mkdir -p "$dir/scripts"
-  for f in test-packages.sh staged-packages.sh pre-commit-validate.sh; do
+  for f in test-packages.sh staged-packages.sh pre-commit-validate.sh check-deps-resolvable.sh; do
     [ -f "$REPO_ROOT/scripts/$f" ] && cp "$REPO_ROOT/scripts/$f" "$dir/scripts/"
   done
   chmod +x "$dir"/scripts/*.sh 2>/dev/null || true
@@ -254,11 +254,17 @@ path_without_apm() {
 with_apm() {
   # with_apm <exit_code> <command...> - run a command with an `apm` stub that
   # exits with the given code, and with the real apm removed from PATH
+  #
+  # The stub answers `--version` the way the real CLI does, because the
+  # validator reads the version to decide whether this CLI can resolve
+  # dependencies at all. A stub that said nothing would be refused for
+  # having an unreadable version rather than for anything about the package
+  # under test.
   local exit_code="$1"
   shift
   local stub_dir="$TMP_ROOT/apm-stub"
   mkdir -p "$stub_dir"
-  printf '#!/usr/bin/env sh\nexit %s\n' "$exit_code" > "$stub_dir/apm"
+  printf '#!/usr/bin/env sh\nif [ "$1" = "--version" ]; then\n  echo "Agent Package Manager (APM) CLI version 0.34.0 (stub)"\n  exit 0\nfi\nexit %s\n' "$exit_code" > "$stub_dir/apm"
   chmod +x "$stub_dir/apm"
   PATH="$stub_dir:$(path_without_apm)" "$@"
 }
@@ -469,10 +475,18 @@ section "wiring"
 clone_repo() {
   # clone_repo <dir> - clone the repository under test, configure the clone
   # and print its path
+  #
+  # The clone is built from the current HEAD commit rather than from a branch
+  # name. CI checks out a detached HEAD, where `git branch --show-current` is
+  # empty and `git clone --branch ""` fails; fetching the HEAD commit by sha
+  # works in a working tree and in CI alike.
   local dir="$1"
-  local branch
-  branch="$(git -C "$REPO_ROOT" branch --show-current)"
-  git clone --quiet --branch "$branch" "$REPO_ROOT" "$dir"
+  local head
+  head="$(git -C "$REPO_ROOT" rev-parse HEAD)"
+  git init --quiet "$dir"
+  git -C "$dir" remote add origin "$REPO_ROOT"
+  git -C "$dir" fetch --quiet origin "$head"
+  git -C "$dir" checkout --quiet FETCH_HEAD
   git -C "$dir" config user.email "hook-test@example.com"
   git -C "$dir" config user.name "Hook Test"
   git -C "$dir" config commit.gpgsign false
@@ -510,8 +524,10 @@ commit_in() {
 }
 
 # Case 1: a fresh clone where the contributor never ran the dependency install
-# has no hook at all and the commit proceeds ungated. That absence is the
-# documented state, not a defect.
+# has no hook at all and the commit proceeds ungated. The hooks are installed
+# by the "prepare" script that `npm install` runs, so a clone that has never
+# installed its dependencies has none. That absence is the documented state
+# (see CONTRIBUTING.md), not a defect.
 clone="$(clone_repo "$TMP_ROOT/wiring-no-install")"
 hooks_path="$(git -C "$clone" config --get core.hooksPath || true)"
 expect_eq "wiring 1  core.hooksPath is unset without the install" "" "$hooks_path"

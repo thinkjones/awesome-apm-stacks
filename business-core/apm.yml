@@ -1,9 +1,33 @@
 name: business-core
-version: 0.0.2
+version: 0.0.3
 description: >
   Core tooling used for business workflows.
 
 dependencies:
   apm:
-    # A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows
-    - ComposioHQ/awesome-claude-skills
+    # ── Brand guidelines and style consistency ──
+    - ComposioHQ/awesome-claude-skills/brand-guidelines
+
+    # ── Changelog generation from git history ──
+    - ComposioHQ/awesome-claude-skills/changelog-generator
+
+    # ── Content research and writing ──
+    - ComposioHQ/awesome-claude-skills/content-research-writer
+
+    # ── Document creation (docx, pdf, pptx, xlsx) ──
+    - ComposioHQ/awesome-claude-skills/document-skills/docx
+    - ComposioHQ/awesome-claude-skills/document-skills/pdf
+    - ComposioHQ/awesome-claude-skills/document-skills/pptx
+    - ComposioHQ/awesome-claude-skills/document-skills/xlsx
+
+    # ── Internal comms — status updates, org comms ──
+    - ComposioHQ/awesome-claude-skills/internal-comms
+
+    # ── Lead research assistant — account research ──
+    - ComposioHQ/awesome-claude-skills/lead-research-assistant
+
+    # ── Meeting insights analyzer — transcripts and action items ──
+    - ComposioHQ/awesome-claude-skills/meeting-insights-analyzer
+
+    # ── MCP server builder ──
+    - ComposioHQ/awesome-claude-skills/mcp-builder

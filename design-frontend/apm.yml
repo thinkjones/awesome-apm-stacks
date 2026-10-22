@@ -1,5 +1,5 @@
 name: design-frontend
-version: 0.0.2
+version: 0.0.3
 description: >
   UI/UX design — anti-AI-slop frontend design, React component building,
   accessible colour/typography, theming, and web artifacts.
@@ -19,7 +19,7 @@ dependencies:
     - anthropics/skills/skills/theme-factory
 
     # ── Accessible colour and typography instructions ──
-    - github/awesome-copilot/instructions/color-usage.instructions.md
+    - github/awesome-copilot/instructions/html-css-style-color-guide.instructions.md
 
     # ── Algorithmic art (p5.js, generative design) ──
     - anthropics/skills/skills/algorithmic-art

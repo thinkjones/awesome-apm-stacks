@@ -5,6 +5,5 @@ author: Gene Conroy-Jones
 dependencies:
   apm:
   - ./user-core
-  - thinkjones/fs-apm/core-coding-standards
   mcp: []
 scripts: {}

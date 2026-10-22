@@ -1,5 +1,5 @@
 name: code-csharp
-version: 0.0.2
+version: 0.0.3
 description: >
   C#/.NET development — .NET architecture, C# MCP servers,
   ASP.NET, and enterprise patterns.
@@ -8,9 +8,6 @@ dependencies:
   apm:
     # ── C#/.NET development plugin ──
     - github/awesome-copilot/plugins/csharp-dotnet-development
-
-    # ── C# MCP server development ──
-    - github/awesome-copilot/plugins/csharp-mcp-development
 
     # ── C# best practices instructions ──
     - github/awesome-copilot/instructions/csharp.instructions.md

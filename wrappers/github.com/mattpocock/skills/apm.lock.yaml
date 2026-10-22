@@ -1,157 +1,266 @@
 lockfile_version: '1'
-generated_at: '2026-04-07T15:52:10.369129+00:00'
-apm_version: 0.8.10
+generated_at: '2026-10-22T02:49:44.777590+00:00'
+apm_version: 0.34.0
 dependencies:
 - repo_url: mattpocock/skills
+  name: ask-matt
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: design-an-interface
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/ask-matt
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/design-an-interface
-  content_hash: sha256:885b05367fb1cf61a1e27e0d50f14d2502a05c1fa276c6e9ea050ce6a90e7095
+  content_hash: sha256:99224d8d3f3c059def3e0e3f5c2b851c38dcf81ec9cdb991e01eeb4a5ae84d2e
 - repo_url: mattpocock/skills
+  name: code-review
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: edit-article
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/code-review
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/edit-article
-  content_hash: sha256:6d29872a4015fcbb4879fe1bddf1919995c477dcf7248885efb85722f50e6c4d
+  content_hash: sha256:bb3048304e5c783c09783326a9e8f8ba55a31e810f511a792238bb8ad45a0978
 - repo_url: mattpocock/skills
+  name: codebase-design
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: git-guardrails-claude-code
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/codebase-design
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/git-guardrails-claude-code
-  content_hash: sha256:9d94db81c4b41c5620aafbeb321d1dd078c006d460f2bd91aef5d51c6993dfb2
+  content_hash: sha256:07246bd43eadfb50ac686aee5297d2cb808bf5ad00fb2ed289416b4b79e7850c
 - repo_url: mattpocock/skills
+  name: diagnosing-bugs
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: github-triage
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/diagnosing-bugs
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/github-triage
-  content_hash: sha256:77dce6efff943f3adc845b1aabc8628de448c5dabbceee859aaa73a6cd06214e
+  content_hash: sha256:9b24ecaf15dd8d5594f973c590c6904d90dd3b50f8853fefd2341b7fd4a156bf
 - repo_url: mattpocock/skills
+  name: domain-modeling
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: grill-me
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/domain-modeling
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/grill-me
-  content_hash: sha256:784f0dbb7403b0f00324bce9a112f715342777a0daee7bbb7385f9c6f0a170ea
+  content_hash: sha256:467f5e92529c2a4637440dce99841814b0864a8528714188ec91b78d900df540
 - repo_url: mattpocock/skills
+  name: grill-with-docs
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: improve-codebase-architecture
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/grill-with-docs
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/improve-codebase-architecture
-  content_hash: sha256:76d07c4c0bebc162cc76ca7494bfe7a90e279f35832f7ce6dfc4ce16518fd560
+  content_hash: sha256:9e8f732b806727978f1ad8d2fb9ce4467da68f7482d63c4bb5a73f2b1a0c797c
 - repo_url: mattpocock/skills
+  name: implement
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: obsidian-vault
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/implement
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/obsidian-vault
-  content_hash: sha256:960437c7c2febc15cf9d49964f0c8bd889d90a56e81b6eaa33f3ac5b594291c3
+  content_hash: sha256:c7c4d38c8dd9a05fcad046f79aeb275c7f31a87d7bceb4f3a133f125e6f4bfbb
 - repo_url: mattpocock/skills
+  name: implement-spec
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: prd-to-issues
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/implement-spec
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/prd-to-issues
-  content_hash: sha256:32192340c1a14317b25741f5a0a38d162b387b6d4bfd09e0ed3859367321e98f
+  content_hash: sha256:f5df654e389b0983a98df35bf83dced720fed5ec87436da18bcfb38ea60ecc7b
 - repo_url: mattpocock/skills
+  name: improve-codebase-architecture
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: prd-to-plan
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/improve-codebase-architecture
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/prd-to-plan
-  content_hash: sha256:b0fad4a6e8097a5095fe00bfc2ebd98827c2d599e8b0a974c9d3c50b59295ac8
+  content_hash: sha256:741b4015c0edbcd5ffb9c926abab6cd52946bd296af2792c4694c759f4bd2554
 - repo_url: mattpocock/skills
+  name: pr
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: qa
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/pr
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/qa
-  content_hash: sha256:20c63e29b268b1f0762cff524b5e321d5e1a773b4f61b90d84811b755948a66c
+  content_hash: sha256:e6edd6e5d192d995ed3dd25cd279efa6c8be860b3d24aa7f0c5d5e51a0cd2d52
 - repo_url: mattpocock/skills
+  name: prototype
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: request-refactor-plan
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/prototype
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/request-refactor-plan
-  content_hash: sha256:176cf1d0c4dc4fc4d958c4bc4ed67f222f2656bda2f3f15e3a3e98b2e5edaf2f
+  content_hash: sha256:090ae76b97353255ca29be783d69bcc1029e0195bdf43118d0b6f7ea9acc89b0
 - repo_url: mattpocock/skills
+  name: research
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: setup-pre-commit
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/research
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/setup-pre-commit
-  content_hash: sha256:f9aeedf0a1f560ec465c3939c54434c2d949ac8b958a0493db52216f688a0366
+  content_hash: sha256:d293faf4e4da791b8046cd2eed5b4dce46f591f1a26be4099a55b968b5dbe9c9
 - repo_url: mattpocock/skills
+  name: retro
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: tdd
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/retro
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/tdd
-  content_hash: sha256:c478c6898f8f961ac93cf01bfa8baca347e8e9096451b87c00c2681aef58fb4e
+  content_hash: sha256:e13af4f6dfecd777815adde57811398dc59d0118692a70d996968b59e3d13db8
 - repo_url: mattpocock/skills
+  name: setup-matt-pocock-skills
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: triage-issue
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/setup-matt-pocock-skills
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/triage-issue
-  content_hash: sha256:6834b87393bff8f529b3126b9f761c1c2b9706af8a784ad1061961c34bbdb4a9
+  content_hash: sha256:f1442885e269d489b91b2a289e4619a0385eb3503121ea1f92769268bf08c123
 - repo_url: mattpocock/skills
+  name: tdd
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: ubiquitous-language
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/tdd
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/ubiquitous-language
-  content_hash: sha256:32f8a3426cb2d2c3db05977369e70d793e342c38ea87f5447eb22108c03c8d7a
+  content_hash: sha256:ef3cbb31aa8b1f8a3f9b6a042c230dc9312019e84cdc6337f60890f177fd5764
 - repo_url: mattpocock/skills
+  name: to-spec
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: write-a-prd
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/to-spec
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/write-a-prd
-  content_hash: sha256:d03d51db8cfd3dd5c27f9b8e1ffe61686391fdbd62bf4cb2f47db7e62ee68cd2
+  content_hash: sha256:cc5d718c2f810f4c9b081ea888af3ad3eb73bb8db6fc9fa92c3b1729637b7d56
 - repo_url: mattpocock/skills
+  name: to-tickets
   host: github.com
-  resolved_commit: 651eab033bdf8f7fd535c274f8cbe839075aba5e
-  virtual_path: write-a-skill
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/to-tickets
   is_virtual: true
   package_type: claude_skill
-  deployed_files:
-  - .github/skills/write-a-skill
-  content_hash: sha256:b44d8aab2ead83c716e01af4c9a24ccc4575ce70ad58ec4f1749fb88c9cc82ba
+  content_hash: sha256:7cca8cd2afe55d1cd8bfc986df6a4cb4ad54411452575200804494b03c871ede
+- repo_url: mattpocock/skills
+  name: triage
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/triage
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:bf09f37fa24ab64324497772a25a1e0a9b22d06ccb238fefd0cfb12eee473c3d
+- repo_url: mattpocock/skills
+  name: wayfinder
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/wayfinder
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:d7224a1241800092e128af0544017b1a78f412c3fc26e810521f3674a1184c93
+- repo_url: mattpocock/skills
+  name: wizard
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/engineering/wizard
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:93fc955828a4d1086f8ac15c67d894d540db821b5eca0feca2e24d8856b784e3
+- repo_url: mattpocock/skills
+  name: git-guardrails-claude-code
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/misc/git-guardrails-claude-code
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:92c1c7a61a0edc6c3c6a35e5301da9f422c2226a6f15ce9215cc9b4bba2b098e
+- repo_url: mattpocock/skills
+  name: setup-pre-commit
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/misc/setup-pre-commit
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:b7455a91310ae0aa9b02b2642533fe60f17a1443d45bc0b455cc3136f2d85c8b
+- repo_url: mattpocock/skills
+  name: grill-me
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/productivity/grill-me
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:fe33aaa8e8dcd606107b1bfe3109f257b4a7e0f4907afd6506b62ccfb73cd1d3
+- repo_url: mattpocock/skills
+  name: grilling
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/productivity/grilling
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:90b54c72a48114f62072de27e1bef0c61d55f0959044725c593ed9fc72197755
+- repo_url: mattpocock/skills
+  name: handoff
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/productivity/handoff
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:16e5b77eadb689d69c816bfe52cae6b5f425180340b77235ab8a3f402cf4b6f3
+- repo_url: mattpocock/skills
+  name: teach
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/productivity/teach
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:7bd8a41095f71c5e76892427f1db17eaa744372611b748db50a93dfa25fc62ca
+- repo_url: mattpocock/skills
+  name: to-questionnaire
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/productivity/to-questionnaire
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:619879fbd0e99ffacb9ae4a23a8c44393a37cb6d90b59a5ce8f5ace1be5baae0
+- repo_url: mattpocock/skills
+  name: wait-what
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/productivity/wait-what
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:aeda379d44a811ede92435e0af812ba599c3f3fb617c208a7ed3d0226072ba8d
+- repo_url: mattpocock/skills
+  name: writing-for-agents
+  host: github.com
+  resolved_commit: 5beb35b040e3de97e54fa9e386d7e42d15c295c2
+  version: unknown
+  virtual_path: skills/productivity/writing-for-agents
+  is_virtual: true
+  package_type: claude_skill
+  content_hash: sha256:8365ebe1d0c343d3d46970526f30fcf7c5e0c5e49fd39a3c882977024626ff3c
+deployments: []

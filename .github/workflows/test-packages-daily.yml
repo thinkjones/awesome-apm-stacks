@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -34,12 +36,113 @@ jobs:
       - name: Install APM CLI
         uses: ./.github/actions/install-apm
 
-      - name: Run package tests
+      - name: Detect changed package directories
+        id: diff
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          # A push to main validates only the packages that push touched. A
+          # schedule or a manual run validates every package.
+          if [ "$EVENT_NAME" != "push" ] || [ -z "$BEFORE_SHA" ]; then
+            echo "packages=" >> "$GITHUB_OUTPUT"
+            echo "Validating every package."
+            exit 0
+          fi
+          changed_packages=""
+          for dir in */; do
+            dirname="$(basename "$dir")"
+            case "$dirname" in
+              examples|wrappers|scripts|docs|site|apm_modules|.git|.github|.claude) continue ;;
+            esac
+            if [ -f "$dir/apm.yml" ] && git diff --name-only "$BEFORE_SHA" HEAD | grep -q "^${dirname}/"; then
+              changed_packages="$changed_packages $dirname"
+            fi
+          done
+          changed_packages="$(echo "$changed_packages" | xargs)"
+          echo "packages=$changed_packages" >> "$GITHUB_OUTPUT"
+          echo "Changed packages: ${changed_packages:-none}"
+
+      - name: Validate packages
         env:
           INPUT_PACKAGES: ${{ github.event.inputs.packages }}
+          CHANGED_PACKAGES: ${{ steps.diff.outputs.packages }}
         run: |
+          set -euo pipefail
           if [ -n "$INPUT_PACKAGES" ]; then
             ./scripts/test-packages.sh --ci $INPUT_PACKAGES
+          elif [ -n "$CHANGED_PACKAGES" ]; then
+            ./scripts/test-packages.sh --ci $CHANGED_PACKAGES
           else
             ./scripts/test-packages.sh --ci
+          fi
+
+  check-upstream-drift:
+    # The root apm.lock.yaml pins the repository's own development
+    # dependencies. `apm outdated` reports the locked dependencies whose
+    # upstream refs have moved since the lock was written; a non-empty report
+    # means the lock is stale and the local development context no longer
+    # matches upstream.
+    #
+    # The packages this registry publishes are resolved from each package's
+    # apm.yml at consumer install time, not from this lock. Drift in those is
+    # caught by the package validation job above (a path that no longer exists
+    # fails to resolve) and by the wrapper freshness job below (an upstream
+    # that restructured moves the generated wrapper).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: Install APM CLI
+        uses: ./.github/actions/install-apm
+
+      - name: Report outdated locked dependencies
+        run: |
+          set -euo pipefail
+          output="$(apm outdated 2>&1)"
+          printf '%s\n' "$output"
+          if printf '%s\n' "$output" | grep -qE '[0-9]+ outdated dependenc'; then
+            echo "::error::The locked dependencies have drifted from upstream."
+            echo "Run 'apm lock --update' and commit the refreshed apm.lock.yaml."
+            exit 1
+          fi
+
+  check-wrapper-freshness:
+    # wrappers/<host>/<owner>/<repo>/apm.yml is generated from the upstream
+    # repository by scripts/generate-wrappers.py. When upstream moves a skill,
+    # the generated manifest goes stale and every package that depends on the
+    # wrapper stops resolving. Regenerating it here and diffing against the
+    # committed copy turns that silence into a reported failure.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: Regenerate the wrappers
+        run: python scripts/generate-wrappers.py
+
+      - name: Compare against the committed wrappers
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- wrappers/; then
+            echo "The generated wrappers match the committed ones."
+          else
+            echo "::error::The generated wrappers have drifted from the committed ones."
+            git diff -- wrappers/
+            echo "Run 'python scripts/generate-wrappers.py' and commit the result."
+            exit 1
           fi
