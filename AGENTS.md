@@ -17,8 +17,8 @@ Pull requests against `main` must pass both of these status checks:
 | Check | Workflow | Purpose |
 | --- | --- | --- |
 | `version-check` | `.github/workflows/version-check.yml` | Every changed package carries a strictly greater `version:` in its `apm.yml` |
-| `test-packages` | `.github/workflows/test-packages.yml` | Every changed package has a valid `apm.yml`, a valid APM subpath layout, and resolvable dependencies |
+| `test-packages` | `.github/workflows/test-packages.yml` | Every changed package has a valid `apm.yml`, a valid APM subpath layout, and dependencies that still resolve upstream; the repository's own pre-commit gate also passes its self-test |
 
-`strict` is enabled on `main`, so a pull request must be up to date with `main` before it merges. The daily sweep in `.github/workflows/test-packages-daily.yml` runs unconditionally at 06:00 UTC and is not a required check.
+`strict` is enabled on `main`, so a pull request must be up to date with `main` before it merges. Draft pull requests skip the `test-packages` job, but a draft cannot be merged at all, and promoting it to ready re-runs the check. The daily sweep in `.github/workflows/test-packages-daily.yml` runs unconditionally at 06:00 UTC and is not a required check; it validates every package and reports upstream drift.
 
 See [`docs/ci.md`](docs/ci.md) for the full CI reference.

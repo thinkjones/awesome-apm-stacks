@@ -1,5 +1,10 @@
 name: Install APM CLI
-description: Install the APM CLI from the latest release tarball.
+description: Install the APM CLI from a pinned release tarball.
+inputs:
+  version:
+    description: 'Release tag of microsoft/apm to install'
+    required: false
+    default: 'v0.34.0'
 runs:
   using: composite
   steps:
@@ -7,6 +12,7 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
+        APM_VERSION: ${{ inputs.version }}
       run: |
         set -euo pipefail
         # We can't use the official installer (aka.ms/apm-unix): it fetches
@@ -17,16 +23,24 @@ runs:
         # Download the release asset directly via gh (authenticated via
         # GH_TOKEN) and install manually.
         #
+        # The version is pinned rather than "latest" because the package
+        # validator's dependency-resolution check depends on the CLI
+        # actually failing when a dependency no longer exists upstream.
+        # v0.29.1 is the first release whose `apm lock` does that; earlier
+        # releases dropped the unresolvable dependency silently. Taking the
+        # latest release would make the gate's behaviour depend on whenever
+        # the run happened.
+        #
         # The tarball structure is:
         #   apm-linux-x86_64/apm            (main binary)
         #   apm-linux-x86_64/_internal/...  (runtime deps — must stay next
         #                                    to the binary)
-        # We strip the top-level dir so the binary and _internal/ land in
-        # the install dir together. We deliberately avoid $HOME/.apm
+        # We strip the top-level dir so the binary and _internal/ land
+        # in the install dir together. We deliberately avoid $HOME/.apm
         # because APM itself caches user-scope packages there.
         tmp="$(mktemp -d)"
         install_dir="$HOME/apm-cli"
-        gh release download --repo microsoft/apm \
+        gh release download --repo microsoft/apm --tag "$APM_VERSION" \
           --pattern '*linux*x86_64*.tar.gz' \
           --dir "$tmp"
         mkdir -p "$install_dir"

@@ -1,5 +1,5 @@
 name: architect-devops
-version: 0.0.2
+version: 0.0.3
 description: >
   DevOps and Developer Experience — Docker, CI/CD, incident triage,
   git guardrails, and infrastructure best practices.
@@ -7,7 +7,7 @@ description: >
 dependencies:
   apm:
     # ── Docker best practices (multi-stage, security, optimisation) ──
-    - github/awesome-copilot/instructions/docker.instructions.md
+    - github/awesome-copilot/instructions/containerization-docker-best-practices.instructions.md
 
     # ── DevOps incident triage ──
     - github/awesome-copilot/plugins/devops-oncall

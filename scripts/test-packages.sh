@@ -123,9 +123,9 @@ for pkg in "${PACKAGES[@]}"; do
   # Missing all three triggers:
   #   "Subdirectory is not a valid APM package or Claude Skill:
   #    Missing required directory: .apm/"
-  # The inside-the-package dry-run in Check 3 does NOT catch this — that
-  # only validates the package's own dependency graph, not how a downstream
-  # consumer would see it. Keep this check deterministic and offline.
+  # The dependency resolve in Check 3 does NOT catch this — that resolves the
+  # package's own dependencies, not how a downstream consumer would see the
+  # package directory itself. Keep this check deterministic and offline.
   layout=""
   if   [[ -d "$pkg_dir/.apm" ]];                           then layout="apm-package"
   elif [[ -f "$pkg_dir/plugin.json" ]] \
@@ -148,21 +148,21 @@ for pkg in "${PACKAGES[@]}"; do
     pkg_pass=false
   fi
 
-  # --- Check 3: apm install --dry-run ---
+  # --- Check 3: dependency resolvability ---
+  # `apm install --dry-run` cannot be used here: it lists what would be
+  # installed and exits 0 without contacting upstream, so a dependency that
+  # no longer exists passes it. `apm lock` resolves for real and deploys
+  # nothing. See scripts/check-deps-resolvable.sh for the details.
   if $APM_AVAILABLE; then
-    apm_output=""
-    if apm_output=$(cd "$pkg_dir" && apm install --dry-run 2>&1); then
-      printf "  apm install --dry-run: ${GREEN}OK${RESET}\n"
+    resolve_output=""
+    if resolve_output="$(scripts/check-deps-resolvable.sh "$pkg" 2>&1)"; then
+      printf '%s\n' "$resolve_output"
     else
-      printf "  apm install --dry-run: ${RED}FAIL${RESET}\n"
-      # Show first few lines of error output for context
-      while IFS= read -r line; do
-        printf "    %s\n" "$line"
-      done <<< "$(echo "$apm_output" | head -5)"
+      printf '%s\n' "$resolve_output"
       pkg_pass=false
     fi
   else
-    printf "  apm install --dry-run: ${YELLOW}SKIPPED${RESET}\n"
+    printf "  Dependency resolve:    ${YELLOW}SKIPPED${RESET}\n"
   fi
 
   # --- Result for this package ---

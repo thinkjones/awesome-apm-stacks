@@ -45,7 +45,7 @@ Start with `user-core`, add `code-core` for engineering quality gates, then laye
 | --- | --- | --- |
 | [`user-core`](user-core/) | Context engineering, skill discovery, hallucination verification, devil's-advocate review, CLAUDE.md management, recurring task automation | Every project |
 | [`code-core`](code-core/) | TDD enforcement, code review, PR review toolkit, git/commit workflows, semantic code search (serena), feature-dev, API architecture. Includes `user-core`. | Every coding project |
-| [`code-python`](code-python/) | Python, FastMCP, pytest, debugging | Per stack |
+| [`code-python`](code-python/) | FastMCP, Python SDK, Supabase agent skills | Per stack |
 | [`code-typescript`](code-typescript/) | TS/Node, React, NestJS, TS MCP SDK | Per stack |
 | [`code-go`](code-go/) | Go, go-sdk MCP, debugging | Per stack |
 | [`code-java`](code-java/) | Java, Spring Boot, Maven/Gradle, Java MCP servers | Per stack |
@@ -53,11 +53,11 @@ Start with `user-core`, add `code-core` for engineering quality gates, then laye
 | [`code-csharp`](code-csharp/) | C#/.NET, ASP.NET, C# MCP servers | Per stack |
 | [`code-mobile`](code-mobile/) | Flutter, Swift, Kotlin, mobile MCP servers | Per stack |
 | [`architect-devops`](architect-devops/) | Docker, CI/CD, Terraform, incident triage | Most projects |
-| [`architect-dataops`](architect-dataops/) | PostgreSQL, SQL, CSV analysis, data pipelines | When data-heavy |
+| [`architect-dataops`](architect-dataops/) | PostgreSQL, SQL, database management | When data-heavy |
 | [`architect-mlops`](architect-mlops/) | LLM observability, eval pipelines, Arize | When ML involved |
 | [`architect-cloud`](architect-cloud/) | Azure/AWS IaC, serverless, cost optimization | Cloud deployments |
 | [`security-core`](security-core/) | OWASP, secure coding, vulnerability scanning, agent safety | Most projects |
-| [`test-core`](test-core/) | E2E, integration testing, Playwright, polyglot test agents | Most projects |
+| [`test-core`](test-core/) | E2E, integration testing, Playwright, test planning | Most projects |
 | [`design-frontend`](design-frontend/) | UI/UX, React design, theming, accessibility | Frontend projects |
 | [`plan-core`](plan-core/) | PRD, requirements, epics, QA, task breakdown | Most projects |
 | [`plan-docs`](plan-docs/) | docx/pdf/pptx/xlsx, co-authoring, brand, comms | When producing docs |
@@ -245,27 +245,28 @@ Two directories sit beside the 21 packages:
 
 ## Dependency sources
 
-All dependencies are drawn from well-maintained repositories. Star counts are approximate and were recorded when each package was added.
+All dependencies are drawn from well-maintained repositories. Star counts are approximate.
 
 | Source | Stars | Used by |
 | --- | --- | --- |
-| [obra/superpowers](https://github.com/obra/superpowers) | 140K+ | [`code-core`](code-core/) |
-| [anthropics/skills](https://github.com/anthropics/skills) | 112K+ | [`ai-agents`](ai-agents/), [`user-core`](user-core/), [`plan-docs`](plan-docs/), [`test-core`](test-core/), [`design-frontend`](design-frontend/) |
-| [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | 51K+ | [`architect-dataops`](architect-dataops/), [`business-core`](business-core/), [`code-python`](code-python/) |
-| [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28K+ | [`ai-agents`](ai-agents/), [`architect-dataops`](architect-dataops/), [`architect-devops`](architect-devops/), [`architect-mlops`](architect-mlops/), [`architect-cloud`](architect-cloud/), [`code-core`](code-core/), [`code-csharp`](code-csharp/), [`code-go`](code-go/), [`code-java`](code-java/), [`code-mobile`](code-mobile/), [`code-python`](code-python/), [`code-rust`](code-rust/), [`code-typescript`](code-typescript/), [`user-core`](user-core/), [`plan-core`](plan-core/), [`security-core`](security-core/), [`test-core`](test-core/), [`design-frontend`](design-frontend/) |
-| [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | 24K+ | [`design-frontend`](design-frontend/) |
-| [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | 16K+ | [`user-core`](user-core/), [`code-core`](code-core/), [`ai-agents`](ai-agents/), [`design-frontend`](design-frontend/) |
-| [vercel-labs/skills](https://github.com/vercel-labs/skills) | 13K+ | [`user-core`](user-core/) |
-| [mattpocock/skills](https://github.com/mattpocock/skills) | 13K+ | [`code-core`](code-core/) (via wrapper), [`plan-core`](plan-core/) |
-| [nizos/tdd-guard](https://github.com/nizos/tdd-guard) | 1.9K+ | [`code-core`](code-core/) |
-| [supabase/agent-skills](https://github.com/supabase/agent-skills) | 1.8K+ | [`architect-dataops`](architect-dataops/), [`architect-cloud`](architect-cloud/), [`code-python`](code-python/) |
+| [obra/superpowers](https://github.com/obra/superpowers) | 303K+ | [`code-core`](code-core/) |
+| [anthropics/skills](https://github.com/anthropics/skills) | 182K+ | [`ai-agents`](ai-agents/), [`user-core`](user-core/), [`plan-docs`](plan-docs/), [`test-core`](test-core/), [`design-frontend`](design-frontend/) |
+| [ComposioHQ/awesome-claude-skills](https://github.com/ComposioHQ/awesome-claude-skills) | 77K+ | [`business-core`](business-core/) |
+| [github/awesome-copilot](https://github.com/github/awesome-copilot) | 40K+ | [`ai-agents`](ai-agents/), [`architect-dataops`](architect-dataops/), [`architect-devops`](architect-devops/), [`architect-mlops`](architect-mlops/), [`architect-cloud`](architect-cloud/), [`code-core`](code-core/), [`code-csharp`](code-csharp/), [`code-go`](code-go/), [`code-java`](code-java/), [`code-mobile`](code-mobile/), [`code-python`](code-python/), [`code-rust`](code-rust/), [`code-typescript`](code-typescript/), [`user-core`](user-core/), [`plan-core`](plan-core/), [`security-core`](security-core/), [`test-core`](test-core/), [`design-frontend`](design-frontend/) |
+| [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | 32K+ | [`design-frontend`](design-frontend/) |
+| [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | 43K+ | [`user-core`](user-core/), [`code-core`](code-core/), [`ai-agents`](ai-agents/), [`design-frontend`](design-frontend/) |
+| [vercel-labs/skills](https://github.com/vercel-labs/skills) | 35K+ | [`user-core`](user-core/) |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | 299K+ | [`code-core`](code-core/) (via wrapper), [`plan-core`](plan-core/) |
+| [nizos/tdd-guard](https://github.com/nizos/tdd-guard) | 2K+ | [`code-core`](code-core/) |
+| [supabase/agent-skills](https://github.com/supabase/agent-skills) | 2K+ | [`architect-dataops`](architect-dataops/), [`architect-cloud`](architect-cloud/), [`code-python`](code-python/) |
 
 ## Testing
 
 The test suite validates every APM package manifest in the repository:
 
 1. **YAML syntax** — each `apm.yml` is parsed with `python3`/`pyyaml` to catch syntax errors
-2. **Dependency resolution** — `apm install --dry-run` verifies all declared dependencies can be resolved (skipped if the `apm` CLI is not installed)
+2. **Subpath layout** — each package directory matches a layout APM's subpath resolver accepts, so `apm install thinkjones/awesome-apm-stacks/<pkg>` finds it
+3. **Dependency resolution** — each package's declared dependencies are resolved against upstream with `apm lock`, so a dependency that no longer exists upstream fails the check (skipped if the `apm` CLI is not installed)
 
 ```bash
 ./scripts/test-packages.sh                          # all packages
@@ -273,13 +274,15 @@ The test suite validates every APM package manifest in the repository:
 ./scripts/test-packages.sh --ci                     # no colours, same exit codes (used by GitHub Actions)
 ```
 
-> **Note:** The script requires `python3` with the `pyyaml` package (`pip install pyyaml`). If the `apm` CLI is not installed, dry-run checks are skipped with a warning.
+> **Note:** The script requires `python3` with the `pyyaml` package (`pip install pyyaml`). If the `apm` CLI is not installed, the resolution check is skipped with a warning.
 
 Tests run automatically via GitHub Actions — `.github/workflows/test-packages.yml` on pull requests, `.github/workflows/test-packages-daily.yml` for the daily sweep:
 
-- **On pull requests** — validates the packages the pull request changed, as the required `test-packages` status check
-- **Daily (6 AM UTC)** — validates every package, every day, with no throttle
+- **On pull requests** — validates the packages the pull request changed, as the required `test-packages` status check, and self-tests the repository's pre-commit gate
+- **Daily (6 AM UTC)** — validates every package, every day, with no throttle, and reports upstream drift
 - **Manual** — trigger the daily sweep from the Actions tab; optionally specify packages
+
+`version-check` is also required on pull requests: every package you change needs a strictly greater `version:` in its `apm.yml`. Run `./scripts/bump-version.sh <package> patch` to do that.
 
 ## About this repo
 
@@ -292,6 +295,8 @@ Pull requests are welcome — especially new packages for under-served domains.
 - Run `./scripts/test-packages.sh --ci` before submitting
 - **Bump the `version:` in every package you touch** (see [Versioning](#versioning))
 - Open an issue first if you want to discuss a new package idea
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the local setup, the pre-commit gate, and what CI will check.
 
 ### Versioning
 
@@ -311,7 +316,9 @@ Helper script:
 ./scripts/bump-version.sh architect-cloud major
 ```
 
-On merge to `main`, the release workflow detects each package whose version increased and publishes a `<package>/v<version>` tag plus a GitHub Release. The release workflow itself makes no commits. The only automated commits on `main` come from the weekly wrapper regeneration (`.github/workflows/update-wrappers.yml`), and only when an upstream skills repo has changed.
+On merge to `main`, the release workflow detects each package whose version increased and publishes a `<package>/v<version>` tag plus a GitHub Release. The release workflow itself makes no commits.
+
+No workflow commits to `main` today. The weekly wrapper regeneration (`.github/workflows/update-wrappers.yml`) is disabled by GitHub's inactivity auto-disable, so it does not run; the daily sweep notices when the generated wrappers have drifted from the committed ones and says so.
 
 ### A note on `docs/internal/`
 

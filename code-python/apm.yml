@@ -1,22 +1,15 @@
 name: code-python
-version: 0.0.2
+version: 0.0.3
 description: >
-  Python development — best practices, FastMCP server building,
-  pytest patterns, typing, and Python SDK guidance.
+  Python development — FastMCP server building, Python SDK guidance, and Supabase agent skills.
 
 dependencies:
   apm:
-    # ── Python language best practices ──
-    - github/awesome-copilot/plugins/python-development
-
     # ── Python MCP server building (FastMCP) ──
     - github/awesome-copilot/plugins/python-mcp-development
 
     # ── Python Copilot SDK instructions ──
-    - github/awesome-copilot/instructions/python-copilot-sdk.instructions.md
-
-    # ── Pairwise combinatorial test generation (from composio-skills wrapper) ──
-    - ComposioHQ/awesome-claude-skills/pypict-claude-skill
+    - github/awesome-copilot/instructions/copilot-sdk-python.instructions.md
 
     # ── Supabase agent skills (PostgreSQL management, queries, auth) ──
     - supabase/agent-skills

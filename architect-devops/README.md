@@ -12,7 +12,7 @@ apm install thinkjones/awesome-apm-stacks/architect-devops
 
 | Dependency | Source Repo | Stars |
 |------------|-------------|-------|
-| docker.instructions.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
+| containerization-docker-best-practices.instructions.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
 | devops-oncall | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
 | terraform-azure.instructions.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |
 | github-actions-ci-cd-best-practices.instructions.md | [github/awesome-copilot](https://github.com/github/awesome-copilot) | 28,886 |

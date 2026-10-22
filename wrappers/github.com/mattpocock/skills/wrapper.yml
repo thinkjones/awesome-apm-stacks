@@ -4,10 +4,12 @@
 
 upstream: mattpocock/skills
 ref: main
-pattern: "*/SKILL.md"
+pattern: "skills/*/*/SKILL.md"
 exclude:
   - migrate-to-shoehorn
   - scaffold-exercises
+  # Whole category — these skills are explicitly work-in-progress upstream.
+  - in-progress
 
 package:
   name: wrapper-mattpocock-skills
