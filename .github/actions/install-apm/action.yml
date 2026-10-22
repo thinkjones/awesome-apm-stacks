@@ -40,7 +40,7 @@ runs:
         # because APM itself caches user-scope packages there.
         tmp="$(mktemp -d)"
         install_dir="$HOME/apm-cli"
-        gh release download --repo microsoft/apm --tag "$APM_VERSION" \
+        gh release download "$APM_VERSION" --repo microsoft/apm \
           --pattern '*linux*x86_64*.tar.gz' \
           --dir "$tmp"
         mkdir -p "$install_dir"
